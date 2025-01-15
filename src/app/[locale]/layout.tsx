@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
+import StoreProvider from '@/contexts/StoreProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -43,7 +44,9 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <StoreProvider>{children}</StoreProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
