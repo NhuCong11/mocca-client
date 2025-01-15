@@ -1,24 +1,14 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
+import { fonts } from '@/styles/fonts';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
 import StoreProvider from '@/contexts/StoreProvider';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -43,7 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${fonts.lora} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <StoreProvider>{children}</StoreProvider>
         </NextIntlClientProvider>
