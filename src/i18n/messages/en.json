@@ -1,4 +1,46 @@
 {
   "title": "Mocca Cafe | Diverse Cafe ordering applications",
-  "description": "Easily search, compare, and purchase coffee from reputable stores. Let's explore and experience the amazing flavors of coffee with us!"
+  "description": "Easily search, compare, and purchase coffee from reputable stores. Let's explore and experience the amazing flavors of coffee with us!",
+  "header": {
+    "na01": "Home",
+    "na02": "Sign In/Sign Up"
+  },
+  "footer": {
+    "title01": "About Mocca Cafe",
+    "title03": "Latest news",
+    "title04": "Open a restaurant on Mocca Cafe",
+    "title05": "Become a Mocca Cafe shipper",
+    "title06": "Support Center",
+    "title07": "Frequently Asked Questions",
+    "title08": "Contact Us",
+    "title09": "Privacy Policy"
+  },
+  "button": {
+    "btn01": "Checkout",
+    "btn02": "Continue Shopping",
+    "btn03": "Sign in to place order",
+    "btn04": "Delete all",
+    "btn05": "Sign in",
+    "btn06": "Sign in with Google",
+    "btn07": "Sign up",
+    "btn08": "Send verification code",
+    "btn09": "Sending verification code...",
+    "btn10": "Verify",
+    "btn11": "Verifying...",
+    "btn12": "Reset",
+    "btn13": "Go to home page",
+    "btn14": "Learn more",
+    "btn15": "Send",
+    "btn16": "Place Order",
+    "btn17": "Complete",
+    "btn18": "Buy Again",
+    "btn19": "Delete",
+    "btn20": "See more",
+    "btn21": "Chat Now",
+    "btn22": "View Shop",
+    "btn23": "Change Secret Key",
+    "btn24": "Turn Off",
+    "btn25": "Turn On",
+    "btn26": "Update"
+  }
 }

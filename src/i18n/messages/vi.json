@@ -1,4 +1,46 @@
 {
   "title": "Mocca Cafe | Ứng dụng đặt mua Cafe đa dạng",
-  "description": "Dễ dàng tìm kiếm, so sánh và đặt mua Cafe các cửa hàng uy tín. Hãy cùng khám phá và trải nghiệm những hương vị tuyệt vời của Cafe cùng chúng tôi!"
+  "description": "Dễ dàng tìm kiếm, so sánh và đặt mua Cafe các cửa hàng uy tín. Hãy cùng khám phá và trải nghiệm những hương vị tuyệt vời của Cafe cùng chúng tôi!",
+  "header": {
+    "na01": "Trang chủ",
+    "na02": "Đăng nhập/Đăng kí"
+  },
+  "footer": {
+    "title01": "Về Mocca Cafe",
+    "title03": "Tin tức mới nhất",
+    "title04": "Mở quán trên Mocca Cafe",
+    "title05": "Trở thành shipper Mocca Cafe",
+    "title06": "Trung tâm hỗ trợ",
+    "title07": "Câu hỏi thường gặp",
+    "title08": "Liên hệ chúng tôi",
+    "title09": "Chính sách bảo mật"
+  },
+  "button": {
+    "btn01": "Thanh toán",
+    "btn02": "Tiếp tục mua hàng",
+    "btn03": "Đăng nhập để đặt đơn",
+    "btn04": "Xóa tất cả",
+    "btn05": "Đăng nhập",
+    "btn06": "Đăng nhập với Google",
+    "btn07": "Đăng ký",
+    "btn08": "Gửi mã xác nhận",
+    "btn09": "Đang gửi mã xác nhận ...",
+    "btn10": "Xác minh",
+    "btn11": "Đang xác minh ...",
+    "btn12": "Đặt lại",
+    "btn13": "Quay lại trang chủ",
+    "btn14": "Tìm hiểu thêm",
+    "btn15": "Gửi",
+    "btn16": "Đặt đơn",
+    "btn17": "Hoàn thành",
+    "btn18": "Mua lại",
+    "btn19": "Xóa",
+    "btn20": "Xem thêm",
+    "btn21": "Chat ngay",
+    "btn22": "Xem Shop",
+    "btn23": "Đổi Secret Key",
+    "btn24": "Tắt",
+    "btn25": "Bật",
+    "btn26": "Cập nhật"
+  }
 }

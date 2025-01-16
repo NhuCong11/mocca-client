@@ -6,14 +6,14 @@ import { useTranslations } from 'next-intl';
 
 import styles from '../error.module.scss';
 
-function Forbidden() {
+function InternalServer() {
   const t = useTranslations();
 
   return (
     <div className={clsx(styles.bgPurple)}>
       <div className={clsx(styles.stars)}>
         <div className={clsx(styles.centralBody)}>
-          <h1 className={clsx(styles.errorName)}>403 | Forbidden</h1>
+          <h1 className={clsx(styles.errorName)}>500 | Internal Server</h1>
           <Link href={'/'} className={clsx(styles.btnGoHome)}>
             {t('button.btn13')}
           </Link>
@@ -58,4 +58,4 @@ function Forbidden() {
   );
 }
 
-export default Forbidden;
+export default InternalServer;

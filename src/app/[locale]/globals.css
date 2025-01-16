@@ -1,10 +1,77 @@
+@import 'normalize.css';
+@import 'bootstrap';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #00b14f;
+  --primary-bg: #4d8b55;
+  --text-color: #2f2f2f;
+  --secondary-text-color: #676767;
+  --white: #fff;
+  --coffee-color: #b99272;
+  --coffee-color-v2: #65391c;
+  --red-color: #ef5350;
+  --icon-color: brightness(0) saturate(100%) invert(39%) sepia(4%) saturate(0%) hue-rotate(138deg) brightness(100%)
+    contrast(91%);
+  --bg-default: url('/assets/images/user-background.png');
+  --home-footer-bg: url('/assets/images/home/paper_bg.jpg');
+  --product-desc-bg: url('/assets/images/home/paper_bg.jpg');
+  --auth-bg: url('/assets/images/banner/cafe08.jpg');
+  --content-bg: var(--white);
+  --btn-bg: var(--white);
+  --btn-outline-border: #f0efef;
+  --btn-outline-color: var(--secondary-text-color);
+  --header-shadow: rgba(163, 163, 163, 0.8);
+  --option-hover: #d8f0df;
+  --cart-separate: #ebebeb;
+  --product-card-bg: #f7f7f7;
+  --chats-bg: #f5f5f5;
+  --chat-bg: #f0f0f0;
+  --chat-user: #dcedc2;
+  --chat-shop: #a8e6ce;
+  --message-search: #83af98;
+  --message-item-bg: var(--chat-user);
+  --message-text: var(--coffee-color-v2);
+  --about-footer-bg: #4d8b55;
+  --restaurant-products-bg: var(--product-card-bg);
+  --product-desc: #5a5a5c;
+  --auth-content-bg: rgba(255, 255, 255, 0.8);
+  --profile-info-bg: #f6f6f6;
+  --profile-sidebar-shadow: rgba(237, 237, 246, 0.2);
+}
+
+.dark {
+  --text-color: #b9babe;
+  --secondary-text-color: #9e9da8;
+  --content-bg: #171c28;
+  --btn-bg: #292e39;
+  --icon-color: brightness(0) saturate(100%) invert(91%) sepia(6%) saturate(130%) hue-rotate(191deg) brightness(82%)
+    contrast(88%);
+  --home-footer-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--content-bg)),
+    url('/assets/images/home/paper_bg.jpg');
+  --product-desc-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.5), var(--content-bg)),
+    url('/assets/images/home/paper_bg.jpg');
+  --auth-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--btn-bg)), url('/assets/images/banner/cafe08.jpg');
+  --btn-outline-border: var(--btn-bg);
+  --btn-outline-color: var(--white);
+  --header-shadow: rgba(0, 0, 0, 0.12);
+  --option-hover: var(--content-bg);
+  --cart-separate: #3e4043;
+  --product-card-bg: var(--btn-bg);
+  --chats-bg: var(--btn-bg);
+  --chat-bg: var(--content-bg);
+  --chat-user: var(--message-search);
+  --chat-shop: #0a7075;
+  --message-item-bg: var(--content-bg);
+  --message-text: var(--coffee-color);
+  --about-footer-bg: var(--chat-shop);
+  --restaurant-products-bg: var(--content-bg);
+  --product-desc: #ebebeb;
+  --auth-content-bg: var(--content-bg);
+  --profile-info-bg: var(--content-bg);
+  --profile-sidebar-shadow: rgba(23, 28, 40, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,8 +81,158 @@
   }
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+::selection {
+  background: var(--primary-bg);
+  color: var(--white);
+}
+
+/* Scrollbar CSS */
+html ::-webkit-scrollbar {
+  border-radius: 0px;
+  width: 8px;
+}
+
+html ::-webkit-scrollbar-thumb {
+  background-color: rgba(22, 24, 35, 0.2);
+}
+
+html ::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+}
+
+input,
+textarea {
+  background-color: transparent;
+}
+
+button,
+input,
+label,
+textarea,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  user-select: none;
+}
+
+.separate {
+  margin: var(--separate-mg, 24px 0 16px);
+  width: 100%;
+  height: 0.5px;
+  background-color: var(--separate-bg, #ffffff40);
+}
+
+.dot-separate {
+  margin: 0 8px;
+}
+
+.icon {
+  filter: var(--icon-color);
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 200vh;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 999;
+  transition: opacity 0.5s;
+}
+.overlay--show {
+  opacity: 0.4;
+}
+.overlay body {
+  overflow: hidden;
+}
+
+.modal-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.modal-loading__content {
+  position: fixed;
+  inset: 50%;
+  z-index: 999999;
+}
+
+/* Override MUI's default CSS */
+/* Radio MUI */
+.checkout__pay-title {
+  margin-bottom: 8px;
+  font-size: 1.6rem !important;
+  font-weight: 500 !important;
+  color: #9a9a9a !important;
+  font-family: var(--font-family) !important;
+}
+
+.checkout__pay-title.Mui-focused {
+  color: var(--primary-bg) !important;
+}
+
+.radio-button {
+  color: var(--primary-bg) !important;
+}
+
+.radio-button.Mui-checked {
+  color: var(--primary-bg) !important;
+}
+
+.radio-button .MuiSvgIcon-root {
+  font-size: 2rem !important;
+}
+
+.radio-label .MuiTypography-root {
+  font-size: 1.6rem !important;
+  font-weight: 500 !important;
+  font-family: var(--font-family) !important;
 }
