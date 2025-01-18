@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
+@import './globals.css';
 
 @-moz-keyframes rocket-movement {
   100% {
@@ -141,6 +142,7 @@
   font-weight: 600;
   line-height: 1.5;
   color: var(--white);
+  z-index: 99;
 
   @include media-breakpoint-down(lg) {
     font-size: 4rem;

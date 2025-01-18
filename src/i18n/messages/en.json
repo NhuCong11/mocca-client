@@ -42,5 +42,10 @@
     "btn24": "Turn Off",
     "btn25": "Turn On",
     "btn26": "Update"
+  },
+  "errors": {
+    "404": "404 | Not Found.",
+    "403": "404 | Forbidden.",
+    "500": "404 | Internal Server."
   }
 }

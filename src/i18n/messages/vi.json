@@ -42,5 +42,10 @@
     "btn24": "Tắt",
     "btn25": "Bật",
     "btn26": "Cập nhật"
+  },
+  "errors": {
+    "404": "404 | Trang không tồn tại.",
+    "403": "404 | Bạn không có quyền truy cập.",
+    "500": "404 | Lỗi máy chủ."
   }
 }

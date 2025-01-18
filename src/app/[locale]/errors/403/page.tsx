@@ -4,7 +4,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
-import styles from '../error.module.scss';
+import styles from '@/styles/error.module.scss';
 
 function Forbidden() {
   const t = useTranslations();
@@ -13,7 +13,7 @@ function Forbidden() {
     <div className={clsx(styles.bgPurple)}>
       <div className={clsx(styles.stars)}>
         <div className={clsx(styles.centralBody)}>
-          <h1 className={clsx(styles.errorName)}>403 | Forbidden</h1>
+          <h1 className={clsx(styles.errorName)}>{t('errors.403')}</h1>
           <Link href={'/'} className={clsx(styles.btnGoHome)}>
             {t('button.btn13')}
           </Link>
