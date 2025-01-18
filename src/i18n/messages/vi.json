@@ -45,7 +45,7 @@
   },
   "errors": {
     "404": "404 | Trang không tồn tại.",
-    "403": "404 | Bạn không có quyền truy cập.",
-    "500": "404 | Lỗi máy chủ."
+    "403": "403 | Bạn không có quyền truy cập.",
+    "500": "500 | Lỗi máy chủ."
   }
 }

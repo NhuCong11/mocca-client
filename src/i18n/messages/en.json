@@ -45,7 +45,7 @@
   },
   "errors": {
     "404": "404 | Not Found.",
-    "403": "404 | Forbidden.",
-    "500": "404 | Internal Server."
+    "403": "403 | Forbidden.",
+    "500": "500 | Internal Server."
   }
 }
