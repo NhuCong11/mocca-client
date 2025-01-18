@@ -9,6 +9,7 @@ import { fonts } from '@/styles/fonts';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
 import StoreProvider from '@/contexts/StoreProvider';
+import LayoutProvider from '@/contexts/LayoutProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -35,7 +36,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${fonts.lora} antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <LayoutProvider>{children}</LayoutProvider>
+          </StoreProvider>
         </NextIntlClientProvider>
       </body>
     </html>
