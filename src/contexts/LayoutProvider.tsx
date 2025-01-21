@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import { ThemeProvider } from 'next-themes';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -27,10 +28,10 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   }, []);
 
   return (
-    <>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
       {children}
       <AppFooter />
-    </>
+    </ThemeProvider>
   );
 }
 
