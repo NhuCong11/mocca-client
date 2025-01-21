@@ -2,6 +2,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './globals.css';
+
 import { fonts } from '@/styles/fonts';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';

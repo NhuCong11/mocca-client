@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import AppFooter from '@/components/AppFooter';
+
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   useEffect(() => {
     AOS.init({
@@ -24,7 +26,12 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
     detectDevTools();
   }, []);
 
-  return children;
+  return (
+    <>
+      {children}
+      <AppFooter />
+    </>
+  );
 }
 
 export default LayoutProvider;
