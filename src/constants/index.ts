@@ -11,6 +11,5 @@ const baseRoutes: string[] = ['', '/about', '/checkout', '/profile'];
 export const PATH_DEFAULT_LAYOUT: string[] = baseRoutes.flatMap((route) =>
   locales.map((locale) => `/${locale}${route}`),
 );
-console.log(PATH_DEFAULT_LAYOUT);
 
 export const MINIMUM_AGE = 14;
