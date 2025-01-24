@@ -5,10 +5,43 @@ import { fonts } from '@/styles/fonts';
 import { ButtonProps } from '@/types';
 import { Link } from '@/i18n/routing';
 
-const Button: React.FC<ButtonProps> = ({ to, href, className, children, leftIcon, rightIcon, onClick, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ to, href, className, children, leftIcon, rightIcon, ...props }) => {
   let Comp: React.ElementType = 'button';
 
-  const otherProps: Record<string, unknown> = { onClick, ...props };
+  // Boolean props
+  const booleanProps = [
+    'primary',
+    'outline',
+    'large',
+    'action',
+    'checkout',
+    'haveProducts',
+    'disabled',
+    'auth',
+    'authGoogle',
+    'more',
+    'order',
+    'send',
+    'cancel',
+    'mobile',
+    'tabletLaptop',
+    'shopAction',
+    'nextPage',
+    'pageNumber',
+    'profileNavTitle',
+    'profileNavItem',
+    'changeProfile',
+  ];
+
+  const otherProps = { ...props };
+  const classProps: Record<string, boolean> = {};
+
+  booleanProps.forEach((key) => {
+    if (props[key]) {
+      classProps[key] = true;
+      delete otherProps[key];
+    }
+  });
 
   if (props.disabled) {
     Object.keys(otherProps).forEach((key) => {
@@ -26,34 +59,8 @@ const Button: React.FC<ButtonProps> = ({ to, href, className, children, leftIcon
     Comp = 'a';
   }
 
-  const classProps: Record<string, boolean | undefined> = {
-    primary: props.primary,
-    outline: props.outline,
-    large: props.large,
-    action: props.action,
-    checkout: props.checkout,
-    haveProducts: props.haveProducts,
-    disabled: props.disabled,
-    auth: props.auth,
-    authGoogle: props.authGoogle,
-    more: props.more,
-    order: props.order,
-    send: props.send,
-    cancel: props.cancel,
-    mobile: props.mobile,
-    tabletLaptop: props.tabletLaptop,
-    shopAction: props.shopAction,
-    nextPage: props.nextPage,
-    pageNumber: props.pageNumber,
-    profileNavTitle: props.profileNavTitle,
-    profileNavItem: props.profileNavItem,
-    changeProfile: props.changeProfile,
-  };
-
   const dynamicClasses = Object.keys(classProps).reduce((acc, key) => {
-    if (classProps[key]) {
-      acc[styles[key]] = true;
-    }
+    acc[styles[key]] = classProps[key];
     return acc;
   }, {} as Record<string, boolean>);
 
