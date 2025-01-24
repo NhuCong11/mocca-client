@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/routing';
 import Button from '@/share/Button';
+import Checkbox from '@/share/Checkbox';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
         <h1 data-aos="zoom-in-right">{t('title')}</h1>
         <Link href="/checkout">Checkout</Link>
         <Button primary>Abc</Button>
+        <Checkbox />
       </main>
     </div>
   );
