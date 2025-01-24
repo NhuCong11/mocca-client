@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/routing';
 import Button from '@/share/Button';
 import Checkbox from '@/share/Checkbox';
+import LoadingStart from '@/share/LoadingStart';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <Link href="/checkout">Checkout</Link>
         <Button primary>Abc</Button>
         <Checkbox />
+        <LoadingStart />
       </main>
     </div>
   );
