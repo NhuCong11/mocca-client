@@ -1,4 +1,5 @@
 import { Link } from '@/i18n/routing';
+import Button from '@/share/Button';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1 data-aos="zoom-in-right">{t('title')}</h1>
         <Link href="/checkout">Checkout</Link>
+        <Button primary>Abc</Button>
       </main>
     </div>
   );
