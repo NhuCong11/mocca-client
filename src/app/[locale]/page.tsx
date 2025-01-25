@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/routing';
+import Breadcrumb from '@/share/Breadcrumb';
 import Button from '@/share/Button';
 import Checkbox from '@/share/Checkbox';
 import { useTranslations } from 'next-intl';
@@ -16,6 +17,7 @@ export default function Home() {
           Abc
         </Button>
         <Checkbox />
+        <Breadcrumb listData={[{ name: 'Checkout', link: '/checkout' }]} />
       </main>
     </div>
   );
