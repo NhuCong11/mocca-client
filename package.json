@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@agney/react-loading": "^0.1.2",
     "@mantine/hooks": "^7.16.1",
     "@reduxjs/toolkit": "^2.5.0",
     "@tabler/icons-react": "^3.28.1",

@@ -1,7 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import clsx from 'clsx';
-import styles from './LoadingStart.module.scss';
+import { Oval } from '@agney/react-loading';
+import styles from './Loading.module.scss';
 
 function LoadingStart() {
   useEffect(() => {
@@ -34,5 +35,29 @@ function LoadingStart() {
     </div>
   );
 }
+
+export const LoadingOval = () => {
+  useEffect(() => {
+    const disableScroll = (event: Event) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('wheel', disableScroll, { passive: false });
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('wheel', disableScroll, { passive: false } as AddEventListenerOptions);
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, []);
+
+  return (
+    <div className={'modal-loading'}>
+      <div className={'modal-loading__content'}>
+        <Oval width="50" color="var(--primary-bg)" />
+      </div>
+    </div>
+  );
+};
 
 export default LoadingStart;
