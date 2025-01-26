@@ -1,10 +1,11 @@
 'use client';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
-
+import { MantineProvider } from '@mantine/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import { theme } from '@/styles/mantine';
 import AppFooter from '@/components/AppFooter';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
@@ -29,8 +30,10 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
-      {children}
-      <AppFooter />
+      <MantineProvider theme={theme} defaultColorScheme="auto">
+        {children}
+        <AppFooter />
+      </MantineProvider>
     </ThemeProvider>
   );
 }

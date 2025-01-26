@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import clsx from 'clsx';
-import { Oval } from '@agney/react-loading';
+import { Loader } from '@mantine/core';
 import styles from './Loading.module.scss';
 
 function LoadingStart() {
@@ -54,7 +54,7 @@ export const LoadingOval = () => {
   return (
     <div className={'modal-loading'}>
       <div className={'modal-loading__content'}>
-        <Oval width="50" color="var(--primary-bg)" />
+        <Loader color="#00b14f" size={60} z={9999999} />
       </div>
     </div>
   );

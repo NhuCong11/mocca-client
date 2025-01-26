@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@mantine/core/styles.css';
 import './globals.css';
 
 import { fonts } from '@/styles/fonts';
