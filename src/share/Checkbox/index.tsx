@@ -1,13 +1,14 @@
-import clsx from 'clsx';
-import styles from './Checkbox.module.scss';
+import React from 'react';
+import { Checkbox, CheckboxProps } from '@mantine/core';
 
-const Checkbox = ({ checkLabel, onChange }: { checkLabel?: string; onChange?: () => void }) => {
-  return (
-    <label onChange={onChange} className={clsx(styles['form__checkbox'], !checkLabel && styles.noLabel)}>
-      <input type="checkbox" name="" className={clsx(styles['form__checkbox-input'])} />
-      {checkLabel && <span className={clsx(styles['form__checkbox-label'])}>{checkLabel}</span>}
-    </label>
-  );
+interface CustomCheckboxProps extends Omit<CheckboxProps, 'onChange'> {
+  checkLabel?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ checkLabel, size = 'lg', onChange, ...props }) => {
+  return <Checkbox label={checkLabel} onChange={onChange} color="var(--primary-bg)" size={size} {...props} />;
 };
 
-export default Checkbox;
+export default React.memo(CustomCheckbox);
