@@ -1,42 +1,39 @@
-import React, { memo } from 'react';
-import Link from 'next/link';
-import clsx from 'clsx';
+import React, { memo, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { Breadcrumbs, Anchor } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
-import styles from './Breadcrumb.module.scss';
+import { Link } from '@/i18n/routing';
 
 interface BreadcrumbProps {
-  className?: string;
-  listData: Array<{ name: string; link?: string | '' }>;
+  listData?: Array<{ title: string; href?: string }>;
 }
 
-function Breadcrumb({ className, listData = [] }: BreadcrumbProps) {
+function Breadcrumb({ listData = [] }: BreadcrumbProps) {
   const t = useTranslations();
 
-  return (
-    <div className={clsx(styles['breadcrumb'], className)}>
-      <div className={clsx(styles['breadcrumb__container'])}>
-        <Link href={'/'} className={clsx(styles['breadcrumb__item'])}>
-          {t('header.na01')}
-        </Link>
-        <IconArrowRight width={16} height={16} />
+  const items = useMemo(() => {
+    const defaultItem = { title: t('header.na01'), href: '/' };
+    const fullList = [defaultItem, ...listData];
 
-        {listData.map((item, index) => (
-          <div key={index} className={clsx(styles['breadcrumb__container'])}>
-            {index !== listData.length - 1 ? (
-              <>
-                <Link className={clsx(styles['breadcrumb__item'])} href={item?.link || ''}>
-                  {item?.name}
-                </Link>
-                <IconArrowRight width={16} height={16} />
-              </>
-            ) : (
-              <p>{item?.name}</p>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+    return fullList.map((item, index) => (
+      <Anchor
+        key={index}
+        component={Link}
+        fz="h2"
+        fw={500}
+        underline="never"
+        c="var(--coffee-color)"
+        href={item.href || '/'}
+      >
+        {item.title}
+      </Anchor>
+    ));
+  }, [listData, t]);
+
+  return (
+    <Breadcrumbs separator={<IconArrowRight width={16} height={16} />} separatorMargin="md" mt="xs">
+      {items}
+    </Breadcrumbs>
   );
 }
 

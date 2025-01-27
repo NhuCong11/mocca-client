@@ -17,7 +17,7 @@ export default function Home() {
           Abc
         </Button>
         <Checkbox />
-        <Breadcrumb listData={[{ name: 'Checkout', link: '/checkout' }]} />
+        <Breadcrumb listData={[{ title: 'Checkout', href: '/checkout' }]} />
       </main>
     </div>
   );
