@@ -3,6 +3,7 @@ import { Link } from '@/i18n/routing';
 import Breadcrumb from '@/share/Breadcrumb';
 import Button from '@/share/Button';
 import Checkbox from '@/share/Checkbox';
+import NoResult from '@/share/NoResult';
 import DefaultSkeleton from '@/share/Skeleton';
 import { useTranslations } from 'next-intl';
 
@@ -20,6 +21,7 @@ export default function Home() {
         <Checkbox />
         <Breadcrumb listData={[{ title: 'Checkout', href: '/checkout' }]} />
         <DefaultSkeleton />
+        <NoResult />
       </main>
     </div>
   );

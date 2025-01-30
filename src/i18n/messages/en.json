@@ -47,5 +47,11 @@
     "404": "404 | Not Found.",
     "403": "403 | Forbidden.",
     "500": "500 | Internal Server."
+  },
+  "no-result": {
+    "title-restaurant": "Sorry, there are currently no restaurants",
+    "title-product": "Sorry, there are currently no products",
+    "title-category": "Sorry, there are currently no product categories available",
+    "desc": "Please refresh the page to resolve the issue."
   }
 }

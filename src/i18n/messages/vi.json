@@ -47,5 +47,11 @@
     "404": "404 | Trang không tồn tại.",
     "403": "403 | Bạn không có quyền truy cập.",
     "500": "500 | Lỗi máy chủ."
+  },
+  "no-result": {
+    "title-restaurant": "Rất tiếc, hiện không có cửa hàng nào",
+    "title-product": "Rất tiếc, hiện không có sản phẩm nào",
+    "title-category": "Rất tiếc, hiện không có danh mục sản phẩm nào",
+    "desc": "Vui lòng làm mới trang để giải quyết sự cố."
   }
 }
