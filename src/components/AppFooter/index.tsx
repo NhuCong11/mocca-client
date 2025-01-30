@@ -2,7 +2,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 
 import { useTranslations } from 'next-intl';
-import CustomLink from '@/components/CustomLink';
+import CustomLink from '@/share/CustomLink';
 
 import styles from './AppFooter.module.scss';
 import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram } from '@tabler/icons-react';
