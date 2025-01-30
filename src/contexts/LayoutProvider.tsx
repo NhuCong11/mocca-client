@@ -7,6 +7,7 @@ import 'aos/dist/aos.css';
 
 import { theme } from '@/styles/mantine';
 import AppFooter from '@/components/AppFooter';
+import AppGoToTop from '@/components/AppGoToTop';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   useEffect(() => {
@@ -33,6 +34,7 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
       <MantineProvider theme={theme} defaultColorScheme="auto">
         {children}
         <AppFooter />
+        <AppGoToTop />
       </MantineProvider>
     </ThemeProvider>
   );
