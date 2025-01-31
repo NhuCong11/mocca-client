@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { MantineProvider } from '@mantine/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { ToastContainer } from 'react-toastify';
 
 import { theme } from '@/styles/mantine';
 import AppFooter from '@/components/AppFooter';
@@ -35,6 +36,18 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
         {children}
         <AppFooter />
         <AppGoToTop />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          limit={5}
+        />
       </MantineProvider>
     </ThemeProvider>
   );
