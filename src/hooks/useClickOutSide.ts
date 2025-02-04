@@ -1,16 +1,28 @@
-'use client';
-import { useState } from 'react';
-import { useClickOutside } from '@mantine/hooks';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-function useClickOutSide() {
-  const [opened, setOpened] = useState(false);
-  const ref = useClickOutside(() => setOpened(false));
+function useClickOutside<T extends HTMLElement, U extends HTMLElement>() {
+  const elementRef = useRef<T | null>(null);
+  const triggerRef = useRef<U | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  return {
-    opened,
-    setOpened,
-    ref,
-  };
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      elementRef.current &&
+      !elementRef.current.contains(event.target as Node) &&
+      !triggerRef.current?.contains(event.target as Node)
+    ) {
+      setIsVisible(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  return { elementRef, triggerRef, isVisible, setIsVisible };
 }
 
-export default useClickOutSide;
+export default useClickOutside;
