@@ -7,6 +7,7 @@ import 'aos/dist/aos.css';
 import { ToastContainer } from 'react-toastify';
 
 import { theme } from '@/styles/mantine';
+import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import AppGoToTop from '@/components/AppGoToTop';
 
@@ -33,6 +34,7 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
       <MantineProvider theme={theme} defaultColorScheme="auto">
+        <AppHeader />
         {children}
         <AppFooter />
         <AppGoToTop />

@@ -15,6 +15,12 @@
     "title08": "Liên hệ chúng tôi",
     "title09": "Chính sách bảo mật"
   },
+  "languages": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "zh": "中国人",
+    "ko": "한국어"
+  },
   "button": {
     "btn01": "Thanh toán",
     "btn02": "Tiếp tục mua hàng",

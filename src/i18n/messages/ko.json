@@ -15,6 +15,12 @@
     "title08": "문의하기",
     "title09": "개인정보 보호정책"
   },
+  "languages": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "zh": "中国人",
+    "ko": "한국어"
+  },
   "button": {
     "btn01": "결제",
     "btn02": "쇼핑 계속하기",

@@ -15,6 +15,12 @@
     "title08": "Contact Us",
     "title09": "Privacy Policy"
   },
+  "languages": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "zh": "中国人",
+    "ko": "한국어"
+  },
   "button": {
     "btn01": "Checkout",
     "btn02": "Continue Shopping",

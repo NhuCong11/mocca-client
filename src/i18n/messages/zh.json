@@ -15,6 +15,12 @@
     "title08": "联系我们",
     "title09": "隐私政策"
   },
+  "languages": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "zh": "中国人",
+    "ko": "한국어"
+  },
   "button": {
     "btn01": "结账",
     "btn02": "继续购物",
