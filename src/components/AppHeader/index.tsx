@@ -14,6 +14,7 @@ import { fonts } from '@/styles/fonts';
 import LoadingStart from '@/share/Loading';
 import { Locale, locales } from '@/i18n/config';
 import useClickOutside from '@/hooks/useClickOutSide';
+import { homeRoute } from '@/config/routes';
 
 function AppHeader() {
   const t = useTranslations();
@@ -64,7 +65,6 @@ function AppHeader() {
     router.replace(newPath);
     setShowLanguages(false);
   };
-  
 
   const handleViewLang = (lang: Locale) => {
     return locales
@@ -93,7 +93,7 @@ function AppHeader() {
           headerRef.current.style.boxShadow = '-1px 0px 2px 0px var(--header-shadow)';
         } else {
           headerRef.current.style.boxShadow = '0 1px 1px transparent';
-          if (!['/vi', '/en', '/zh', '/ko'].includes(pathname)) {
+          if (!homeRoute.includes(pathname)) {
             headerRef.current.style.backgroundColor = '#181818';
           } else {
             headerRef.current.style.backgroundColor = 'transparent';
@@ -111,7 +111,7 @@ function AppHeader() {
 
   useEffect(() => {
     if (headerRef.current) {
-      if (!['/vi', '/en', '/zh', '/ko'].includes(pathname)) {
+      if (!homeRoute.includes(pathname)) {
         headerRef.current.style.backgroundColor = '#181818';
       } else {
         headerRef.current.style.backgroundColor = 'transparent';
@@ -153,7 +153,7 @@ function AppHeader() {
             }}
           >
             <Image
-              width={100}
+              width={210}
               height={65}
               src={'/images/logo-vip1.png'}
               priority

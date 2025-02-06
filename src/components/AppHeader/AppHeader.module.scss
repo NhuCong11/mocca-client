@@ -82,7 +82,7 @@
   &__logo {
     position: relative;
     top: 4px;
-    width: 100%;
+    width: 210px;
     height: 65px;
     object-fit: cover;
     border-radius: 5px;
@@ -205,7 +205,8 @@
 
   &__language {
     &-img {
-      width: 30px;
+      width: auto;
+      height: auto;
       object-fit: cover;
       border-radius: 2px;
     }
