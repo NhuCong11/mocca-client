@@ -10,8 +10,12 @@ import { theme } from '@/styles/mantine';
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import AppGoToTop from '@/components/AppGoToTop';
+import { PATH_DEFAULT_LAYOUT } from '@/constants';
+import { usePathname } from 'next/navigation';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
+  const pathName = usePathname();
+
   useEffect(() => {
     AOS.init({
       once: true,
@@ -34,9 +38,9 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
       <MantineProvider theme={theme} defaultColorScheme="auto">
-        <AppHeader />
+        {PATH_DEFAULT_LAYOUT.includes(pathName) && <AppHeader />}
         {children}
-        <AppFooter />
+        {PATH_DEFAULT_LAYOUT.includes(pathName) && <AppFooter />}
         <AppGoToTop />
         <ToastContainer
           position="bottom-right"
