@@ -16,7 +16,7 @@ function AppGoToTop() {
 
   useEffect(() => {
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    setIsVisible(y > 0);
+    setIsVisible(y > 10);
     setProgressScroll(parseFloat(((y / scrollHeight) * 360).toFixed(2)));
   }, [y]);
 
