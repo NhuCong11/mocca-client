@@ -1,45 +1,24 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { IconArrowNarrowUpDashed } from '@tabler/icons-react';
+import { useWindowScroll } from '@mantine/hooks';
 import styles from './AppGoToTop.module.scss';
 
 function AppGoToTop() {
+  const [{ y }, scrollTo] = useWindowScroll();
   const [isVisible, setIsVisible] = useState(false);
   const [progressScroll, setProgressScroll] = useState(0);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = useCallback(() => {
+    scrollTo({ y: 0 });
+  }, [scrollTo]);
 
   useEffect(() => {
-    const checkScroll = () => {
-      if (!isVisible && window.scrollY > 0) {
-        setIsVisible(true);
-      }
-      if (isVisible && window.scrollY === 0) {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', checkScroll);
-
-    return () => window.removeEventListener('scroll', checkScroll);
-  }, [isVisible]);
-
-  useEffect(() => {
-    const checkProgressScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      const scrollDegrees = (scrollPercent / 100) * 360;
-      setProgressScroll(parseFloat(scrollDegrees.toFixed(2)));
-    };
-
-    window.addEventListener('scroll', checkProgressScroll);
-
-    return () => window.removeEventListener('scroll', checkProgressScroll);
-  }, []);
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    setIsVisible(y > 0);
+    setProgressScroll(parseFloat(((y / scrollHeight) * 360).toFixed(2)));
+  }, [y]);
 
   return (
     <div
