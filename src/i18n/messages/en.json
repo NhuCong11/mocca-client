@@ -59,5 +59,23 @@
     "title-product": "Sorry, there are currently no products",
     "title-category": "Sorry, there are currently no product categories available",
     "desc": "Please refresh the page to resolve the issue."
+  },
+  "user-options": {
+    "op01": "Profile page",
+    "op02": "Log Out"
+  },
+  "cart": {
+    "title01": "Empty Cart",
+    "title02": "Cart",
+    "title03": "Not logged in",
+    "title04": "Change quantity",
+    "desc01": "Delivery Time:",
+    "desc02": "Add products to your cart and place your order here.",
+    "desc03": "Total",
+    "desc04": "Delivery fee will be automatically calculated after you place the order.",
+    "desc05": "days",
+    "desc06": "Please log in to view your cart.",
+    "notify01": "All products have been successfully deleted!",
+    "notify02": "An error occurred while deleting one or more products."
   }
 }

@@ -59,5 +59,23 @@
     "title-product": "Rất tiếc, hiện không có sản phẩm nào",
     "title-category": "Rất tiếc, hiện không có danh mục sản phẩm nào",
     "desc": "Vui lòng làm mới trang để giải quyết sự cố."
+  },
+  "user-options": {
+    "op01": "Trang cá nhân",
+    "op02": "Đăng xuất"
+  },
+  "cart": {
+    "title01": "Giỏ hàng trống",
+    "title02": "Giỏ hàng",
+    "title03": "Chưa đăng nhập",
+    "title04": "Thay đổi số lượng",
+    "desc01": "Thời gian giao:",
+    "desc02": "Thêm sản phẩm vào giỏ hàng của bạn và đặt hàng tại đây.",
+    "desc03": "Tổng cộng",
+    "desc04": "Phí giao hàng sẽ được tính tự động sau khi bạn đặt đơn.",
+    "desc05": "ngày",
+    "desc06": "Vui lòng đăng nhập để xem giỏ hàng của bạn.",
+    "notify01": "Tất cả sản phẩm đã được xóa thành công!",
+    "notify02": "Có lỗi xảy ra khi xóa một hoặc nhiều sản phẩm."
   }
 }

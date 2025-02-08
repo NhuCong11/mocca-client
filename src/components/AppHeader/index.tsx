@@ -6,8 +6,9 @@ import clsx from 'clsx';
 import { toast } from 'react-toastify';
 import { removeCookie } from 'typescript-cookie';
 import { useLocale, useTranslations } from 'next-intl';
-import { IconCaretDownFilled, IconLogout, IconShoppingCart, IconUser } from '@tabler/icons-react';
+import { IconCaretDownFilled, IconShoppingCart } from '@tabler/icons-react';
 import styles from './AppHeader.module.scss';
+import { getUserOptions } from './constant';
 import Button from '@/share/Button';
 import { Link } from '@/i18n/routing';
 import { fonts } from '@/styles/fonts';
@@ -71,6 +72,8 @@ function AppHeader() {
       .map((locale) => ({ name: locale, img: `/images/languages/${locale}.png` }))
       .find((item) => item.name === lang);
   };
+
+  const userOptions = getUserOptions(setShowCart, setShowUserOptions, handleLogOut);
 
   useEffect(() => {
     const showToast = localStorage.getItem('showToast');
@@ -187,7 +190,7 @@ function AppHeader() {
                 </Link>
               </div>
             )}
-            {false && (
+            {true && (
               <div className={clsx(styles['header__actions-group'])}>
                 <Image
                   ref={avatarRef}
@@ -196,7 +199,7 @@ function AppHeader() {
                     styles['header__actions-avatar'],
                     showUserOptions && styles['header__actions-avatar--open'],
                   )}
-                  src={''}
+                  src={'/images/logo.png'}
                   priority
                   width={42}
                   height={42}
@@ -209,26 +212,27 @@ function AppHeader() {
                     showUserOptions && styles['header__user-options--show'],
                   )}
                 >
-                  <Link href={'/auth/profile'} onClick={() => setShowUserOptions(false)}>
-                    <li className={clsx(styles['header__user-option'], fonts.inter)}>
-                      <p>{t('user-options.op01')}</p>
-                      <IconUser width={16} height={16} />
-                    </li>
-                  </Link>
-                  <li
-                    onClick={() => {
-                      setShowCart(!showCart);
-                      setShowUserOptions(false);
-                    }}
-                    className={clsx(styles['header__user-option'], 'header__user-option--md', fonts.inter)}
-                  >
-                    <p>{t('cart.title02')}</p>
-                    <IconShoppingCart width={22} height={22} />
-                  </li>
-                  <li onClick={handleLogOut} className={clsx(styles['header__user-option'], fonts.inter)}>
-                    <p>{t('user-options.op02')}</p>
-                    <IconLogout width={16} height={16} />
-                  </li>
+                  {userOptions?.map((option, index) => {
+                    const Icon = option?.Icon;
+                    return (
+                      <li
+                        key={index}
+                        className={clsx(
+                          styles['header__user-option'],
+                          fonts.inter,
+                          option?.onClick && 'header__user-option--md',
+                        )}
+                        onClick={option?.onClick}
+                      >
+                        {option.href ? (
+                          <Link href={option?.href ?? ''}>{t(option?.label)}</Link>
+                        ) : (
+                          <p>{t(option?.label)}</p>
+                        )}
+                        <Icon width={22} height={22} />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
