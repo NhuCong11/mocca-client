@@ -10,8 +10,8 @@ import { theme } from '@/styles/mantine';
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import AppGoToTop from '@/components/AppGoToTop';
-import { PATH_DEFAULT_LAYOUT } from '@/constants';
 import { usePathname } from 'next/navigation';
+import { defaultLayoutRoutes } from '@/config/routes';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   const pathName = usePathname();
@@ -38,9 +38,9 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
       <MantineProvider theme={theme} defaultColorScheme="auto">
-        {PATH_DEFAULT_LAYOUT.includes(pathName) && <AppHeader />}
+        {defaultLayoutRoutes.includes(pathName) && <AppHeader />}
         {children}
-        {PATH_DEFAULT_LAYOUT.includes(pathName) && <AppFooter />}
+        {defaultLayoutRoutes.includes(pathName) && <AppFooter />}
         <AppGoToTop />
         <ToastContainer
           position="bottom-right"
