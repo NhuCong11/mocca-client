@@ -13,7 +13,6 @@ import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
-import useSessionStorage from '@/hooks/useSessionStorage';
 import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
 
 export interface LoginInfo {
@@ -24,7 +23,6 @@ export interface LoginInfo {
 function SignIn() {
   const t = useTranslations();
   const router = useRouter();
-  const { setItem } = useSessionStorage();
 
   const [showPassword, setShowPassword] = useState('password');
 
@@ -32,6 +30,7 @@ function SignIn() {
     setShowPassword(showPassword === 'password' ? 'text' : 'password');
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (values: LoginInfo) => {
     const token = localStorage.getItem('accessToken');
     if (token) {
