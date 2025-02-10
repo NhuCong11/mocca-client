@@ -15,10 +15,10 @@
   --red-color: #ef5350;
   --icon-color: brightness(0) saturate(100%) invert(39%) sepia(4%) saturate(0%) hue-rotate(138deg) brightness(100%)
     contrast(91%);
-  --bg-default: url('/assets/images/user-background.png');
-  --home-footer-bg: url('/assets/images/home/paper_bg.jpg');
-  --product-desc-bg: url('/assets/images/home/paper_bg.jpg');
-  --auth-bg: url('/assets/images/banner/cafe08.jpg');
+  --bg-default: url('/images/user-background.png');
+  --home-footer-bg: url('/images/home/paper_bg.jpg');
+  --product-desc-bg: url('/images/home/paper_bg.jpg');
+  --auth-bg: url('/images/banner/cafe08.jpg');
   --content-bg: var(--white);
   --btn-bg: var(--white);
   --btn-outline-border: #f0efef;
@@ -49,11 +49,9 @@
   --btn-bg: #292e39;
   --icon-color: brightness(0) saturate(100%) invert(91%) sepia(6%) saturate(130%) hue-rotate(191deg) brightness(82%)
     contrast(88%);
-  --home-footer-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--content-bg)),
-    url('/assets/images/home/paper_bg.jpg');
-  --product-desc-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.5), var(--content-bg)),
-    url('/assets/images/home/paper_bg.jpg');
-  --auth-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--btn-bg)), url('/assets/images/banner/cafe08.jpg');
+  --home-footer-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--content-bg)), url('/images/home/paper_bg.jpg');
+  --product-desc-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.5), var(--content-bg)), url('/images/home/paper_bg.jpg');
+  --auth-bg: linear-gradient(180deg, rgba(26, 22, 46, 0.6), var(--btn-bg)), url('/images/banner/cafe08.jpg');
   --btn-outline-border: var(--btn-bg);
   --btn-outline-color: var(--white);
   --header-shadow: rgba(0, 0, 0, 0.12);
