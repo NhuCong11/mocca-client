@@ -14,7 +14,14 @@ function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
       {!profileRoute.includes(pathName) && (
         <div className={clsx(styles['logo'])}>
           <Link href={'/'}>
-            <Image className={clsx(styles['logo__img'])} src={'/images/logo.png'} priority alt="Mocca Cafe" />
+            <Image
+              priority
+              width={145}
+              height={45}
+              alt="Mocca Cafe"
+              src={'/images/logo-vip1.png'}
+              className={clsx(styles['logo__img'])}
+            />
           </Link>
         </div>
       )}

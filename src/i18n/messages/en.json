@@ -49,10 +49,58 @@
     "btn25": "Turn On",
     "btn26": "Update"
   },
+  "form": {
+    "tp01": "Email",
+    "tp02": "Password",
+    "tp03": "Full name",
+    "tp04": "Re-enter password",
+    "tp05": "Phone",
+    "tp06": "Content",
+    "tp07": "Date of Birth",
+    "gender": {
+      "title": "Gender",
+      "male": "Male",
+      "female": "Female"
+    },
+    "lb01": "Show password"
+  },
   "errors": {
     "404": "404 | Not Found.",
     "403": "403 | Forbidden.",
-    "500": "500 | Internal Server."
+    "500": "500 | Internal Server.",
+    "err01": "Please enter email.",
+    "err02": "Email is incorrect, please re-enter.",
+    "err03": "Please enter password.",
+    "err04": "Password must contain at least 8 characters and 1 special character @-_",
+    "err05": "Please enter full name",
+    "err06": "Incorrect password, please re-enter",
+    "err07": "Please re-enter password",
+    "err08": "The phone number is incorrect, please re-enter",
+    "err09": "Please enter the content",
+    "err10": "Content from 5 to 500 characters",
+    "err11": "Please enter your Email",
+    "err12": "Please log in to use this feature",
+    "err13": "Please enter the captcha.",
+    "err14": "Captcha must be 4 characters long.",
+    "err15": "Name must be between 3 and 50 characters.",
+    "err16": "Please enter House Number, Alley, Street.",
+    "phoneNumber": {
+      "err01": "Please enter your phone number.",
+      "err02": "Invalid phone number."
+    },
+    "fullName": {
+      "err01": "Please enter your full name."
+    },
+    "birthDay": {
+      "err01": "Please enter your date of birth.",
+      "err02": "Date of birth cannot be later than today.",
+      "err03": "You must be at least 18 years old to use our service.",
+      "err04": "Sorry, you are too old to use our service."
+    },
+    "password": {
+      "err01": "Password must be at least 8 characters long and contain at least 1 special character.",
+      "err02": "Confirmation password does not match"
+    }
   },
   "no-result": {
     "title-restaurant": "Sorry, there are currently no restaurants",
@@ -77,5 +125,32 @@
     "desc06": "Please log in to view your cart.",
     "notify01": "All products have been successfully deleted!",
     "notify02": "An error occurred while deleting one or more products."
+  },
+  "login": {
+    "heading": "Sign in",
+    "desc01": "Welcome back. Sign in to continue shopping.",
+    "desc02": "You don't have an account",
+    "notify01": "Login successful",
+    "notify02": "Successfully logged out",
+    "notify03": "You are already logged in"
+  },
+  "sign-up": {
+    "heading": "Sign up",
+    "desc01": "Let's start creating a new account to fully experience our features and services.",
+    "desc02": "You already have an account",
+    "notify": "Registration successful, please verify your email"
+  },
+  "forgot-password": {
+    "heading": "Recover password",
+    "desc01": "Send a forgotten password verification code via email.",
+    "desc02": "You remembered the password"
+  },
+  "verify-otp": {
+    "heading": "Verify OTP",
+    "desc01": "Enter the OTP sent to your email."
+  },
+  "reset-password": {
+    "heading": "Reset Password",
+    "desc01": "Please enter your new password in the box below."
   }
 }

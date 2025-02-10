@@ -18,6 +18,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "clsx": "^2.1.1",
+    "formik": "^2.4.6",
     "next": "15.1.4",
     "next-intl": "^3.26.3",
     "next-themes": "^0.4.4",
@@ -26,7 +27,8 @@
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
     "react-toastify": "^11.0.3",
-    "typescript-cookie": "^1.0.6"
+    "typescript-cookie": "^1.0.6",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
