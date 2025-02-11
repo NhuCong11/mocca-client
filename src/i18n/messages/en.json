@@ -152,5 +152,11 @@
   "reset-password": {
     "heading": "Reset Password",
     "desc01": "Please enter your new password in the box below."
+  },
+  "login-with-2fa": {
+    "heading": "Verify with OTP",
+    "desc01": "Please enter the OTP generated from your secret key to proceed.",
+    "desc02": "Find the OTP from your secret key",
+    "here": "Here"
   }
 }

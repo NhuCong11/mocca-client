@@ -153,5 +153,11 @@
   "reset-password": {
     "heading": "비밀번호 재설정",
     "desc01": "아래에 새 비밀번호를 입력하세요."
+  },
+  "login-with-2fa": {
+    "heading": "OTP 코드로 인증",
+    "desc01": "계속하려면 비밀 키에서 생성된 OTP 코드를 입력하세요.",
+    "desc02": "비밀 키에서 OTP 코드 찾기",
+    "here": "여기"
   }
 }

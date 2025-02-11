@@ -153,5 +153,11 @@
   "reset-password": {
     "heading": "Đặt lại mật khẩu",
     "desc01": "Vui lòng nhập mật khẩu mới của bạn vào ô bên dưới."
+  },
+  "login-with-2fa": {
+    "heading": "Xác minh bằng mã OTP",
+    "desc01": "Vui lòng nhập mã OTP được tạo từ khóa bí mật của bạn để tiếp tục.",
+    "desc02": "Tìm mã OTP từ secret key",
+    "here": "Tại đây"
   }
 }
