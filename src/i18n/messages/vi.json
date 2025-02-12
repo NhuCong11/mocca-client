@@ -159,5 +159,33 @@
     "desc01": "Vui lòng nhập mã OTP được tạo từ khóa bí mật của bạn để tiếp tục.",
     "desc02": "Tìm mã OTP từ secret key",
     "here": "Tại đây"
+  },
+  "about-MoccaCafe": {
+    "heading01": "Mocca Cafe là nền tảng Thương mại Điện tử hàng đầu tại thị trường Cafe.",
+    "heading02": "Mục tiêu của chúng tôi",
+    "heading03": "Định vị của chúng tôi",
+    "heading04": "Phương châm của chúng tôi",
+    "heading05": "Simple",
+    "heading06": "Happy",
+    "heading07": "Together",
+    "heading08": "Hành trình của Mocca Cafe",
+    "heading09": "Khởi tạo dự án",
+    "heading10": "Bắt đầu triển khai",
+    "desc01": "Ra mắt vào năm 2025, Mocca Cafe mang đến cho người dùng trong khu vực trải nghiệm mua sắm trực tuyến đơn giản, an toàn và nhanh chóng thông qua hệ thống hỗ trợ thanh toán và vận hành vững mạnh.",
+    "desc02": "Chúng tôi tin rằng trải nghiệm mua sắm trực tuyến cần đơn giản, dễ dàng và mang lại niềm vui cho người dùng.Sứ mệnh này cũng là nguồn cảm hứng thúc đẩy chúng tôi phát triển từng ngày.",
+    "desc03": "Mocca Cafe mong muốn góp phần làm cho xã hội trở nên tốt đẹp hơn bằng sức mạnh công nghệ thông qua việc kết nối cộng đồng người mua và người bán.",
+    "desc04": "Thông qua Mocca Cafe, người dùng Internet trên toàn khu vực có thể trải nghiệm mua sắm trực tuyến với các sản phẩm đa dạng, kết nối với cộng đồng người bán, và tận hưởng quá trình nhận hàng liền mạch.",
+    "desc05": "Phương châm Simple, Happy and Together xác định tính cách thương hiệu Mocca Cafe thông qua lời nói và hành động. Phương châm này hiện hữu ở bất cứ đâu trong hành trình phát triển của chúng tôi.",
+    "desc06": "Chúng tôi tin vào sự đơn giản và toàn vẹn, đảm bảo một cuộc sống chân thật và đúng với bản thân mình.",
+    "desc07": "Chúng tôi thân thiện, vui vẻ, và tràn đầy năng lượng, lan tỏa niềm vui với mọi người.",
+    "desc08": "Chúng tôi thích dành thời gian cùng nhau, khi mua sắm trực tuyến với bạn bè và gia đình - cùng nhau làm những việc chúng tôi yêu thích.",
+    "desc09": "Ngày 10/03/2025 khởi tạo dự án.",
+    "desc10": "Ngày 04/06/2025 chính thức đưa dự án vào hoạt động",
+    "desc11": "Thấu hiểu người khác là chìa khóa để lãnh đạo thành công. Tại Mocca Cafe, mang lại trải nghiệm tốt nhất cho nhân viên, đối tác và người dùng chính là mục tiêu mà chúng tôi hướng đến."
+  },
+  "contact": {
+    "heading": "Hãy kết nối với chúng tôi",
+    "desc": "Bạn có đề xuất hoặc phản hồi? Chúng tôi rất sẵn sàng nghe ý kiến từ bạn! Sử dụng mẫu dưới đây để chia sẻ suy nghĩ của bạn. Cảm ơn bạn đã giúp chúng tôi cải thiện!",
+    "message": "Gửi tin nhắn thành công."
   }
 }

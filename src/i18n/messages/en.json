@@ -158,5 +158,33 @@
     "desc01": "Please enter the OTP generated from your secret key to proceed.",
     "desc02": "Find the OTP from your secret key",
     "here": "Here"
+  },
+  "about-MoccaCafe": {
+    "heading01": "Mocca Cafe is the leading eCommerce platform in the Cafe market.",
+    "heading02": "Our goal",
+    "heading03": "Our positioning",
+    "heading04": "Our motto",
+    "heading05": "Simple",
+    "heading06": "Happy",
+    "heading07": "Together",
+    "heading08": "The journey of Mocca Cafe",
+    "heading09": "Project initiation",
+    "heading10": "Under development",
+    "desc01": "Launched in 2025, Mocca Cafe provides users in the region with a simple, safe and fast online shopping experience through a strong payment support and operation system.",
+    "desc02": "We believe that online shopping experience needs to be simple, easy and bring joy to users. This mission is also the inspiration that drives us to develop every day.",
+    "desc03": "Mocca Cafe wants to contribute to making society better through the power of technology by connecting the community of buyers and sellers.",
+    "desc04": "Through Mocca Cafe, Internet users across the region can experience online shopping with a variety of products, connect with the community of sellers, and enjoy a seamless receiving process.",
+    "desc05": "The motto Simple, Happy and Together defines the brand personality of Mocca Cafe through words and actions. This motto is present anywhere in our development journey.",
+    "desc06": "We believe in simplicity and integrity, ensuring a life that is true and true to oneself.",
+    "desc07": "We are friendly, cheerful, and full of energy, spreading joy to everyone.",
+    "desc08": "We like to spend time together, when shopping online with friends and family - together doing the things we love.",
+    "desc09": "Project initiated on 10/03/2025.",
+    "desc10": "Expected to be completed in the next 2 months.",
+    "desc11": "Understanding others is the key to successful leadership. At Mocca Cafe, providing the best experience for employees, partners and users is the goal we aim for."
+  },
+  "contact": {
+    "heading": "Connect with us",
+    "desc": "Do you have suggestions or feedback? We are very ready to hear from you! Use the form below to share your thoughts. Thank you for helping us improve!",
+    "message": "Message sent successfully."
   }
 }
