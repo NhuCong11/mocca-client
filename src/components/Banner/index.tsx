@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
 import { Form, Formik } from 'formik';
+import { useTranslations } from 'next-intl';
 import { IconCircleDashedX, IconSearch } from '@tabler/icons-react';
 
 import styles from './Banner.module.scss';
 import validationSchema from './schema';
 import { getGreeting, listBanner } from './constant';
-import InputText from '@/share/InputText';
 import Button from '@/share/Button';
+import { Link } from '@/i18n/routing';
+import InputText from '@/share/InputText';
 
 interface BannerProps {
   className?: string;
