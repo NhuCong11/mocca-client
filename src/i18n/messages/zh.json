@@ -185,5 +185,14 @@
   "aboutDevelopmentTeam": {
     "heading": "遇见网站开发团队",
     "desc": "我们在设计，编程和网站部署领域有多年的经验。"
+  },
+  "home-banner": {
+    "heading01": "早安",
+    "heading02": "午安",
+    "heading03": "晚安",
+    "heading04": "充满活力的咖啡空间",
+    "desc01": "在这里，我们不仅提供优质的能量咖啡，还提供梦想。",
+    "placeholder": "输入您要搜索的产品",
+    "btn01": "搜索"
   }
 }

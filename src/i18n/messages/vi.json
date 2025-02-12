@@ -187,5 +187,14 @@
     "heading": "Hãy kết nối với chúng tôi",
     "desc": "Bạn có đề xuất hoặc phản hồi? Chúng tôi rất sẵn sàng nghe ý kiến từ bạn! Sử dụng mẫu dưới đây để chia sẻ suy nghĩ của bạn. Cảm ơn bạn đã giúp chúng tôi cải thiện!",
     "message": "Gửi tin nhắn thành công."
+  },
+  "home-banner": {
+    "heading01": "Buổi sáng tốt lành",
+    "heading02": "Buổi chiều tốt lành",
+    "heading03": "Buổi tối tốt lành",
+    "heading04": "Không Gian Cà Phê Năng lượng",
+    "desc01": "Nơi đây chúng tôi không chỉ cung ứng những ly cà phê năng lượng tuyệt hảo mà còn cung ứng những giấc mơ.",
+    "placeholder": "Nhập sản phẩm bạn muốn tìm kiếm",
+    "btn01": "Tìm kiếm"
   }
 }

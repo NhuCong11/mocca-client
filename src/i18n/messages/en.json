@@ -186,5 +186,14 @@
     "heading": "Connect with us",
     "desc": "Do you have suggestions or feedback? We are very ready to hear from you! Use the form below to share your thoughts. Thank you for helping us improve!",
     "message": "Message sent successfully."
+  },
+  "home-banner": {
+    "heading01": "Good Morning",
+    "heading02": "Good Afternoon",
+    "heading03": "Good Evening",
+    "heading04": "Energetic Coffee Space",
+    "desc01": "Here, we not only provide excellent energy coffee but also supply dreams.",
+    "placeholder": "Enter the product you want to search",
+    "btn01": "Search"
   }
 }
