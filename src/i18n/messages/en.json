@@ -195,5 +195,8 @@
     "desc01": "Here, we not only provide excellent energy coffee but also supply dreams.",
     "placeholder": "Enter the product you want to search",
     "btn01": "Search"
+  },
+  "restaurantCard": {
+    "desc01": "Many promotions"
   }
 }

@@ -196,5 +196,8 @@
     "desc01": "Nơi đây chúng tôi không chỉ cung ứng những ly cà phê năng lượng tuyệt hảo mà còn cung ứng những giấc mơ.",
     "placeholder": "Nhập sản phẩm bạn muốn tìm kiếm",
     "btn01": "Tìm kiếm"
+  },
+  "restaurantCard": {
+    "desc01": "Rất nhiều ưu đãi"
   }
 }
