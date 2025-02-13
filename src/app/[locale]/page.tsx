@@ -39,7 +39,9 @@ export default function Home() {
       <Breadcrumb listData={[{ title: 'Checkout', href: '/checkout' }]} />
       <DefaultSkeleton />
       <NoResult />
-      <div style={{width: '20%'}}><RestaurantCard data={test} /></div>
+      <div style={{ width: '20%' }}>
+        <RestaurantCard data={test} />
+      </div>
     </div>
   );
 }
