@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 import { fonts } from '@/styles/fonts';
-import { ButtonProps } from '@/types';
 import { Link } from '@/i18n/routing';
+import { ButtonProps } from './constant';
 
 const Button: React.FC<ButtonProps> = ({ to, href, className, children, leftIcon, rightIcon, ...props }) => {
   let Comp: React.ElementType = 'button';

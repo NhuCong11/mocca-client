@@ -1,0 +1,31 @@
+export interface ButtonProps {
+  to?: string;
+  href?: string;
+  primary?: boolean;
+  outline?: boolean;
+  large?: boolean;
+  action?: boolean;
+  checkout?: boolean;
+  haveProducts?: boolean;
+  disabled?: boolean;
+  auth?: boolean;
+  authGoogle?: boolean;
+  more?: boolean;
+  order?: boolean;
+  cancel?: boolean;
+  send?: boolean;
+  shopAction?: boolean;
+  nextPage?: boolean;
+  pageNumber?: boolean;
+  profileNavTitle?: boolean;
+  profileNavItem?: boolean;
+  changeProfile?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  onClick?: () => void;
+  mobile?: boolean;
+  tabletLaptop?: boolean;
+  [key: string]: boolean | string | React.ReactNode | (() => void) | undefined;
+}
