@@ -11,6 +11,8 @@ import NoResult from '@/share/NoResult';
 import DefaultSkeleton from '@/share/Skeleton';
 import RestaurantCard from '@/components/RestaurantCard';
 import { RestaurantInfo } from '@/types';
+import AppPagination from '@/components/AppPagination';
+import { useState } from 'react';
 
 export default function Home() {
   const t = useTranslations();
@@ -26,6 +28,7 @@ export default function Home() {
     slug: 'nhu-cong',
     rating: 4.5,
   };
+  const [activePage, setPage] = useState(1);
 
   return (
     <div className={clsx(styles['home'])}>
@@ -42,6 +45,7 @@ export default function Home() {
       <div style={{ width: '20%' }}>
         <RestaurantCard data={test} />
       </div>
+      <AppPagination activePage={activePage} setPage={setPage} total={10} />
     </div>
   );
 }
