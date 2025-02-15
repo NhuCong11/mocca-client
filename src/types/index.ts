@@ -1,3 +1,26 @@
+export interface UserInfo {
+  _id?: string;
+  fullname?: string;
+  email?: string;
+  normalizedEmail?: string;
+  dateOfBirth?: string | Date;
+  gender?: string;
+  isVerify?: boolean;
+  verifyExpireAt?: string;
+  forgotStatus?: string;
+  role?: string;
+  avatar?: string;
+  background?: string;
+  is2FA?: boolean;
+  phone?: string;
+  lastActive?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  secret?: string;
+  username?: string;
+  accountBalance?: number;
+}
+
 export interface ProductInfo {
   _id: string;
   name: string;

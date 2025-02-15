@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
+import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
@@ -13,7 +14,11 @@ import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
-import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { loginUser } from '@/services/authAPI';
+import { setCookie } from 'typescript-cookie';
+import useSessionStorage from '@/hooks/useSessionStorage';
+import { Loader } from '@mantine/core';
 
 export interface LoginInfo {
   email: string;
@@ -23,21 +28,41 @@ export interface LoginInfo {
 function SignIn() {
   const t = useTranslations();
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
+  const { setItem } = useSessionStorage();
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const isLoading = useAppSelector((state) => state?.auth.loading);
   const [showPassword, setShowPassword] = useState('password');
 
   const handleShowPassword = () => {
     setShowPassword(showPassword === 'password' ? 'text' : 'password');
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (values: LoginInfo) => {
     const token = localStorage.getItem('accessToken');
-    if (token) {
+    if (token || isLogin) {
       toast.warning(t('login.notify03'));
       router.push('/');
       return;
     }
+
+    dispatch(loginUser(values)).then((result) => {
+      if (result?.payload?.code === 200) {
+        localStorage.setItem('accessToken', JSON.stringify(result?.payload?.data.accessToken));
+        setCookie('accessToken', JSON.stringify(result?.payload?.data.accessToken));
+        localStorage.setItem('refreshToken', JSON.stringify(result?.payload?.data.refreshToken));
+        localStorage.setItem('user', JSON.stringify(result?.payload?.data.user));
+        toast.success(t('login.notify01'));
+        router.push('/');
+      } else if (result?.payload?.code === 202) {
+        setItem('token2FA', result?.payload?.data.twoFaToken);
+        router.push('/auth/login-with-2fa');
+      } else if (result?.payload?.code === 500) {
+        router.push('/errors/500');
+      } else {
+        toast.error(result?.payload?.message || t('system.error'));
+      }
+    });
   };
 
   return (
@@ -63,6 +88,7 @@ function SignIn() {
                 type="email"
                 placeholder={t('form.tp01')}
                 Icon={<IconMail />}
+                readOnly={isLoading}
               />
               <InputText
                 label={t('form.tp02')}
@@ -70,6 +96,7 @@ function SignIn() {
                 type={showPassword}
                 placeholder={t('form.tp02')}
                 Icon={<IconKey />}
+                readOnly={isLoading}
               />
 
               <div className={clsx(styles['auth__group'])}>
@@ -84,7 +111,13 @@ function SignIn() {
                 style={!isValid || !dirty ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button type="submit" disabled={!isValid || !dirty} primary auth>
+                <Button
+                  primary
+                  auth
+                  type="submit"
+                  disabled={!isValid || !dirty || isLoading}
+                  leftIcon={isLoading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn05')}
                 </Button>
                 <Button type="submit" authGoogle leftIcon={<IconBrandGoogleFilled />}>
