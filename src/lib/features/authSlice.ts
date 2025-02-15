@@ -41,6 +41,10 @@ const authSlice = createSlice({
       state.status = null;
       state.secretStatus = null;
     },
+    logout: (state) => {
+      state.isLogin = false;
+      state.user = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -77,14 +81,14 @@ const authSlice = createSlice({
         state.error = null;
         state.isLogin = null;
       })
-      .addCase(registerUser.rejected, (state, action: ActionRejectedType) => {
+      .addCase(registerUser.rejected, (state, action: PayloadAction<{ message: string } | undefined>) => {
         state.loading = false;
         state.user = null;
-        state.error = action.payload?.message || UNKNOWN_ERROR;
+        state.error = action.payload?.message || 'Unknown error';
         state.isLogin = null;
       });
   },
 });
 
-export const { reFreshStatus } = authSlice.actions;
+export const { reFreshStatus, logout } = authSlice.actions;
 export default authSlice.reducer;

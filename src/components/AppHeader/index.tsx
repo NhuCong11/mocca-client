@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { toast } from 'react-toastify';
 import { removeCookie } from 'typescript-cookie';
 import { useLocale, useTranslations } from 'next-intl';
 import { IconCaretDownFilled, IconShoppingCart } from '@tabler/icons-react';
+
 import styles from './AppHeader.module.scss';
 import { getUserOptions } from './constant';
 import Button from '@/share/Button';
@@ -16,12 +16,17 @@ import LoadingStart from '@/share/Loading';
 import { Locale, locales } from '@/i18n/config';
 import useClickOutside from '@/hooks/useClickOutSide';
 import { homeRoute } from '@/config/routes';
+import { showToast, ToastType } from '@/utils/toastUtils';
+import { logout } from '@/lib/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 
 function AppHeader() {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
 
   const [showCart, setShowCart] = useState(false);
 
@@ -48,15 +53,13 @@ function AppHeader() {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     removeCookie('accessToken', { path: '/' });
     setShowUserOptions(false);
-
-    // Lưu trạng thái thông báo vào localStorage
-    localStorage.setItem('showToast', 'true');
-    window.location.href = '/';
+    showToast(t('login.notify02'), ToastType.SUCCESS);
+    dispatch(logout());
   };
 
   const handleLanguageChange = (lang: Locale) => {
@@ -76,17 +79,10 @@ function AppHeader() {
   const userOptions = getUserOptions(setShowCart, setShowUserOptions, handleLogOut);
 
   useEffect(() => {
-    const showToast = localStorage.getItem('showToast');
-    if (showToast === 'true') {
-      toast.success(t('login.notify02'));
-
-      const deleteToast = setTimeout(() => {
-        localStorage.removeItem('showToast');
-      }, 100);
-
-      return () => clearTimeout(deleteToast);
+    if (!user) {
+      router.push('/');
     }
-  }, [t]);
+  }, [user, router]);
 
   useEffect(() => {
     const onScroll = () => {

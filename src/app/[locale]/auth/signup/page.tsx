@@ -3,7 +3,6 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
-import { toast } from 'react-toastify';
 import { Loader } from '@mantine/core';
 import { IconKey, IconMail, IconUser } from '@tabler/icons-react';
 
@@ -16,6 +15,7 @@ import InputText from '@/share/InputText';
 import { fonts } from '@/styles/fonts';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { registerUser } from '@/services/authAPI';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface SignUpInfo {
   fullname: string;
@@ -36,18 +36,20 @@ function SignUp() {
   };
 
   const handleSubmit = async (values: SignUpInfo) => {
-    dispatch(registerUser(values)).then((result) => {
-      if (result?.payload.code === 201) {
-        setTimeout(() => {
-          router.push('/auth/signin');
-        }, 3500);
-        toast.success(t('sign-up.notify'));
-      } else {
-        console.log(result);
-
-        toast.info(result?.payload.message);
-      }
-    });
+    const signupPromise = dispatch(registerUser(values))
+      .then((result) => {
+        if (result?.payload.code === 201) {
+          setTimeout(() => {
+            router.push('/auth/signin');
+          }, 3500);
+          return t('login.notify01');
+        }
+        throw new Error(result?.payload.message || t('error.unknown'));
+      })
+      .catch((err) => {
+        throw new Error(err?.message || t('error.unknown'));
+      });
+    showToast('', ToastType.PROMISE, signupPromise);
   };
 
   return (

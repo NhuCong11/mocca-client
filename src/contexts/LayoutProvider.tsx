@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { MantineProvider } from '@mantine/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 
 import { theme } from '@/styles/mantine';
 import AppHeader from '@/components/AppHeader';
@@ -42,17 +42,20 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
         {children}
         {defaultLayoutRoutes.includes(pathName) && <AppFooter />}
         <AppGoToTop />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          hideProgressBar={true}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          limit={5}
+        <Toaster
+          gutter={8}
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 3000,
+            removeDelay: 1000,
+            style: {
+              borderRadius: '12px',
+              background: 'var(--white)',
+              color: 'var(--coffee-color-v2)',
+              border: '1px solid var(--primary-bg)',
+            },
+          }}
         />
       </MantineProvider>
     </ThemeProvider>

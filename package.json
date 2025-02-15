@@ -25,8 +25,8 @@
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.1",
     "react-redux": "^9.2.0",
-    "react-toastify": "^11.0.3",
     "typescript-cookie": "^1.0.6",
     "yup": "^1.6.1"
   },

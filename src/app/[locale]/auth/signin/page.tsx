@@ -3,7 +3,6 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
-import { toast } from 'react-toastify';
 import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
 import { Loader } from '@mantine/core';
 import { setCookie } from 'typescript-cookie';
@@ -18,6 +17,7 @@ import InputText from '@/share/InputText';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { loginUser } from '@/services/authAPI';
 import useSessionStorage from '@/hooks/useSessionStorage';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface LoginInfo {
   email: string;
@@ -40,28 +40,31 @@ function SignIn() {
   const handleSubmit = async (values: LoginInfo) => {
     const token = localStorage.getItem('accessToken');
     if (token || isLogin) {
-      toast.warning(t('login.notify03'));
+      showToast(t('login.notify03'), ToastType.ERROR);
       router.push('/');
       return;
     }
 
-    dispatch(loginUser(values)).then((result) => {
+    const loginPromise = dispatch(loginUser(values)).then((result) => {
       if (result?.payload?.code === 200) {
         localStorage.setItem('accessToken', JSON.stringify(result?.payload?.data.accessToken));
         setCookie('accessToken', JSON.stringify(result?.payload?.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(result?.payload?.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(result?.payload?.data.user));
-        toast.success(t('login.notify01'));
         router.push('/');
+        return t('login.notify01');
       } else if (result?.payload?.code === 202) {
         setItem('token2FA', result?.payload?.data.twoFaToken);
         router.push('/auth/login-with-2fa');
+        throw new Error(t('login.notify02'));
       } else if (result?.payload?.code === 500) {
         router.push('/errors/500');
+        throw new Error(t('system.serverError'));
       } else {
-        toast.error(result?.payload?.message || t('system.error'));
+        throw new Error(result?.payload?.message || t('system.error'));
       }
     });
+    showToast('', ToastType.PROMISE, loginPromise);
   };
 
   return (
