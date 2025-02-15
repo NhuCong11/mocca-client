@@ -1,3 +1,7 @@
+export interface RejectValueError {
+  rejectValue: { message: string };
+}
+
 export interface UserInfo {
   _id?: string;
   fullname?: string;

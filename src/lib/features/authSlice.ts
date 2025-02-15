@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getLocalStorageItem } from '@/utils/localStorage';
 import { UserInfo } from '@/types';
-import { loginUser } from '@/services/authAPI';
+import { UNKNOWN_ERROR } from '@/constants';
+import { getLocalStorageItem } from '@/utils/localStorage';
+import { loginUser, registerUser } from '@/services/authAPI';
+import { ActionRejectedType } from '../store';
 
 export interface AuthState {
   loading: boolean;
@@ -56,10 +58,29 @@ const authSlice = createSlice({
         state.error = null;
         state.isLogin = action.payload?.code === 200 ? true : false;
       })
-      .addCase(loginUser.rejected, (state, action: PayloadAction<{ message: string } | undefined>) => {
+      .addCase(loginUser.rejected, (state, action: ActionRejectedType) => {
         state.loading = false;
         state.user = null;
-        state.error = action.payload?.message || 'Unknown error';
+        state.error = action.payload?.message || UNKNOWN_ERROR;
+        state.isLogin = null;
+      })
+      // SignUp
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+        state.isLogin = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = action?.payload;
+        state.error = null;
+        state.isLogin = null;
+      })
+      .addCase(registerUser.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.payload?.message || UNKNOWN_ERROR;
         state.isLogin = null;
       });
   },

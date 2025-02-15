@@ -1,24 +1,23 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
+import { Loader } from '@mantine/core';
+import { setCookie } from 'typescript-cookie';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { loginUser } from '@/services/authAPI';
-import { setCookie } from 'typescript-cookie';
 import useSessionStorage from '@/hooks/useSessionStorage';
-import { Loader } from '@mantine/core';
 
 export interface LoginInfo {
   email: string;

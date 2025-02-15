@@ -3,15 +3,19 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
+import { Loader } from '@mantine/core';
+import { IconKey, IconMail, IconUser } from '@tabler/icons-react';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
 import Button from '@/share/Button';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { fonts } from '@/styles/fonts';
-import { IconKey, IconMail, IconUser } from '@tabler/icons-react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { registerUser } from '@/services/authAPI';
 
 export interface SignUpInfo {
   fullname: string;
@@ -21,11 +25,29 @@ export interface SignUpInfo {
 
 function SignUp() {
   const t = useTranslations();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.auth.loading);
 
   const [showPassword, setShowPassword] = useState('password');
 
   const handleShowPassword = () => {
     setShowPassword(showPassword === 'password' ? 'text' : 'password');
+  };
+
+  const handleSubmit = async (values: SignUpInfo) => {
+    dispatch(registerUser(values)).then((result) => {
+      if (result?.payload.code === 201) {
+        setTimeout(() => {
+          router.push('/auth/signin');
+        }, 3500);
+        toast.success(t('sign-up.notify'));
+      } else {
+        console.log(result);
+
+        toast.info(result?.payload.message);
+      }
+    });
   };
 
   return (
@@ -36,7 +58,9 @@ function SignUp() {
       <Formik
         initialValues={{ fullname: '', email: '', password: '' }}
         validationSchema={validationSchema(t)}
-        onSubmit={() => {}}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
         validateOnChange={true}
         validateOnMount={true}
       >
@@ -49,6 +73,7 @@ function SignUp() {
                 type="text"
                 placeholder={t('form.tp03')}
                 Icon={<IconUser />}
+                readOnly={isLoading}
               />
               <InputText
                 label={t('form.tp01')}
@@ -56,6 +81,7 @@ function SignUp() {
                 type="email"
                 placeholder={t('form.tp01')}
                 Icon={<IconMail />}
+                readOnly={isLoading}
               />
               <InputText
                 label={t('form.tp02')}
@@ -63,6 +89,7 @@ function SignUp() {
                 type={showPassword}
                 placeholder={t('form.tp02')}
                 Icon={<IconKey />}
+                readOnly={isLoading}
               />
 
               <div className={clsx(styles['auth__group'])}>
@@ -73,7 +100,13 @@ function SignUp() {
                 style={!isValid || !dirty ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button disabled={!isValid || !dirty} primary auth>
+                <Button
+                  auth
+                  primary
+                  type="submit"
+                  disabled={!isValid || !dirty || isLoading}
+                  leftIcon={isLoading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn07')}
                 </Button>
               </div>
