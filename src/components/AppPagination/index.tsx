@@ -1,3 +1,5 @@
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Box, Pagination } from '@mantine/core';
 import {
   IconChevronCompactLeft,
@@ -8,27 +10,29 @@ import {
 } from '@tabler/icons-react';
 
 interface AppPaginationProps {
-  activePage: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   total: number;
 }
 
-function AppPagination({ activePage, setPage, total }: AppPaginationProps) {
-  if (total <= 1) return null;
+function AppPagination({ total }: AppPaginationProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activePage, setActivePage] = useState(Number(searchParams.get('page')) || 1);
 
-  const controlLinks: Record<string, string> = {
-    first: '#page-1',
-    last: `#page-${total}`,
-    next: `#page-${activePage}`,
-    previous: `#page-${activePage}`,
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', String(activePage));
+    router.push(`?${params.toString()}`, { scroll: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activePage]);
+
+  if (total <= 1) return null;
 
   return (
     <Box p="lg">
       <Pagination
         size="xl"
         value={activePage}
-        onChange={(page) => setPage(() => Math.max(1, Math.min(page, total)))}
+        onChange={setActivePage}
         total={total}
         withEdges
         autoContrast
@@ -39,11 +43,6 @@ function AppPagination({ activePage, setPage, total }: AppPaginationProps) {
         firstIcon={IconChevronLeftPipe}
         lastIcon={IconChevronRightPipe}
         dotsIcon={IconGripHorizontal}
-        getItemProps={(page) => ({
-          component: 'a',
-          href: `#page-${page}`,
-        })}
-        getControlProps={(control) => (controlLinks[control] ? { component: 'a', href: controlLinks[control] } : {})}
       />
     </Box>
   );
