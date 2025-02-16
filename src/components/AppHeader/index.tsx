@@ -1,6 +1,5 @@
 'use client';
-import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import Image, { StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { removeCookie } from 'typescript-cookie';
@@ -10,25 +9,32 @@ import { IconCaretDownFilled, IconShoppingCart } from '@tabler/icons-react';
 import styles from './AppHeader.module.scss';
 import { getUserOptions } from './constant';
 import Button from '@/share/Button';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { fonts } from '@/styles/fonts';
 import LoadingStart from '@/share/Loading';
 import { Locale, locales } from '@/i18n/config';
 import useClickOutside from '@/hooks/useClickOutSide';
-import { homeRoute } from '@/config/routes';
 import { showToast, ToastType } from '@/utils/toastUtils';
 import { logout } from '@/lib/features/authSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { getLocalStorageItem } from '@/utils/localStorage';
+import { UserInfo } from '@/types';
 
 function AppHeader() {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
+  const isAuth = useAppSelector((state) => state?.auth?.isLogin);
+  const userInfo: UserInfo | null = getLocalStorageItem('user');
+  const token = JSON.parse(String(getLocalStorageItem('accessToken')));
 
+  const [isLogin, setIsLogin] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const [avatar, setAvatar] = useState<string | StaticImageData>(userInfo?.avatar ? userInfo.avatar : '');
 
   const headerRef = useRef<HTMLDivElement | null>(null);
 
@@ -63,9 +69,7 @@ function AppHeader() {
   };
 
   const handleLanguageChange = (lang: Locale) => {
-    const segments = pathname.split('/');
-    segments[1] = lang;
-    const newPath = segments.join('/');
+    const newPath = [`${lang}`].join('/');
     router.replace(newPath);
     setShowLanguages(false);
   };
@@ -92,7 +96,7 @@ function AppHeader() {
           headerRef.current.style.boxShadow = '-1px 0px 2px 0px var(--header-shadow)';
         } else {
           headerRef.current.style.boxShadow = '0 1px 1px transparent';
-          if (!homeRoute.includes(pathname)) {
+          if (!['/'].includes(pathname)) {
             headerRef.current.style.backgroundColor = '#181818';
           } else {
             headerRef.current.style.backgroundColor = 'transparent';
@@ -110,7 +114,7 @@ function AppHeader() {
 
   useEffect(() => {
     if (headerRef.current) {
-      if (!homeRoute.includes(pathname)) {
+      if (!['/'].includes(pathname)) {
         headerRef.current.style.backgroundColor = '#181818';
       } else {
         headerRef.current.style.backgroundColor = 'transparent';
@@ -136,6 +140,19 @@ function AppHeader() {
       document.documentElement.style.overflow = 'auto';
     };
   }, [showCart]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (isAuth || token) {
+        setIsLogin(true);
+        setAvatar(userInfo?.avatar ? userInfo.avatar : '/images/logo.png');
+      } else {
+        setIsLogin(false);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
 
   return (
     <div ref={headerRef} className={clsx(styles['wrapper'])}>
@@ -174,7 +191,7 @@ function AppHeader() {
                 {true && <span className={clsx(styles['header__actions-quantity'])}>{0}</span>}
               </div>
             )}
-            {true && (
+            {!isLogin && (
               <div className={clsx(styles['header__actions-group'])}>
                 <Link href={'/auth/signin'}>
                   <Button tabletLaptop action outline>
@@ -186,20 +203,20 @@ function AppHeader() {
                 </Link>
               </div>
             )}
-            {true && (
+            {isLogin && (
               <div className={clsx(styles['header__actions-group'])}>
                 <Image
+                  priority
+                  width={42}
+                  height={42}
+                  alt="Avatar"
+                  src={avatar}
                   ref={avatarRef}
                   onClick={() => setShowUserOptions(!showUserOptions)}
                   className={clsx(
                     styles['header__actions-avatar'],
                     showUserOptions && styles['header__actions-avatar--open'],
                   )}
-                  src={'/images/logo.png'}
-                  priority
-                  width={42}
-                  height={42}
-                  alt="Avatar"
                 />
                 <ul
                   ref={userOptionsRef}

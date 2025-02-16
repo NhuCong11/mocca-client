@@ -3,9 +3,12 @@
 export const getLocalStorageItem = <T>(itemName: string): T | null => {
   try {
     const item = localStorage.getItem(itemName);
-    return item ? (JSON.parse(item) as T) : null;
+    if (item && (item.startsWith('{') || item.startsWith('['))) {
+      return JSON.parse(item);
+    }
+    return item ? (item as T) : null;
   } catch (error) {
-    console.error(`Lỗi khi lấy thông tin từ localStorage cho item "${itemName}":`, error);
+    console.error(`Lỗi khi lấy thông tin từ localStorage cho item ${itemName}:`, error);
     return null;
   }
 };

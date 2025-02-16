@@ -10,8 +10,8 @@ import { theme } from '@/styles/mantine';
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import AppGoToTop from '@/components/AppGoToTop';
-import { usePathname } from 'next/navigation';
 import { defaultLayoutRoutes } from '@/config/routes';
+import { usePathname } from '@/i18n/routing';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   const pathName = usePathname();
