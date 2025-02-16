@@ -14,7 +14,7 @@ import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { fonts } from '@/styles/fonts';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { registerUser } from '@/services/authAPI';
+import { registerUser } from '@/services/authServices';
 import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface SignUpInfo {

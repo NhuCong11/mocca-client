@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInfo } from '@/types';
 import { UNKNOWN_ERROR } from '@/constants';
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { loginUser, registerUser } from '@/services/authAPI';
+import { loginUser, registerUser } from '@/services/authServices';
 import { ActionRejectedType } from '../store';
 
 export interface AuthState {
@@ -81,10 +81,10 @@ const authSlice = createSlice({
         state.error = null;
         state.isLogin = null;
       })
-      .addCase(registerUser.rejected, (state, action: PayloadAction<{ message: string } | undefined>) => {
+      .addCase(registerUser.rejected, (state, action: ActionRejectedType) => {
         state.loading = false;
         state.user = null;
-        state.error = action.payload?.message || 'Unknown error';
+        state.error = action.payload?.message || UNKNOWN_ERROR;
         state.isLogin = null;
       });
   },

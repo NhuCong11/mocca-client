@@ -1,6 +1,5 @@
 'use client';
-import { usePathname } from 'next/navigation';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 
 interface CustomLinkProps {
   href: string;

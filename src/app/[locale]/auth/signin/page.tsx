@@ -15,7 +15,7 @@ import { fonts } from '@/styles/fonts';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { loginUser } from '@/services/authAPI';
+import { loginUser } from '@/services/authServices';
 import useSessionStorage from '@/hooks/useSessionStorage';
 import { showToast, ToastType } from '@/utils/toastUtils';
 

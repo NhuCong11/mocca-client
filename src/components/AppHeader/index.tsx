@@ -27,7 +27,7 @@ function AppHeader() {
   const pathname = usePathname();
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
+  // const user = useAppSelector((state) => state.auth.user);
   const isAuth = useAppSelector((state) => state?.auth?.isLogin);
   const userInfo: UserInfo | null = getLocalStorageItem('user');
   const token = JSON.parse(String(getLocalStorageItem('accessToken')));
@@ -66,6 +66,7 @@ function AppHeader() {
     setShowUserOptions(false);
     showToast(t('login.notify02'), ToastType.SUCCESS);
     dispatch(logout());
+    router.replace('/');
   };
 
   const handleLanguageChange = (lang: Locale) => {
@@ -81,12 +82,6 @@ function AppHeader() {
   };
 
   const userOptions = getUserOptions(setShowCart, setShowUserOptions, handleLogOut);
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/');
-    }
-  }, [user, router]);
 
   useEffect(() => {
     const onScroll = () => {

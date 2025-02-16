@@ -11,6 +11,9 @@ import { Link } from '@/i18n/routing';
 import Button from '@/share/Button';
 import InputText from '@/share/InputText';
 import { aboutDesc, aboutImages, aboutIntroData, journeyData } from './constant';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { contactUs } from '@/services/contactServices';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface ContactInfo {
   fullname: string;
@@ -21,12 +24,22 @@ export interface ContactInfo {
 
 function About() {
   const t = useTranslations();
-
-  const isLoading = false;
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.contact.loading);
 
   const handleContactUs = (values: ContactInfo, resetForm: FormikHelpers<ContactInfo>['resetForm']) => {
-    console.log(values);
-    resetForm();
+    const contactPromise = dispatch(contactUs(values))
+      .then((result) => {
+        if (result?.payload.code === 201) {
+          resetForm();
+          return t('contact.message');
+        }
+        throw new Error(result?.payload?.message || t('error.unknown'));
+      })
+      .catch((err) => {
+        throw new Error(err?.message || t('error.unknown'));
+      });
+    showToast('', ToastType.PROMISE, contactPromise);
   };
 
   return (
