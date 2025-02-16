@@ -44,10 +44,10 @@ function SignUp() {
           }, 3500);
           return t('login.notify01');
         }
-        throw new Error(result?.payload.message || t('error.unknown'));
+        throw new Error(result?.payload.message || t('system.error'));
       })
       .catch((err) => {
-        throw new Error(err?.message || t('error.unknown'));
+        throw new Error(err?.message || t('system.error'));
       });
     showToast('', ToastType.PROMISE, signupPromise);
   };

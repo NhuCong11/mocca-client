@@ -7,10 +7,14 @@ import { useTranslations } from 'next-intl';
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
 import Button from '@/share/Button';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 import { fonts } from '@/styles/fonts';
 import InputText from '@/share/InputText';
 import { IconMail, IconRefresh } from '@tabler/icons-react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { forgotPassword, getCaptcha } from '@/services/authServices';
+import useSessionStorage from '@/hooks/useSessionStorage';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface ForgotPasswordInfo {
   email: string;
@@ -37,18 +41,45 @@ const SvgComponent = ({ data }: { data: CaptchaData }) => {
 
 function ForgotPassword() {
   const t = useTranslations();
-  const loading = false;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { setItem } = useSessionStorage();
+  const loading = useAppSelector((state) => state.auth.loading);
+
   const [captcha, setCaptcha] = useState<CaptchaData | null>(null);
   const [loadingCaptcha, setLoadingCaptcha] = useState(false);
 
   const counter = useRef(Date.now());
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const fetchCaptcha = async () => {
+    const getCaptchaPromise = dispatch(getCaptcha())
+      .then((result) => {
+        if (result?.payload.code === 201) {
+          setCaptcha(result?.payload.data);
+          setItem('signature', result?.payload.data.sign);
+          return result?.payload.message;
+        } else {
+          throw new Error(result?.payload.message || t('system.error'));
+        }
+      })
+      .catch((err) => {
+        throw new Error(err?.message || t('system.error'));
+      });
+    showToast('', ToastType.PROMISE, getCaptchaPromise);
+  };
+
   const handleReloadCaptcha = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoadingCaptcha(true);
     counter.current = Date.now();
+    try {
+      await fetchCaptcha();
+    } catch (err) {
+      showToast(String(err), ToastType.ERROR);
+    } finally {
+      setLoadingCaptcha(false);
+    }
   };
 
   const handleForgotPassword = async (values: ForgotPasswordInfo) => {
@@ -57,14 +88,29 @@ function ForgotPassword() {
       text: values?.text,
       sign: captcha?.sign,
     };
-    console.log(data);
+    const forgotPasswordPromise = dispatch(forgotPassword(data))
+      .then((result) => {
+        if (result?.payload.code === 200) {
+          setItem('tokenForgot', result?.payload.data.tokenForgot);
+          router.push('/auth/verify-otp');
+        } else if (result?.payload.code === 400) {
+          fetchCaptcha();
+          throw new Error(result?.payload.message || t('system.error'));
+        }
+      })
+      .catch((err) => {
+        throw new Error(err?.message || t('system.error'));
+      });
+    showToast('', ToastType.PROMISE, forgotPasswordPromise);
   };
 
   useEffect(() => {
+    fetchCaptcha();
     const interval = 2 * 60 * 1000;
     timerRef.current = setInterval(async () => {
       const latestCounter = counter.current;
       if (Date.now() - latestCounter >= interval) {
+        fetchCaptcha();
         counter.current = Date.now();
       }
     }, 1000);
@@ -72,6 +118,7 @@ function ForgotPassword() {
     return () => {
       clearInterval(timerRef.current!);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -124,7 +171,7 @@ function ForgotPassword() {
                 style={!isValid || !dirty || loading ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button disabled={!isValid || !dirty || loading} primary auth>
+                <Button type="submit" disabled={!isValid || !dirty || loading} primary auth>
                   {t('button.btn08')}
                 </Button>
               </div>

@@ -102,6 +102,9 @@
       "err02": "确认密码不匹配"
     }
   },
+  "system": {
+    "error": "发生了一个错误。请稍后重试"
+  },
   "no-result": {
     "title-restaurant": "抱歉，目前没有餐厅",
     "title-product": "抱歉，目前没有产品",

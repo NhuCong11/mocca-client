@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInfo } from '@/types';
 import { UNKNOWN_ERROR } from '@/constants';
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { loginUser, registerUser } from '@/services/authServices';
+import { forgotPassword, getCaptcha, loginUser, registerUser } from '@/services/authServices';
 import { ActionRejectedType } from '../store';
 
 export interface AuthState {
@@ -17,6 +17,8 @@ export interface AuthState {
   message: string;
   isUpdate: boolean;
   secretStatus: string | null;
+  loadingCaptcha: boolean | null;
+  captcha: null;
 }
 
 const initialState: AuthState = {
@@ -30,6 +32,8 @@ const initialState: AuthState = {
   message: '',
   isUpdate: false,
   secretStatus: null,
+  loadingCaptcha: false,
+  captcha: null,
 };
 
 const authSlice = createSlice({
@@ -86,6 +90,34 @@ const authSlice = createSlice({
         state.user = null;
         state.error = action.payload?.message || UNKNOWN_ERROR;
         state.isLogin = null;
+      })
+      // Forgot password
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.secretKey = action?.payload?.data?.secret;
+        state.message = action?.payload?.message;
+      })
+      .addCase(forgotPassword.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
+        state.message = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Get Captcha
+      .addCase(getCaptcha.pending, (state) => {
+        state.loadingCaptcha = true;
+        state.error = null;
+      })
+      .addCase(getCaptcha.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingCaptcha = false;
+        state.captcha = action?.payload?.data;
+        state.message = action?.payload?.message;
+      })
+      .addCase(getCaptcha.rejected, (state, action: ActionRejectedType) => {
+        state.loadingCaptcha = false;
+        state.message = action?.payload?.message || UNKNOWN_ERROR;
       });
   },
 });

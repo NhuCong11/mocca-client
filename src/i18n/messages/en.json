@@ -102,6 +102,9 @@
       "err02": "Confirmation password does not match"
     }
   },
+  "system": {
+    "error": "An error occurred. Please try again later"
+  },
   "no-result": {
     "title-restaurant": "Sorry, there are currently no restaurants",
     "title-product": "Sorry, there are currently no products",
