@@ -166,7 +166,7 @@ $logoWidth: 65px;
     background-color: transparent;
     filter: var(--icon-color);
     cursor: pointer;
-    
+
     &:hover {
       opacity: 0.9;
     }
@@ -177,6 +177,7 @@ $logoWidth: 65px;
   &__group {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 15px;
     margin-top: 25px;
   }

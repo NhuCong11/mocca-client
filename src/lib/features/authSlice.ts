@@ -3,7 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInfo } from '@/types';
 import { UNKNOWN_ERROR } from '@/constants';
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { forgotPassword, getCaptcha, loginUser, registerUser } from '@/services/authServices';
+import {
+  forgotPassword,
+  getCaptcha,
+  loginUser,
+  registerUser,
+  resetPassword,
+  verifyOtpForgotPassword,
+} from '@/services/authServices';
 import { ActionRejectedType } from '../store';
 
 export interface AuthState {
@@ -117,6 +124,34 @@ const authSlice = createSlice({
       })
       .addCase(getCaptcha.rejected, (state, action: ActionRejectedType) => {
         state.loadingCaptcha = false;
+        state.message = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Verify OTP ForgotPassword
+      .addCase(verifyOtpForgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyOtpForgotPassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.secretKey = action?.payload?.data?.secret;
+        state.message = action?.payload?.message;
+      })
+      .addCase(verifyOtpForgotPassword.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
+        state.message = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Reset password
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.secretKey = action?.payload?.data?.secret;
+        state.message = action?.payload?.message;
+      })
+      .addCase(resetPassword.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
         state.message = action?.payload?.message || UNKNOWN_ERROR;
       });
   },

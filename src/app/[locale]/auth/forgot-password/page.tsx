@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Loader } from '@mantine/core';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
@@ -171,7 +172,13 @@ function ForgotPassword() {
                 style={!isValid || !dirty || loading ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button type="submit" disabled={!isValid || !dirty || loading} primary auth>
+                <Button
+                  auth
+                  primary
+                  type="submit"
+                  disabled={!isValid || !dirty || loading}
+                  leftIcon={loading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn08')}
                 </Button>
               </div>

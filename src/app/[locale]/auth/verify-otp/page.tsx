@@ -3,12 +3,18 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Loader } from '@mantine/core';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
 import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
 import InputText from '@/share/InputText';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useRouter } from '@/i18n/routing';
+import useSessionStorage from '@/hooks/useSessionStorage';
+import { verifyOtpForgotPassword } from '@/services/authServices';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 interface VerifyOTPForgotPasswordInfo {
   tokenForgot: string;
@@ -17,8 +23,10 @@ interface VerifyOTPForgotPasswordInfo {
 
 function VerifyOTP() {
   const t = useTranslations();
-
-  const isLoading = false;
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { setItem } = useSessionStorage();
+  const isLoading = useAppSelector((state) => state.auth.loading);
 
   const [inputs, setInputs] = useState(Array(6).fill(''));
 
@@ -38,8 +46,24 @@ function VerifyOTP() {
     values: VerifyOTPForgotPasswordInfo,
     resetForm: FormikHelpers<VerifyOTPForgotPasswordInfo>['resetForm'],
   ) => {
-    console.log(values);
-    resetForm();
+    const tokenForgot = JSON.parse(String(sessionStorage.getItem('tokenForgot')));
+
+    const verifyOTPPromise = dispatch(verifyOtpForgotPassword({ tokenForgot: tokenForgot, otp: values.otp })).then(
+      (result) => {
+        if (result.payload.code === 200) {
+          setItem('tokenVerifyOTP', result?.payload.data.tokenVerifyOTP);
+          router.push('/auth/reset-password');
+        } else if (result.payload.code === 400) {
+          router.push('/auth/forgot-password');
+          throw new Error(result?.payload?.message || t('system.error'));
+        } else {
+          setInputs(Array(6).fill(''));
+          resetForm();
+          throw new Error(result?.payload?.message || t('system.error'));
+        }
+      },
+    );
+    showToast('', ToastType.PROMISE, verifyOTPPromise);
   };
 
   useEffect(() => {
@@ -112,7 +136,13 @@ function VerifyOTP() {
                 style={!isValid || !dirty || isLoading ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button disabled={!isValid || !dirty || isLoading} primary auth>
+                <Button
+                  auth
+                  primary
+                  type="submit"
+                  disabled={!isValid || !dirty || isLoading}
+                  leftIcon={isLoading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn10')}
                 </Button>
               </div>

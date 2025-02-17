@@ -3,6 +3,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Loader } from '@mantine/core';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
@@ -11,6 +12,10 @@ import { fonts } from '@/styles/fonts';
 import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { IconKey } from '@tabler/icons-react';
+import { useRouter } from '@/i18n/routing';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { resetPassword } from '@/services/authServices';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
 export interface ResetPasswordInfo {
   tokenVerifyOTP: string;
@@ -20,8 +25,9 @@ export interface ResetPasswordInfo {
 
 function ResetPassword() {
   const t = useTranslations();
-
-  const isLoading = false;
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.auth.loading);
 
   const [showPassword, setShowPassword] = useState('password');
 
@@ -35,7 +41,15 @@ function ResetPassword() {
       tokenVerifyOTP: tokenVerifyOTP,
       newPassword: values.newPassword,
     };
-    console.log(data);
+    const verifyOTPPromise = dispatch(resetPassword(data)).then((result) => {
+      if (result.payload.code === 200) {
+        router.push('/auth/signin');
+        return result.payload?.message;
+      } else {
+        throw new Error(result?.payload?.message || t('system.error'));
+      }
+    });
+    showToast('', ToastType.PROMISE, verifyOTPPromise);
   };
 
   return (
@@ -81,7 +95,13 @@ function ResetPassword() {
                 style={!isValid || !dirty || isLoading ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button disabled={!isValid || !dirty || isLoading} primary auth>
+                <Button
+                  auth
+                  primary
+                  type="submit"
+                  disabled={!isValid || !dirty || isLoading}
+                  leftIcon={isLoading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn12')}
                 </Button>
               </div>

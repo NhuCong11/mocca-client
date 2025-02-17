@@ -104,7 +104,7 @@
     }
   },
   "system": {
-    "error": "Đã sảy ra lỗi vui lòng thử lại sau"
+    "error": "Đã xảy ra lỗi vui lòng thử lại sau!"
   },
   "no-result": {
     "title-restaurant": "Rất tiếc, hiện không có cửa hàng nào",
