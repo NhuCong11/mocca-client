@@ -55,6 +55,7 @@ function LoginWWith2FA() {
         } else {
           resetForm();
           setInputs(Array(6).fill(''));
+          inputRefs.current[0].current?.focus();
           throw new Error(result?.payload.message || t('system.error'));
         }
       })
@@ -88,7 +89,7 @@ function LoginWWith2FA() {
           const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
             e.preventDefault();
             const pasteData = e.clipboardData.getData('text').slice(0, 6);
-            if (pasteData.length === 6) {
+            if (/^\d{6}$/.test(pasteData)) {
               const newInputs = pasteData.split('');
               setInputs(newInputs);
               setFieldValue('code', newInputs.join(''));
