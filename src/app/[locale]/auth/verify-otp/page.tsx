@@ -16,7 +16,7 @@ import useSessionStorage from '@/hooks/useSessionStorage';
 import { verifyOtpForgotPassword } from '@/services/authServices';
 import { showToast, ToastType } from '@/utils/toastUtils';
 
-interface VerifyOTPForgotPasswordInfo {
+export interface VerifyOTPForgotPasswordInfo {
   tokenForgot: string;
   otp: string;
 }

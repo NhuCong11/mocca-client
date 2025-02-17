@@ -7,8 +7,9 @@ import { callApi, HttpMethod } from '@/utils/apiUtils';
 import { LoginInfo } from '@/app/[locale]/auth/signin/page';
 import { SignUpInfo } from '@/app/[locale]/auth/signup/page';
 import { ForgotPasswordInfo } from '@/app/[locale]/auth/forgot-password/page';
-import { VerifyOTPForgotPasswordInfo } from '@/app/[locale]/auth/login-with-2fa/page';
+import { LoginWWith2FA } from '@/app/[locale]/auth/login-with-2fa/page';
 import { ResetPasswordInfo } from '@/app/[locale]/auth/reset-password/page';
+import { VerifyOTPForgotPasswordInfo } from '@/app/[locale]/auth/verify-otp/page';
 
 export const loginUser = createAsyncThunk<any, LoginInfo, RejectValueError>(
   'auth/login',
@@ -114,6 +115,27 @@ export const resetPassword = createAsyncThunk<any, ResetPasswordInfo, { rejectVa
       const response: AxiosResponse = await callApi(
         HttpMethod.POST,
         `/v1/auth/reset-password`,
+        null,
+        data,
+        customHeaders,
+      );
+      return response;
+    } catch (error: any) {
+      return rejectWithValue({ ...error });
+    }
+  },
+);
+
+export const loginWith2FA = createAsyncThunk<any, LoginWWith2FA, { rejectValue: { message: string } }>(
+  'auth/loginWith2FA',
+  async (data: LoginWWith2FA, { rejectWithValue }) => {
+    try {
+      const customHeaders = {
+        'accept-language': `${getCookie('lang')}`,
+      };
+      const response: AxiosResponse = await callApi(
+        HttpMethod.POST,
+        `/v1/auth/login-with-2fa`,
         null,
         data,
         customHeaders,

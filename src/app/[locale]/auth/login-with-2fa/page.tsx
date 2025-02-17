@@ -3,22 +3,29 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Loader } from '@mantine/core';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
 import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
 import InputText from '@/share/InputText';
+import { useRouter } from '@/i18n/routing';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { loginWith2FA } from '@/services/authServices';
+import { setCookie } from 'typescript-cookie';
+import { showToast, ToastType } from '@/utils/toastUtils';
 
-export interface VerifyOTPForgotPasswordInfo {
-  tokenForgot: string;
-  otp: string;
+export interface LoginWWith2FA {
+  token2FA?: string;
+  code: string;
 }
 
 function LoginWWith2FA() {
   const t = useTranslations();
-
-  const isLoading = false;
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.auth.loading);
 
   const [inputs, setInputs] = useState(Array(6).fill(''));
 
@@ -34,12 +41,27 @@ function LoginWWith2FA() {
     }
   };
 
-  const handleVerifyOTP = (
-    values: VerifyOTPForgotPasswordInfo,
-    resetForm: FormikHelpers<VerifyOTPForgotPasswordInfo>['resetForm'],
-  ) => {
-    console.log(values);
-    resetForm();
+  const handleVerifyCode = (values: LoginWWith2FA, resetForm: FormikHelpers<LoginWWith2FA>['resetForm']) => {
+    const token2FA = JSON.parse(String(sessionStorage.getItem('token2FA')));
+    const loginWith2FAPromise = dispatch(loginWith2FA({ token2FA: token2FA, code: values.code }))
+      .then((result) => {
+        if (result?.payload.code === 200) {
+          localStorage.setItem('accessToken', JSON.stringify(result.payload.data.accessToken));
+          setCookie('accessToken', JSON.stringify(result?.payload?.data.accessToken));
+          localStorage.setItem('refreshToken', JSON.stringify(result.payload.data.refreshToken));
+          localStorage.setItem('user', JSON.stringify(result.payload.data.user));
+          router.push('/');
+          return t('login.notify01');
+        } else {
+          resetForm();
+          setInputs(Array(6).fill(''));
+          throw new Error(result?.payload.message || t('system.error'));
+        }
+      })
+      .catch((err) => {
+        throw new Error(err?.message || t('system.error'));
+      });
+    showToast('', ToastType.PROMISE, loginWith2FAPromise);
   };
 
   useEffect(() => {
@@ -54,10 +76,10 @@ function LoginWWith2FA() {
       <p className={clsx(styles['auth__desc'], fonts.lora)}>{t('login-with-2fa.desc01')}</p>
 
       <Formik
-        initialValues={{ otp: '' } as VerifyOTPForgotPasswordInfo}
+        initialValues={{ code: '' } as LoginWWith2FA}
         validationSchema={validationSchema()}
-        onSubmit={(values: VerifyOTPForgotPasswordInfo, { resetForm }) => {
-          handleVerifyOTP(values, resetForm);
+        onSubmit={(values: LoginWWith2FA, { resetForm }) => {
+          handleVerifyCode(values, resetForm);
         }}
         validateOnChange={true}
         validateOnMount={true}
@@ -69,7 +91,7 @@ function LoginWWith2FA() {
             if (pasteData.length === 6) {
               const newInputs = pasteData.split('');
               setInputs(newInputs);
-              setFieldValue('otp', newInputs.join(''));
+              setFieldValue('code', newInputs.join(''));
             }
           };
 
@@ -79,7 +101,7 @@ function LoginWWith2FA() {
             const updatedInputs = [...inputs];
             updatedInputs[index] = value.slice(-1);
             setInputs(updatedInputs);
-            setFieldValue('otp', updatedInputs.join(''));
+            setFieldValue('code', updatedInputs.join(''));
 
             if (value && index < 5) {
               inputRefs.current[index + 1].current?.focus();
@@ -92,7 +114,7 @@ function LoginWWith2FA() {
                 {inputs.map((value, index) => (
                   <InputText
                     key={index}
-                    name={`otp`}
+                    name={`code`}
                     ref={inputRefs.current[index]}
                     value={value}
                     onPaste={handlePaste}
@@ -112,7 +134,12 @@ function LoginWWith2FA() {
                 style={!isValid || !dirty || isLoading ? { cursor: 'no-drop' } : {}}
                 className={clsx(styles['form__group'], styles['auth__btn-group'])}
               >
-                <Button disabled={!isValid || !dirty || isLoading} primary auth>
+                <Button
+                  auth
+                  primary
+                  disabled={!isValid || !dirty || isLoading}
+                  leftIcon={isLoading && <Loader size={30} color="var(--white)" />}
+                >
                   {t('button.btn10')}
                 </Button>
               </div>

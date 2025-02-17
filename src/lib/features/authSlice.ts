@@ -7,6 +7,7 @@ import {
   forgotPassword,
   getCaptcha,
   loginUser,
+  loginWith2FA,
   registerUser,
   resetPassword,
   verifyOtpForgotPassword,
@@ -151,6 +152,19 @@ const authSlice = createSlice({
         state.message = action?.payload?.message;
       })
       .addCase(resetPassword.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
+        state.message = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Login with 2FA
+      .addCase(loginWith2FA.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginWith2FA.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.message = action?.payload?.message;
+      })
+      .addCase(loginWith2FA.rejected, (state, action: ActionRejectedType) => {
         state.loading = false;
         state.message = action?.payload?.message || UNKNOWN_ERROR;
       });
