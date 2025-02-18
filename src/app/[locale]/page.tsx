@@ -12,6 +12,7 @@ import DefaultSkeleton from '@/share/Skeleton';
 import RestaurantCard from '@/components/RestaurantCard';
 import { RestaurantInfo } from '@/types';
 import AppPagination from '@/components/AppPagination';
+import ListSlider from '@/share/ListSlider';
 
 export default function Home() {
   const t = useTranslations();
@@ -44,6 +45,9 @@ export default function Home() {
         <RestaurantCard data={test} />
       </div>
       <AppPagination total={10} />
+      <div className="container">
+        <ListSlider />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,53 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.list {
+  &-promo {
+    padding-bottom: 40px;
+    @include media-breakpoint-down(md) {
+      padding-bottom: 50px;
+    }
+  }
+
+  &-wrapper {
+    max-height: 0;
+    animation: showList 0.3s linear forwards;
+
+    @keyframes showList {
+      from {
+        max-height: 0;
+      }
+      to {
+        max-height: 500px;
+      }
+    }
+
+    &-show {
+      max-height: 500px;
+    }
+  }
+}
+
+.list-slider {
+  padding-left: 0;
+  padding-right: 0;
+
+  .next-arrow {
+    top: 45%;
+    right: -35px;
+    height: 0;
+    &::before {
+      content: '';
+    }
+  }
+
+  .prev-arrow {
+    top: 45%;
+    left: -35px;
+    height: 0;
+    &::before {
+      content: '';
+    }
+  }
+}

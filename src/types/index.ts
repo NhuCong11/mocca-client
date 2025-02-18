@@ -2,6 +2,12 @@ export interface RejectValueError {
   rejectValue: { message: string };
 }
 
+export interface DefaultParams {
+  limit: number;
+  page: number;
+  keyword?: string;
+}
+
 export interface UserInfo {
   _id?: string;
   fullname?: string;
