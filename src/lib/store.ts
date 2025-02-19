@@ -2,6 +2,7 @@ import { configureStore, PayloadAction } from '@reduxjs/toolkit';
 import authSlice from './features/authSlice';
 import contactSlice from './features/contactSlice';
 import sliderSlice from './features/sliderSlice';
+import searchProductSlice from './features/searchProductSlice';
 interface MessagePayload {
   message: string;
 }
@@ -12,6 +13,7 @@ export const makeStore = () => {
       auth: authSlice,
       contact: contactSlice,
       slider: sliderSlice,
+      searchProduct: searchProductSlice,
     },
   });
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef } from 'react';
@@ -12,6 +13,9 @@ import { getGreeting, listBanner } from './constant';
 import Button from '@/share/Button';
 import { Link } from '@/i18n/routing';
 import InputText from '@/share/InputText';
+import { DefaultParams } from '@/types';
+import { searchProduct } from '@/services/searchProductServices';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 
 interface BannerProps {
   className?: string;
@@ -22,12 +26,6 @@ interface BannerProps {
   onHandleTotalPage?: (value?: any) => void;
 }
 
-export interface SearchProductProps {
-  limit?: number;
-  keyword?: string;
-  page?: number;
-}
-
 const Banner: React.FC<BannerProps> = ({
   page = 1,
   remove = false,
@@ -36,7 +34,8 @@ const Banner: React.FC<BannerProps> = ({
   onHandleTotalPage = () => {},
 }) => {
   const t = useTranslations();
-  const isLoading = false;
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.searchProduct.loading);
 
   const [bannerPath, setBannerPath] = useState(1);
   const [greeting, setGreeting] = useState('');
@@ -45,12 +44,21 @@ const Banner: React.FC<BannerProps> = ({
 
   const fetchApi = async (searchValue: string, page: number) => {
     onSearch('loading');
-    console.log(searchValue, page);
+    dispatch(searchProduct({ limit: 9, keyword: searchValue, page })).then((result) => {
+      if (result.payload?.code === 200) {
+        onHandleTotalPage(result.payload?.data?.totalPage);
+        // Cuộn trang xuống phần kết quả tìm kiếm
+        const windowHeight = window.innerHeight - 88;
+        const isMobile = window.innerWidth <= 768;
+        const adjustedWindowHeight = isMobile ? windowHeight / 2 : windowHeight;
+        window.scrollTo({ top: adjustedWindowHeight, behavior: 'smooth' });
+      }
+    });
     onSearch('true');
   };
 
   // Call api khi click tìm kiếm
-  const handleSearch = (values: SearchProductProps) => {
+  const handleSearch = (values: DefaultParams) => {
     if (!values.keyword || values.keyword.trim() === '') {
       handleClear();
       return;
@@ -67,15 +75,14 @@ const Banner: React.FC<BannerProps> = ({
     onSearch('false');
   };
 
-  // Thiết lập câu chào của banner theo thời gian thực
+  // Thiết lập câu chào theo thời gian thực
   useEffect(() => {
     const date = new Date();
     const hours = date.getHours();
     setGreeting(t(`${getGreeting(hours)}`));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Random ảnh của banner khi tải lại trang
+  // Random ảnh của banner
   useEffect(() => {
     const randomPath = Math.floor(Math.random() * 3);
     setBannerPath(randomPath);
@@ -83,7 +90,6 @@ const Banner: React.FC<BannerProps> = ({
 
   useEffect(() => {
     if (remove) handleClear();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [remove]);
 
   return (
@@ -104,7 +110,7 @@ const Banner: React.FC<BannerProps> = ({
             <div className={clsx(styles['banner__search'])}>
               <div className={clsx(styles['banner__search-container'])}>
                 <Formik
-                  initialValues={{ keyword: '' }}
+                  initialValues={{ keyword: '' } as DefaultParams}
                   validationSchema={validationSchema()}
                   onSubmit={(values) => {
                     handleSearch(values);
