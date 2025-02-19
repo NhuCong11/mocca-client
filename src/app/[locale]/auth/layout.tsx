@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './layout.module.scss';
 import { profileRoute } from '@/config/routes';
+import { MOCCA } from '@/constants';
 
 function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const pathName = usePathname();
@@ -18,7 +19,7 @@ function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
               priority
               width={145}
               height={45}
-              alt="Mocca Cafe"
+              alt={MOCCA}
               src={'/images/logo-vip1.png'}
               className={clsx(styles['logo__img'])}
             />

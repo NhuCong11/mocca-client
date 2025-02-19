@@ -202,5 +202,27 @@
   },
   "restaurantCard": {
     "desc01": "Rất nhiều ưu đãi"
+  },
+  "home": {
+    "title01": "Các cửa hàng mới mở tại",
+    "title02": "Danh mục sản phẩm",
+    "title03": "Cafe tuyển chọn",
+    "title04": "Nhiều tính năng thú vị hơn có sẵn trên ứng dụng của chúng tôi",
+    "title05": "CÀ PHÊ RANG",
+    "title06": "CHO TÂM TRẠNG CỦA BẠN",
+    "title07": "ĐA DẠNG CÀ PHÊ",
+    "title08": "HƯƠNG THƠM TUYỆT VỜI",
+    "title09": "CHẤT LƯỢNG CAO",
+    "result-title": "Kết quả tìm kiếm ",
+    "close-btn": "Đóng",
+    "see-all-restaurants": "Xem tất cả cửa hàng",
+    "read-more": "Đọc thêm",
+    "btn01": "Liên hệ chúng tôi",
+    "desc01": "Từ những ly cà phê nhỏ đến những bữa sáng trọn vẹn, chúng tôi không giới hạn niềm đam mê của bạn. Hãy yên tâm và đặt tất cả những gì bạn muốn. Chúng tôi tự hào là địa chỉ tin cậy để bạn thỏa mãn đam mê cà phê của mình.",
+    "desc02": "Tải xuống ứng dụng của chúng tôi để sử dụng các phương thức thanh toán khác và tận hưởng khả năng đặt cà phê mọi lúc mọi nơi.",
+    "desc03": "Hương vị cà phê đậm đà đã trở nên quen thuộc trong nhịp sống mỗi ngày của mỗi người chúng ta. Người Việt có phong cách thưởng thức cà phê một cách rất riêng: ngồi bên tách cà phê, vừa nhấp từng ngụm nhỏ vừa đọc báo, nghe nhạc, trò chuyện cùng bạn bè. Cùng đối tác làm ăn, hay ngồi làm việc, và còn để suy ngẫm về cuộc sống, về con người.",
+    "desc04": "Các loại cà phê rang xay nguyên hạt, pha phin, pha máy, Espresso...",
+    "desc05": "Thưởng thức hương vị tinh túy của đất trời với niềm đam mê cà phê.",
+    "desc06": "Niềm tự hào là sản phẩm cà phê rang xay nguyên chất."
   }
 }

@@ -201,5 +201,27 @@
   },
   "restaurantCard": {
     "desc01": "Many promotions"
+  },
+  "home": {
+    "title01": "Newly Opened Stores in",
+    "title02": "Product Categories",
+    "title03": "Curated Cafes",
+    "title04": "More cool features available on the app",
+    "title05": "ROASTED COFFEE",
+    "title06": "FOR YOUR MOOD",
+    "title07": "VARIETY OF COFFEE",
+    "title08": "WONDERFUL AROMA",
+    "title09": "HIGH QUALITY",
+    "result-title": "Search results",
+    "close-btn": "Close",
+    "see-all-restaurants": "See All Stores",
+    "read-more": "Read more",
+    "btn01": "Contact us",
+    "desc01": "From small coffee cups to complete breakfasts, we don’t limit your passion. Feel free to order everything you want. We are proud to be the reliable destination for satisfying your coffee cravings.",
+    "desc02": "Download our app to use different payment methods and enjoy the ability to order coffee anytime, anywhere.",
+    "desc03": "The rich flavor of coffee has become familiar in the daily rhythm of each of us. Vietnamese people have a very unique way of enjoying coffee: sitting by a cup of coffee, sipping small sips while reading the newspaper, listening to music, chatting with friends. With business partners, or sitting to work, and also to reflect on life, on people.",
+    "desc04": "Various types of roasted whole bean coffee, drip coffee, machine coffee, Espresso...",
+    "desc05": "Enjoy the essence of the earth with a passion for coffee.",
+    "desc06": "Proudly a product of pure roasted coffee."
   }
 }

@@ -19,6 +19,7 @@ import { logout } from '@/lib/features/authSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getLocalStorageItem } from '@/utils/localStorage';
 import { UserInfo } from '@/types';
+import { MOCCA } from '@/constants';
 
 function AppHeader() {
   const t = useTranslations();
@@ -168,7 +169,7 @@ function AppHeader() {
               height={65}
               src={'/images/logo-vip1.png'}
               priority
-              alt="logo"
+              alt={MOCCA}
               className={clsx(styles['header__logo'])}
             />
           </Link>

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import CustomLink from '@/share/CustomLink';
 import styles from './AppFooter.module.scss';
 import { footerLinks, socialLinks } from './constant';
+import { MOCCA } from '@/constants';
 
 function AppFooter() {
   const t = useTranslations();
@@ -18,7 +19,7 @@ function AppFooter() {
             height={71}
             src="/images/logo-vip1.png"
             priority
-            alt="Mocca Cafe"
+            alt={MOCCA}
             className={clsx(styles.footer__logo)}
           />
         </CustomLink>
@@ -71,7 +72,7 @@ function AppFooter() {
           </div>
           <div className={clsx(styles['footer__bottom-group'])}>
             <div className={clsx(styles['footer__bottom-wrapper'])}>
-              <p className={clsx(styles['footer__bottom-text'])}>© 2024 Mocca Cafe</p>
+              <p className={clsx(styles['footer__bottom-text'])}>© 2025 {MOCCA}</p>
             </div>
             <div className={clsx(styles['footer__bottom-wrapper'])}>
               {['footer.title07', 'footer.title09'].map((key, index) => (
