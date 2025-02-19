@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { IconCoffee } from '@tabler/icons-react';
+import { IconCategory2, IconCoffee } from '@tabler/icons-react';
 
 import { bannerFooterItems, infoItems } from './constants';
 import styles from '@/styles/Home.module.scss';
@@ -28,7 +28,10 @@ export default function Home() {
         <Button primary className={clsx(styles['home__btn'])} to={'/restaurants'}>
           {t('home.see-all-restaurants')}
         </Button>
-        <h2 className={clsx(styles['home__title-2'], styles['home__title--margin'])}>{t('home.title02')}</h2>
+        <h2 className={clsx(styles['home__title-2'], styles['home__title--margin'])}>
+          <IconCategory2 size={30} color="var(--primary-bg)" />
+          {t('home.title02')}
+        </h2>
       </div>
 
       <section className={clsx(styles['home__contact'])}>
