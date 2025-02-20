@@ -3,6 +3,7 @@ import authSlice from './features/authSlice';
 import contactSlice from './features/contactSlice';
 import sliderSlice from './features/sliderSlice';
 import searchProductSlice from './features/searchProductSlice';
+import categoriesSlice from './features/categoriesSlice';
 interface MessagePayload {
   message: string;
 }
@@ -14,6 +15,7 @@ export const makeStore = () => {
       contact: contactSlice,
       slider: sliderSlice,
       searchProduct: searchProductSlice,
+      categories: categoriesSlice,
     },
   });
 };

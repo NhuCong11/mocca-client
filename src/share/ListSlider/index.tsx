@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './Slider.module.scss';
-import RestaurantCard from '@/components/RestaurantCard';
+import RestaurantCard from '@/share/RestaurantCard';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getSlider } from '@/services/sliderServices';
 import { IconChevronCompactLeft, IconChevronCompactRight } from '@tabler/icons-react';

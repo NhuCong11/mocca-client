@@ -11,6 +11,7 @@ import Button from '@/share/Button';
 import Banner from '@/components/Banner';
 import ListSlider from '@/share/ListSlider';
 import { Link } from '@/i18n/routing';
+import Categories from '@/components/Categories';
 
 export default function Home() {
   const t = useTranslations();
@@ -32,6 +33,7 @@ export default function Home() {
           <IconCategory2 size={30} color="var(--primary-bg)" />
           {t('home.title02')}
         </h2>
+        <Categories />
       </div>
 
       <section className={clsx(styles['home__contact'])}>
