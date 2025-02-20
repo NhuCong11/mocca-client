@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { IconCategory2, IconCoffee } from '@tabler/icons-react';
+import { IconCategory, IconCategory2, IconCoffee } from '@tabler/icons-react';
 
 import { bannerFooterItems, infoItems } from './constants';
 import styles from '@/styles/Home.module.scss';
@@ -21,6 +21,7 @@ export default function Home() {
       <Banner />
       <div className={clsx('container gx-5')}>
         <h1 className={clsx(styles['home__title-1'])}>
+          <IconCategory size={30} color="var(--primary-bg)" />
           {t('home.title01')}
           <IconCoffee size={30} color="var(--coffee-color)" />
           <span className={clsx(styles['home__title-1--highlight'])}>{MOCCA}</span>
