@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { Loader } from '@mantine/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -25,7 +25,9 @@ function Categories() {
   const { loading, listCategories, data } = useAppSelector((state) => state.categories);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const hasMore = currentPage < Number(data?.totalPage);
+  const hasMore = useMemo(() => {
+    return currentPage < Number(data?.totalPage);
+  }, [currentPage, data?.totalPage]);
 
   const fetchMoreData = useCallback(() => {
     if (!loading) {
