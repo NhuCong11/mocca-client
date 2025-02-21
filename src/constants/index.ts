@@ -6,7 +6,8 @@ export const ERROR_MESSAGES = {
 };
 
 export const MINIMUM_AGE = 14;
-
 export const UNKNOWN_ERROR = 'Unknown error';
-
 export const MOCCA = 'Mocca Cafe';
+export const MCAFE = 'MCafe';
+export const REVIEW = 'Reviews';
+export const EMPTY_CHAR = '-----';

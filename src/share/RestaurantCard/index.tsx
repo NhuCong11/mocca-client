@@ -2,12 +2,14 @@ import Image from 'next/image';
 import { memo } from 'react';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { IconStar, IconStarFilled, IconStarHalfFilled, IconTags } from '@tabler/icons-react';
+import { Rating } from '@mantine/core';
+import { IconTags } from '@tabler/icons-react';
 
 import styles from './RestaurantCard.module.scss';
 import { RestaurantInfo } from '@/types';
 import useSessionStorage from '@/hooks/useSessionStorage';
 import { Link } from '@/i18n/routing';
+import { EMPTY_CHAR, MCAFE, REVIEW } from '@/constants';
 
 interface RestaurantCardProps {
   data: RestaurantInfo;
@@ -17,17 +19,6 @@ interface RestaurantCardProps {
 function RestaurantCard({ data, className }: RestaurantCardProps) {
   const t = useTranslations();
   const { setItem } = useSessionStorage();
-
-  const rating = data.rating || 0;
-  const fullStars = Math.floor(rating);
-  const halfStars = rating - fullStars !== 0;
-  const stars = [];
-
-  for (let i = 1; i <= 5; i++) {
-    if (i <= fullStars) stars.push(<IconStarFilled className={clsx(styles['star-icon'])} />);
-    else if (i === fullStars + 1 && halfStars) stars.push(<IconStarHalfFilled className={clsx(styles['star-icon'])} />);
-    else stars.push(<IconStar className={clsx(styles['star-icon'])} />);
-  }
 
   return (
     <Link href={`/restaurants/${data?.slug}`}>
@@ -39,7 +30,7 @@ function RestaurantCard({ data, className }: RestaurantCardProps) {
         }}
       >
         <div className={clsx(styles['restaurant__label'])}>
-          <span className={clsx(styles['restaurant__label-text'])}>MCafe</span>
+          <span className={clsx(styles['restaurant__label-text'])}>{MCAFE}</span>
           <div className={clsx(styles['restaurant__label-tail'])}></div>
         </div>
 
@@ -49,26 +40,16 @@ function RestaurantCard({ data, className }: RestaurantCardProps) {
           height={270}
           priority
           className={clsx(styles['restaurant__img'])}
-          alt="Restaurant image"
+          alt={data?.fullname || 'Restaurant image'}
         />
 
         <div className={clsx(styles['restaurant__info'])}>
-          <div className={clsx(styles['restaurant__name'])}>{data?.fullname}</div>
-          <p className={clsx(styles['restaurant__desc'])}>{data?.description}</p>
+          <h4 className={clsx(styles['restaurant__name'])}>{data?.fullname}</h4>
+          <p className={clsx(styles['restaurant__desc'])}>{data?.description ?? EMPTY_CHAR}</p>
           <div className={clsx(styles['restaurant__rating'])}>
-            <span className={clsx(styles['restaurant__rating-text'])}>
-              {data?.rating ? data.rating.toFixed(1) : 'N/A'}
-            </span>
-            <div className={clsx(styles['restaurant__rating-stars'])}>
-              {stars.map((star, index) => {
-                return (
-                  <div className={clsx(styles['restaurant__rating-star'])} key={index}>
-                    {star}
-                  </div>
-                );
-              })}
-            </div>
-            <p className={clsx(styles['restaurant__rating-text'])}>Reviews</p>
+            {data?.rating ? data.rating.toFixed(1) : 'N/A'}
+            <Rating value={Number(data.rating || 0)} size="lg" fractions={2} readOnly />
+            <p className={clsx(styles['restaurant__rating-text'])}>{REVIEW}</p>
           </div>
 
           <div className={clsx(styles['restaurant__discount'])}>

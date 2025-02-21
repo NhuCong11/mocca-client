@@ -80,30 +80,6 @@
     @include media-breakpoint-down(md) {
       gap: 5px;
     }
-
-    &-text {
-      font-size: 1.5rem;
-      font-weight: 500;
-      line-height: 1.5;
-      color: var(--secondary-text-color);
-    }
-
-    &-stars,
-    &-star {
-      display: flex;
-      align-items: center;
-    }
-
-    &-star {
-      width: 18px;
-      height: 18px;
-      color: #f7c942;
-
-      @include media-breakpoint-down(md) {
-        width: 14px;
-        height: 14px;
-      }
-    }
   }
 
   &__discount {
