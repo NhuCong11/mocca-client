@@ -174,7 +174,7 @@ function About() {
                     name="fullname"
                     type="text"
                     placeholder={t('form.tp03')}
-                    Icon={<IconUser />}
+                    LeftIcon={<IconUser />}
                     readOnly={isLoading}
                   />
                   <InputText
@@ -183,7 +183,7 @@ function About() {
                     type="tel"
                     maxLength={10}
                     placeholder={t('form.tp05')}
-                    Icon={<IconPhone />}
+                    LeftIcon={<IconPhone />}
                     readOnly={isLoading}
                   />
                   <InputText
@@ -191,7 +191,7 @@ function About() {
                     name="email"
                     type="email"
                     placeholder={t('form.tp01')}
-                    Icon={<IconMail />}
+                    LeftIcon={<IconMail />}
                     readOnly={isLoading}
                   />
                 </div>
@@ -200,7 +200,7 @@ function About() {
                   name="message"
                   type="text"
                   placeholder={t('form.tp06')}
-                  Icon={<IconMessage />}
+                  LeftIcon={<IconMessage />}
                   readOnly={isLoading}
                 />
                 <div className={clsx(styles['about__contact-btn'])}>

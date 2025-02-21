@@ -381,6 +381,7 @@
   &__title {
     font-size: 1.8rem;
     line-height: 1.5;
+    color: var(--text-color);
   }
 
   &__item {
@@ -393,6 +394,7 @@
 
     &-desc {
       margin-top: 8px;
+      color: var(--text-color);
     }
   }
 }
