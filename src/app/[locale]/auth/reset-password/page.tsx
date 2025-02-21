@@ -1,21 +1,21 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
 import { Loader } from '@mantine/core';
+import { IconLock } from '@tabler/icons-react';
 
 import styles from '../layout.module.scss';
 import validationSchema from './schema';
 import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
-import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
-import { IconKey } from '@tabler/icons-react';
 import { useRouter } from '@/i18n/routing';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { resetPassword } from '@/services/authServices';
 import { showToast, ToastType } from '@/utils/toastUtils';
+import { IconKeyPassword } from '../constant';
 
 export interface ResetPasswordInfo {
   tokenVerifyOTP: string;
@@ -29,11 +29,11 @@ function ResetPassword() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.auth.loading);
 
-  const [showPassword, setShowPassword] = useState('password');
+  const [showPassword, setShowPassword] = useState({ new: false, confirm: false });
 
-  const handleShowPassword = () => {
-    setShowPassword(showPassword === 'password' ? 'text' : 'password');
-  };
+  const handleShowPassword = useCallback((type: 'new' | 'confirm') => {
+    setShowPassword((prevState) => ({ ...prevState, [type]: !prevState[type] }));
+  }, []);
 
   const handleResetPassword = (values: ResetPasswordInfo) => {
     const tokenVerifyOTP = JSON.parse(String(sessionStorage.getItem('tokenVerifyOTP')));
@@ -72,24 +72,26 @@ function ResetPassword() {
               <InputText
                 label={t('form.tp02')}
                 name="newPassword"
-                type={showPassword}
+                type={showPassword.new ? 'text' : 'password'}
                 placeholder={t('form.tp02')}
-                Icon={<IconKey />}
+                LeftIcon={<IconLock />}
+                RightIcon={
+                  <IconKeyPassword showPassword={showPassword.new} onToggle={() => handleShowPassword('new')} />
+                }
                 readOnly={isLoading}
               />
 
               <InputText
                 label={t('form.tp04')}
                 name="confirmPassword"
-                type={showPassword}
+                type={showPassword.confirm ? 'text' : 'password'}
                 placeholder={t('form.tp04')}
-                Icon={<IconKey />}
+                LeftIcon={<IconLock />}
+                RightIcon={
+                  <IconKeyPassword showPassword={showPassword.confirm} onToggle={() => handleShowPassword('confirm')} />
+                }
                 readOnly={isLoading}
               />
-
-              <div className={clsx(styles['auth__group'])}>
-                <Checkbox checkLabel={t('form.lb01')} onChange={handleShowPassword} />
-              </div>
 
               <div
                 style={!isValid || !dirty || isLoading ? { cursor: 'no-drop' } : {}}

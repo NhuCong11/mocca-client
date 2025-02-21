@@ -1,18 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
-import { IconBrandGoogleFilled, IconKey, IconMail } from '@tabler/icons-react';
+import { IconBrandGoogleFilled, IconLock, IconMail } from '@tabler/icons-react';
 import { Loader } from '@mantine/core';
 import { setCookie } from 'typescript-cookie';
 
 import styles from '../layout.module.scss';
+import { IconKeyPassword } from '../constant';
 import validationSchema from './schema';
 import { Link, useRouter } from '@/i18n/routing';
 import Button from '@/share/Button';
 import { fonts } from '@/styles/fonts';
-import Checkbox from '@/share/Checkbox';
 import InputText from '@/share/InputText';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { loginUser } from '@/services/authServices';
@@ -31,11 +31,9 @@ function SignIn() {
   const { setItem } = useSessionStorage();
   const isLogin = useAppSelector((state) => state.auth.isLogin);
   const isLoading = useAppSelector((state) => state?.auth.loading);
-  const [showPassword, setShowPassword] = useState('password');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleShowPassword = () => {
-    setShowPassword(showPassword === 'password' ? 'text' : 'password');
-  };
+  const handleShowPassword = useCallback(() => setShowPassword((prev) => !prev), []);
 
   const handleSubmit = async (values: LoginInfo) => {
     const token = localStorage.getItem('accessToken');
@@ -89,21 +87,20 @@ function SignIn() {
                 name="email"
                 type="email"
                 placeholder={t('form.tp01')}
-                Icon={<IconMail />}
+                LeftIcon={<IconMail />}
                 readOnly={isLoading}
               />
               <InputText
                 label={t('form.tp02')}
                 name="password"
-                type={showPassword}
+                type={showPassword ? 'text' : 'password'}
                 placeholder={t('form.tp02')}
-                Icon={<IconKey />}
+                LeftIcon={<IconLock />}
+                RightIcon={<IconKeyPassword showPassword={showPassword} onToggle={handleShowPassword} />}
                 readOnly={isLoading}
               />
 
               <div className={clsx(styles['auth__group'])}>
-                <Checkbox checkLabel={t('form.lb01')} onChange={handleShowPassword} />
-
                 <Link className={clsx(styles['auth__link'], styles['auth__pull-right'])} href={'/auth/forgot-password'}>
                   {t('forgot-password.heading')}
                 </Link>

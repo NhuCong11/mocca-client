@@ -1,18 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
 import { useTranslations } from 'next-intl';
 import { Loader } from '@mantine/core';
-import { IconKey, IconMail, IconUser } from '@tabler/icons-react';
+import { IconLock, IconMail, IconUser } from '@tabler/icons-react';
 
 import styles from '../layout.module.scss';
+import { IconKeyPassword } from '../constant';
 import validationSchema from './schema';
 import Button from '@/share/Button';
-import { Link, useRouter } from '@/i18n/routing';
-import Checkbox from '@/share/Checkbox';
-import InputText from '@/share/InputText';
 import { fonts } from '@/styles/fonts';
+import InputText from '@/share/InputText';
+import { Link, useRouter } from '@/i18n/routing';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { registerUser } from '@/services/authServices';
 import { showToast, ToastType } from '@/utils/toastUtils';
@@ -29,11 +29,9 @@ function SignUp() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.auth.loading);
 
-  const [showPassword, setShowPassword] = useState('password');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleShowPassword = () => {
-    setShowPassword(showPassword === 'password' ? 'text' : 'password');
-  };
+  const handleShowPassword = useCallback(() => setShowPassword((prev) => !prev), []);
 
   const handleSubmit = async (values: SignUpInfo) => {
     const signupPromise = dispatch(registerUser(values))
@@ -74,7 +72,7 @@ function SignUp() {
                 name="fullname"
                 type="text"
                 placeholder={t('form.tp03')}
-                Icon={<IconUser />}
+                LeftIcon={<IconUser />}
                 readOnly={isLoading}
               />
               <InputText
@@ -82,21 +80,18 @@ function SignUp() {
                 name="email"
                 type="email"
                 placeholder={t('form.tp01')}
-                Icon={<IconMail />}
+                LeftIcon={<IconMail />}
                 readOnly={isLoading}
               />
               <InputText
                 label={t('form.tp02')}
                 name="password"
-                type={showPassword}
+                type={showPassword ? 'text' : 'password'}
                 placeholder={t('form.tp02')}
-                Icon={<IconKey />}
+                LeftIcon={<IconLock />}
+                RightIcon={<IconKeyPassword showPassword={showPassword} onToggle={handleShowPassword} />}
                 readOnly={isLoading}
               />
-
-              <div className={clsx(styles['auth__group'])}>
-                <Checkbox checkLabel={t('form.lb01')} onChange={handleShowPassword} />
-              </div>
 
               <div
                 style={!isValid || !dirty ? { cursor: 'no-drop' } : {}}

@@ -20,7 +20,7 @@
     border-radius: 10px;
     border: 1.5px solid #d2d1d6;
     transition: all linear 0.2s;
-    
+
     &--sm {
       padding: 10px;
       height: 45px;
@@ -52,10 +52,15 @@
   }
 
   &__input-icon {
-    margin-left: 12px;
+    margin-right: 12px;
     filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(268%) hue-rotate(206deg) brightness(91%)
       contrast(88%);
-
+    &--right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 12px;
+    }
     &--err {
       filter: brightness(0) saturate(100%) invert(33%) sepia(33%) saturate(3942%) hue-rotate(341deg) brightness(99%)
         contrast(93%);

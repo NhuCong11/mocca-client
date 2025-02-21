@@ -144,7 +144,7 @@ function ForgotPassword() {
                 name="email"
                 type="email"
                 placeholder={t('form.tp01')}
-                Icon={<IconMail />}
+                LeftIcon={<IconMail />}
                 readOnly={loading}
               />
 

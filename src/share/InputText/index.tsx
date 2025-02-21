@@ -7,7 +7,8 @@ import styles from './Input.module.scss';
 interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name: string;
-  Icon?: React.ReactNode;
+  LeftIcon?: React.ReactNode;
+  RightIcon?: React.ReactNode;
   sm?: boolean;
   textCenter?: boolean;
   isNumber?: boolean;
@@ -16,7 +17,20 @@ interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const InputText = forwardRef<HTMLInputElement, InputTextProps>(
   (
-    { label, name, type = 'text', Icon, placeholder = '', className, sm, textCenter, isNumber, noChange, ...passProps },
+    {
+      label,
+      name,
+      type = 'text',
+      LeftIcon,
+      RightIcon,
+      placeholder = '',
+      className,
+      sm,
+      textCenter,
+      isNumber,
+      noChange,
+      ...passProps
+    },
     ref,
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,6 +57,17 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           })}
           style={meta.touched && meta.error ? { border: '1px solid #f44336' } : {}}
         >
+          {LeftIcon && (
+            <span
+              className={clsx(
+                styles['form__input-icon'],
+                meta.touched && meta.error && styles['form__input-icon--err'],
+              )}
+            >
+              {LeftIcon}
+            </span>
+          )}
+
           <Field
             type={type}
             id={name}
@@ -57,16 +82,8 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
             {...passProps}
           />
 
-          {/* Optional Icon */}
-          {Icon && (
-            <span
-              className={clsx(
-                styles['form__input-icon'],
-                meta.touched && meta.error && styles['form__input-icon--err'],
-              )}
-            >
-              {Icon}
-            </span>
+          {RightIcon && (
+            <span className={clsx(styles['form__input-icon'], styles['form__input-icon--right'])}>{RightIcon}</span>
           )}
         </div>
 
