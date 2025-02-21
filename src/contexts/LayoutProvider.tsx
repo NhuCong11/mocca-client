@@ -12,6 +12,7 @@ import AppFooter from '@/components/AppFooter';
 import AppGoToTop from '@/components/AppGoToTop';
 import { defaultLayoutRoutes } from '@/config/routes';
 import { usePathname } from '@/i18n/routing';
+import AppThemeToggle from '@/components/AppThemeToggle';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   const pathName = usePathname();
@@ -41,6 +42,7 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
         {defaultLayoutRoutes.includes(pathName) && <AppHeader />}
         {children}
         {defaultLayoutRoutes.includes(pathName) && <AppFooter />}
+        <AppThemeToggle />
         <AppGoToTop />
         <Toaster
           gutter={8}
