@@ -3,6 +3,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Timeline } from '@mantine/core';
 import { IconMail, IconMessage, IconPhone, IconQuoteFilled, IconSend, IconUser } from '@tabler/icons-react';
 
 import styles from './About.module.scss';
@@ -112,25 +113,26 @@ function About() {
           {/* Journey */}
           <div className={clsx(styles['about__main'])}>
             <h3 className={clsx(styles['about__main-title'])}>{t('about-MoccaCafe.heading08')}</h3>
-            <div className={clsx(styles['journey-list'])}>
-              {journeyData.map((journey, index) => (
-                <div key={index} className={clsx(styles['journey-item'])}>
-                  <Image
-                    width={342}
-                    height={200}
-                    data-aos={journey.animation}
-                    src={journey.src}
-                    alt=""
-                    className={clsx(styles['journey-item__img'])}
-                  />
-                  <div className={clsx(styles['journey-item__dot'])}></div>
-                  <div className={clsx(styles['journey-item__line'])}></div>
-                  <div data-aos="fade-up-left" className={clsx(styles['journey-item__desc'])}>
-                    <h4 className={clsx(styles['title'])}>{t(`about-MoccaCafe.${journey.key}`)}</h4>
-                    <p className={clsx(styles['text'])}>{t(`about-MoccaCafe.${journey.desc}`)}</p>
-                  </div>
-                </div>
-              ))}
+            <div className={clsx(styles['journey'])}>
+              <Timeline color="var(--primary-bg)" active={journeyData.length} bulletSize={18}>
+                {journeyData.map((journey, index) => (
+                  <Timeline.Item
+                    key={index}
+                    title={<h4 className={clsx(styles['journey__title'])}>{t(`about-MoccaCafe.${journey.key}`)}</h4>}
+                  >
+                    <div className={clsx(styles['journey__item'])} data-aos={journey.animation}>
+                      <Image
+                        width={342}
+                        height={200}
+                        src={journey.src}
+                        alt={`journey-item-${index}`}
+                        className={clsx(styles['journey__item-img'])}
+                      />
+                      <p className={clsx(styles['journey__item-desc'])}>{t(`about-MoccaCafe.${journey.desc}`)}</p>
+                    </div>
+                  </Timeline.Item>
+                ))}
+              </Timeline>
             </div>
           </div>
         </div>
