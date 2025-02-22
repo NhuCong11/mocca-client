@@ -223,5 +223,9 @@
     "desc04": "Various types of roasted whole bean coffee, drip coffee, machine coffee, Espresso...",
     "desc05": "Enjoy the essence of the earth with a passion for coffee.",
     "desc06": "Proudly a product of pure roasted coffee."
+  },
+  "list-result": {
+    "list-products": "Product list",
+    "list-restaurants": "Restaurant Llst"
   }
 }

@@ -224,5 +224,9 @@
     "desc04": "Các loại cà phê rang xay nguyên hạt, pha phin, pha máy, Espresso...",
     "desc05": "Thưởng thức hương vị tinh túy của đất trời với niềm đam mê cà phê.",
     "desc06": "Niềm tự hào là sản phẩm cà phê rang xay nguyên chất."
+  },
+  "list-result": {
+    "list-products": "Danh sách sản phẩm",
+    "list-restaurants": "Danh sách nhà hàng"
   }
 }

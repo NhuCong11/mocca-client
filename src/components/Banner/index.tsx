@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
+import { Loader } from '@mantine/core';
 import { IconCircleDashedX, IconSearch } from '@tabler/icons-react';
 
 import styles from './Banner.module.scss';
@@ -16,6 +17,7 @@ import InputText from '@/share/InputText';
 import { DefaultParams } from '@/types';
 import { searchProduct } from '@/services/searchProductServices';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 interface BannerProps {
   className?: string;
@@ -23,7 +25,6 @@ interface BannerProps {
   remove?: boolean;
   onSearch?: (value?: any) => void;
   onHandleRemove?: (value?: any) => void;
-  onHandleTotalPage?: (value?: any) => void;
 }
 
 const Banner: React.FC<BannerProps> = ({
@@ -31,14 +32,16 @@ const Banner: React.FC<BannerProps> = ({
   remove = false,
   onSearch = () => {},
   onHandleRemove = () => {},
-  onHandleTotalPage = () => {},
 }) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { getParam, updateParams, clearParams } = useQueryParams();
+  const keyword = getParam('keyword');
   const isLoading = useAppSelector((state) => state.searchProduct.loading);
 
-  const [bannerPath, setBannerPath] = useState(1);
   const [greeting, setGreeting] = useState('');
+  const [bannerPath, setBannerPath] = useState(1);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const setFieldValueRef = useRef<(field: string, value: any) => void>(null);
 
@@ -46,8 +49,6 @@ const Banner: React.FC<BannerProps> = ({
     onSearch('loading');
     dispatch(searchProduct({ limit: 9, keyword: searchValue, page })).then((result) => {
       if (result.payload?.code === 200) {
-        onHandleTotalPage(result.payload?.data?.totalPage);
-        // Cuộn trang xuống phần kết quả tìm kiếm
         const windowHeight = window.innerHeight - 88;
         const isMobile = window.innerWidth <= 768;
         const adjustedWindowHeight = isMobile ? windowHeight / 2 : windowHeight;
@@ -57,14 +58,16 @@ const Banner: React.FC<BannerProps> = ({
     onSearch('true');
   };
 
-  // Call api khi click tìm kiếm
+  // Call api tìm kiếm
   const handleSearch = (values: DefaultParams) => {
+    const isNewKeyword = values.keyword !== keyword;
     if (!values.keyword || values.keyword.trim() === '') {
       handleClear();
       return;
     }
     onHandleRemove();
-    fetchApi(String(values.keyword), 1);
+    updateParams({ keyword: String(values.keyword), page: isNewKeyword ? '1' : String(page) });
+    fetchApi(String(values.keyword), isNewKeyword ? 1 : page);
   };
 
   const handleClear = () => {
@@ -73,6 +76,7 @@ const Banner: React.FC<BannerProps> = ({
     }
     onHandleRemove();
     onSearch('false');
+    clearParams();
   };
 
   // Thiết lập câu chào theo thời gian thực
@@ -82,7 +86,7 @@ const Banner: React.FC<BannerProps> = ({
     setGreeting(t(`${getGreeting(hours)}`));
   }, []);
 
-  // Random ảnh của banner
+  // Random background banner
   useEffect(() => {
     const randomPath = Math.floor(Math.random() * 3);
     setBannerPath(randomPath);
@@ -91,6 +95,23 @@ const Banner: React.FC<BannerProps> = ({
   useEffect(() => {
     if (remove) handleClear();
   }, [remove]);
+
+  useEffect(() => {
+    if (!isInitialLoad && keyword && page) {
+      fetchApi(String(keyword), page);
+    } else {
+      setIsInitialLoad(false);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if (setFieldValueRef.current) {
+      setFieldValueRef.current('keyword', keyword ?? '');
+    }
+    if (keyword) {
+      handleSearch({ keyword: keyword } as DefaultParams);
+    }
+  }, [keyword]);
 
   return (
     <div className={clsx(styles['banner'])} style={{ backgroundImage: `url(${listBanner[bannerPath]})` }}>
@@ -136,10 +157,12 @@ const Banner: React.FC<BannerProps> = ({
                             <IconCircleDashedX width={20} height={20} className={clsx(styles['banner__icon-close'])} />
                           </div>
                         )}
-                        {!isLoading && (
+                        {!isLoading ? (
                           <div onClick={() => handleSearch(values)}>
                             <IconSearch width={24} height={24} className={clsx(styles['banner__icon-search'])} />
                           </div>
+                        ) : (
+                          <Loader size={30} className={clsx(styles['banner__icon-search'])} />
                         )}
                       </Form>
                     );

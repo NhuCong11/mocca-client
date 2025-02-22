@@ -1,8 +1,10 @@
 'use client';
 import Image from 'next/image';
+import { useState } from 'react';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { IconCategory, IconCategory2, IconCoffee } from '@tabler/icons-react';
+import { Loader } from '@mantine/core';
+import { IconCategory, IconCategory2, IconCircleDashedX, IconCoffee } from '@tabler/icons-react';
 
 import { bannerFooterItems, infoItems } from './constants';
 import styles from '@/styles/Home.module.scss';
@@ -12,14 +14,71 @@ import Banner from '@/components/Banner';
 import ListSlider from '@/share/ListSlider';
 import { Link } from '@/i18n/routing';
 import Categories from '@/components/Categories';
+import { useAppSelector } from '@/lib/hooks';
+import BannerResults from '@/components/BannerResults';
+import AppPagination from '@/components/AppPagination';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 export default function Home() {
   const t = useTranslations();
+  const { getParam, clearParams } = useQueryParams();
+  const searchProduct = useAppSelector((state) => state.searchProduct);
+
+  const [isRemove, setIsRemove] = useState(false);
+  const [isSearch, setIsSearch] = useState<'loading' | 'true' | 'false'>('false');
+
+  const handleRemove = () => {
+    setIsRemove(false);
+  };
+  const handleToggleSearch = (type: 'loading' | 'true' | 'false') => {
+    setIsSearch(type);
+  };
+  const handleClickClose = () => {
+    setIsRemove(true);
+    handleToggleSearch('false');
+    clearParams();
+  };
+
+  const getIsSearch = () => {
+    if (isSearch === 'loading') {
+      return 'home__search--loading';
+    } else if (isSearch === 'true') {
+      return 'home__search--show';
+    } else if (isSearch === 'false') {
+      return 'home__search--hidden';
+    } else {
+      return '';
+    }
+  };
 
   return (
     <div className={clsx(styles['home'])}>
-      <Banner />
+      <Banner
+        remove={isRemove}
+        onHandleRemove={handleRemove}
+        onSearch={handleToggleSearch}
+        page={Number(getParam('page'))}
+      />
+
       <div className={clsx('container gx-5')}>
+        {searchProduct.loading ? (
+          <div className={clsx(styles['home__search-loading'])}>
+            <Loader size={60} color="var(--primary-bg)" />
+          </div>
+        ) : (
+          <div className={clsx(styles[`${getIsSearch()}`])}>
+            <div className={clsx(styles['home__search-container'])}>
+              <h4 className={clsx(styles['home__search-title'])}>{t('home.result-title')}</h4>
+              <div className={clsx(styles['home__close'])} onClick={handleClickClose}>
+                <h4 className={clsx(styles['home__close-title'])}>{t('home.close-btn')}</h4>
+                <IconCircleDashedX className={clsx(styles['home__close-icon'])} />
+              </div>
+            </div>
+            <BannerResults />
+            <AppPagination total={searchProduct.totalPage} />
+          </div>
+        )}
+
         <h1 className={clsx(styles['home__title-1'])}>
           <IconCategory size={30} color="var(--primary-bg)" />
           {t('home.title01')}

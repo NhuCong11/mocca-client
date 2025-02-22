@@ -96,26 +96,24 @@
       }
     }
 
-    &-results {
-      &-loading {
-        opacity: 0;
-      }
+    &--loading {
+      opacity: 0;
+    }
 
-      &-show {
-        height: fit-content;
-        max-height: 1900px;
-        opacity: 1;
+    &--show {
+      height: fit-content;
+      max-height: 1900px;
+      opacity: 1;
 
-        @include media-breakpoint-down(lg) {
-          max-height: 5500px;
-        }
+      @include media-breakpoint-down(lg) {
+        max-height: 5500px;
       }
+    }
 
-      &-hidden {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s;
-      }
+    &--hidden {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s;
     }
 
     &-title {

@@ -1,6 +1,5 @@
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Box, Pagination } from '@mantine/core';
+import { Group, Pagination } from '@mantine/core';
 import {
   IconChevronCompactLeft,
   IconChevronCompactRight,
@@ -8,27 +7,35 @@ import {
   IconChevronRightPipe,
   IconGripHorizontal,
 } from '@tabler/icons-react';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 interface AppPaginationProps {
   total: number;
 }
 
 function AppPagination({ total }: AppPaginationProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [activePage, setActivePage] = useState(Number(searchParams.get('page')) || 1);
+  const { getParam, updateParams } = useQueryParams();
+  const pageParam = getParam('page');
+  const [activePage, setActivePage] = useState(Number(pageParam));
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', String(activePage));
-    router.push(`?${params.toString()}`, { scroll: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePage]);
+    if (activePage >= 1 && pageParam) {
+      updateParams({ page: String(activePage) });
+    }
+  }, [activePage, updateParams, pageParam]);
+
+  useEffect(() => {
+    if (pageParam) {
+      setActivePage(Number(pageParam));
+    } else {
+      setActivePage(0);
+    }
+  }, [pageParam]);
 
   if (total <= 1) return null;
 
   return (
-    <Box p="lg">
+    <Group p="lg" justify="center">
       <Pagination
         size="xl"
         value={activePage}
@@ -44,7 +51,7 @@ function AppPagination({ total }: AppPaginationProps) {
         lastIcon={IconChevronRightPipe}
         dotsIcon={IconGripHorizontal}
       />
-    </Box>
+    </Group>
   );
 }
 
