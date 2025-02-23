@@ -119,3 +119,16 @@ export interface RestaurantsInfo {
   currentPage: number;
   currentResult: number;
 }
+
+export interface CreateOrderInfo {
+  cartDetails: string[];
+  paymentMethod: string;
+  address: string;
+  note: string;
+}
+
+export interface GetOrderInfo {
+  limit: number;
+  page: number;
+  status?: string;
+}
