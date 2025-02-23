@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { IconMinus, IconPlus, IconX } from '@tabler/icons-react';
@@ -46,19 +46,37 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const [isChecked, setIsChecked] = useState<boolean>(true);
 
-  const productName = data?.product?.name;
+  const productName = useMemo(() => data?.product?.name, [data?.product?.name]);
 
-  const temporaryIncreasedQuantity = () => {
+  const temporaryIncreasedQuantity = useCallback(() => {
     setChangeQuantity((preQuantity: number) => preQuantity + 1);
     setChangeTotalPrice((changeQuantity + 1) * data.product.price);
-  };
+  }, [changeQuantity, data.product.price]);
 
-  const temporaryReducedQuantity = () => {
+  const temporaryReducedQuantity = useCallback(() => {
     if (changeQuantity > 0) {
       setChangeQuantity((preQuantity: number) => preQuantity - 1);
       setChangeTotalPrice((changeQuantity - 1) * data.product.price);
     }
-  };
+  }, [changeQuantity, data.product.price]);
+
+  const deleteProduct = useCallback(
+    (data: ChangeCartInfo) => {
+      const deletePromise = dispatch(deleteProductFromCart(data))
+        .then((result) => {
+          if (result.payload.code === 200) {
+            return result?.payload?.message;
+          } else {
+            throw new Error(result?.payload?.message || t('system.error'));
+          }
+        })
+        .catch((err) => {
+          throw new Error(err?.message || t('system.error'));
+        });
+      showToast('', ToastType.PROMISE, deletePromise);
+    },
+    [dispatch, t],
+  );
 
   const handleUpdateQuantity = () => {
     if (changeQuantity > data.quantity) {
@@ -77,36 +95,8 @@ const CartItem: React.FC<CartItemProps> = ({
         });
       showToast('', ToastType.PROMISE, addProductPromise);
     } else {
-      const deleteProductPromise = dispatch(
-        deleteProductFromCart({ product: data.product._id, quantity: data.quantity - changeQuantity }),
-      )
-        .then((result) => {
-          if (result?.payload?.code === 200) {
-            return result?.payload?.message;
-          } else {
-            throw new Error(result?.payload?.message || t('system.error'));
-          }
-        })
-        .catch((err) => {
-          throw new Error(err?.message || t('system.error'));
-        });
-      showToast('', ToastType.PROMISE, deleteProductPromise);
+      deleteProduct({ product: data.product._id, quantity: data.quantity - changeQuantity });
     }
-  };
-
-  const deleteProduct = (data: ChangeCartInfo) => {
-    const deletePromise = dispatch(deleteProductFromCart(data))
-      .then((result) => {
-        if (result.payload.code === 200) {
-          return result?.payload?.message;
-        } else {
-          throw new Error(result?.payload?.message || t('system.error'));
-        }
-      })
-      .catch((err) => {
-        throw new Error(err?.message || t('system.error'));
-      });
-    showToast('', ToastType.PROMISE, deletePromise);
   };
 
   useEffect(() => {
