@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { IconMinus, IconPlus, IconX } from '@tabler/icons-react';
 
 import styles from './CartItem.module.scss';
-
 import Button from '@/share/Button';
 import Checkbox from '@/share/Checkbox';
 import { usePathname } from '@/i18n/routing';
