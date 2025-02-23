@@ -4,7 +4,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { Loader } from '@mantine/core';
-import { IconCategory, IconCategory2, IconCircleDashedX, IconCoffee } from '@tabler/icons-react';
+import { IconCategory, IconCategory2, IconCircleDashedX, IconCoffee, IconSearch } from '@tabler/icons-react';
 
 import { bannerFooterItems, infoItems } from './constants';
 import styles from '@/styles/Home.module.scss';
@@ -68,7 +68,10 @@ export default function Home() {
         ) : (
           <div className={clsx(styles[`${getIsSearch()}`])}>
             <div className={clsx(styles['home__search-container'])}>
-              <h4 className={clsx(styles['home__search-title'])}>{t('home.result-title')}</h4>
+              <h4 className={clsx(styles['home__search-title'])}>
+                <IconSearch />
+                {t('home.result-title')}
+              </h4>
               <div className={clsx(styles['home__close'])} onClick={handleClickClose}>
                 <h4 className={clsx(styles['home__close-title'])}>{t('home.close-btn')}</h4>
                 <IconCircleDashedX className={clsx(styles['home__close-icon'])} />
