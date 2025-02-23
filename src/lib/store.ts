@@ -6,6 +6,7 @@ import searchProductSlice from './features/searchProductSlice';
 import categoriesSlice from './features/categoriesSlice';
 import cartSlice from './features/cartSlice';
 import checkoutCartsSlice from './features/checkoutCartsSlice';
+import restaurantSlice from './features/restaurantSlice';
 interface MessagePayload {
   message: string;
 }
@@ -20,6 +21,7 @@ export const makeStore = () => {
       categories: categoriesSlice,
       cart: cartSlice,
       checkoutCarts: checkoutCartsSlice,
+      restaurant: restaurantSlice,
     },
   });
 };

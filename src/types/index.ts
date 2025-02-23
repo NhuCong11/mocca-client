@@ -110,3 +110,12 @@ export interface CheckedItems {
     [itemId: string]: boolean;
   };
 }
+
+export interface RestaurantsInfo {
+  shops: RestaurantInfo[];
+  limit: number;
+  totalResult: number;
+  totalPage: number;
+  currentPage: number;
+  currentResult: number;
+}
