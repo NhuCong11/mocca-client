@@ -74,3 +74,39 @@ export interface RestaurantInfo {
   rating?: number;
   categories?: CategoryInfo[];
 }
+
+export interface ChangeCartInfo {
+  product?: string;
+  quantity?: number;
+}
+
+export interface CartItemInfo {
+  _id: string;
+  product: ProductInfo;
+  quantity: number;
+  totalPrice: number;
+}
+
+export interface CartInfo {
+  shop: RestaurantInfo;
+  cartDetails: CartItemInfo[];
+  totalMoney: number;
+}
+
+export interface CartsInfo {
+  carts: CartInfo[];
+  totalProducts: number;
+  totalMoneyAllCarts: number;
+}
+
+export interface CartsProps {
+  showCart: boolean;
+  handleCloseCart: () => void;
+  data: CartsInfo;
+}
+
+export interface CheckedItems {
+  [shopId: string]: {
+    [itemId: string]: boolean;
+  };
+}

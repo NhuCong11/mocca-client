@@ -4,6 +4,8 @@ import contactSlice from './features/contactSlice';
 import sliderSlice from './features/sliderSlice';
 import searchProductSlice from './features/searchProductSlice';
 import categoriesSlice from './features/categoriesSlice';
+import cartSlice from './features/cartSlice';
+import checkoutCartsSlice from './features/checkoutCartsSlice';
 interface MessagePayload {
   message: string;
 }
@@ -16,6 +18,8 @@ export const makeStore = () => {
       slider: sliderSlice,
       searchProduct: searchProductSlice,
       categories: categoriesSlice,
+      cart: cartSlice,
+      checkoutCarts: checkoutCartsSlice,
     },
   });
 };

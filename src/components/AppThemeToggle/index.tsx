@@ -2,16 +2,19 @@
 import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { IconMoonStars, IconSunset2 } from '@tabler/icons-react';
 import styles from './AppThemeToggle.module.scss';
 
 function AppThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
+  const { setColorScheme } = useMantineColorScheme();
   const [mounted, setMounted] = useState(false);
 
   const handleClick = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    const themeText = theme === 'dark' ? 'light' : 'dark';
+    setTheme(themeText);
+    setColorScheme(themeText);
   };
 
   const icon = useMemo(() => {

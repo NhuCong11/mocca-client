@@ -8,18 +8,21 @@ import { IconCaretDownFilled, IconShoppingCart } from '@tabler/icons-react';
 
 import styles from './AppHeader.module.scss';
 import { getUserOptions } from './constant';
+import { MOCCA } from '@/constants';
 import Button from '@/share/Button';
-import { Link, usePathname, useRouter } from '@/i18n/routing';
+import Cart from '@/components/Cart';
 import { fonts } from '@/styles/fonts';
 import LoadingStart from '@/share/Loading';
+import { CartsInfo, UserInfo } from '@/types';
 import { Locale, locales } from '@/i18n/config';
+import { logout } from '@/lib/features/authSlice';
+import { getVNCurrency } from '@/utils/constants';
 import useClickOutside from '@/hooks/useClickOutSide';
 import { showToast, ToastType } from '@/utils/toastUtils';
-import { logout } from '@/lib/features/authSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { UserInfo } from '@/types';
-import { MOCCA } from '@/constants';
+import { Link, usePathname, useRouter } from '@/i18n/routing';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { displayProductsInCart } from '@/services/cartServices';
 
 function AppHeader() {
   const t = useTranslations();
@@ -29,12 +32,15 @@ function AppHeader() {
 
   const dispatch = useAppDispatch();
   // const user = useAppSelector((state) => state.auth.user);
+  const isAddProduct = useAppSelector((state) => state?.cart?.isAddProduct);
+  const isDeleteProduct = useAppSelector((state) => state?.cart?.isDeleteProduct);
   const isAuth = useAppSelector((state) => state?.auth?.isLogin);
   const userInfo: UserInfo | null = getLocalStorageItem('user');
   const token = JSON.parse(String(getLocalStorageItem('accessToken')));
 
   const [isLogin, setIsLogin] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const [cartsData, setCartsData] = useState<CartsInfo>();
   const [avatar, setAvatar] = useState<string | StaticImageData>(userInfo?.avatar ? userInfo.avatar : '');
 
   const headerRef = useRef<HTMLDivElement | null>(null);
@@ -80,6 +86,17 @@ function AppHeader() {
     return locales
       .map((locale) => ({ name: locale, img: `/images/languages/${locale}.png` }))
       .find((item) => item.name === lang);
+  };
+
+  const displayCart = () => {
+    dispatch(displayProductsInCart()).then((result) => {
+      if (result.payload.code === 200) {
+        setCartsData(result.payload.data);
+      }
+      if (![200, 403].includes(result.payload.code)) {
+        showToast(result?.payload?.message, ToastType.WARNING);
+      }
+    });
   };
 
   const userOptions = getUserOptions(setShowCart, setShowUserOptions, handleLogOut);
@@ -146,9 +163,15 @@ function AppHeader() {
         setIsLogin(false);
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
+
+  useEffect(() => {
+    if (isAuth || token) {
+      displayCart();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddProduct, isDeleteProduct]);
 
   return (
     <div ref={headerRef} className={clsx(styles['wrapper'])}>
@@ -182,9 +205,11 @@ function AppHeader() {
                 className={clsx(styles['header__actions-group'], styles['header__actions-cart'])}
               >
                 <Button haveProducts action outline leftIcon={<IconShoppingCart width={22} height={22} />}>
-                  {`${(0).toLocaleString('vi-VN')} ₫`}
+                  {getVNCurrency(cartsData?.totalMoneyAllCarts ?? 0)}
                 </Button>
-                {true && <span className={clsx(styles['header__actions-quantity'])}>{0}</span>}
+                {true && (
+                  <span className={clsx(styles['header__actions-quantity'])}>{cartsData?.totalProducts ?? 0}</span>
+                )}
               </div>
             )}
             {!isLogin && (
@@ -296,7 +321,7 @@ function AppHeader() {
             </ul>
           </nav>
         </div>
-        {/* <Cart showCart={showCart} handleCloseCart={handleCloseCart} data={cartsData as CartsInfo} /> */}
+        <Cart showCart={showCart} handleCloseCart={handleCloseCart} data={cartsData as CartsInfo} />
       </div>
       {/* Overlay */}
       {showCart && <div onClick={handleCloseCart} className={clsx('overlay', showCart && 'overlay--show')}></div>}
