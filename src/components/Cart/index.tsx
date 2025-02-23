@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { IconClock, IconX } from '@tabler/icons-react';
 
-import styles from './AppCart.module.scss';
+import styles from './Cart.module.scss';
 import Button from '@/share/Button';
 import Checkbox from '@/share/Checkbox';
 import CartItem from '@/share/CartItem';
