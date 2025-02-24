@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ERROR_MESSAGES } from '@/constants';
 import { addOrUpdateFieldInLocalStorage, getLocalStorageItem } from '@/utils/localStorage';
 import { removeCookie, setCookie } from 'typescript-cookie';
+import { useRouter } from '@/i18n/routing';
 import { hostname } from './constants';
 
 const axiosInstance = axios.create({
@@ -29,6 +30,7 @@ axiosInstance.interceptors.response.use(
 
   async function (error) {
     const originalRequest = error.config;
+    const router = useRouter();
 
     // Kiểm tra nếu 401 và không phải là lỗi từ request refresh token
     if (
@@ -62,7 +64,7 @@ axiosInstance.interceptors.response.use(
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         removeCookie('accessToken', { path: '/' });
-        window.location.href = '/auth/signin';
+        router.push('/auth/signin');
         return Promise.reject(refreshError);
       }
     }
