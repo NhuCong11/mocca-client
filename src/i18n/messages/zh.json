@@ -226,5 +226,15 @@
   "list-result": {
     "list-products": "产品列表",
     "list-restaurants": "餐厅列表"
+  },
+  "restaurant": {
+    "heading01": "商店",
+    "title01": "附近著名商店 ",
+    "title02": "您附近的商店 ",
+    "at": "位于",
+    "placeholder": "搜索产品或商店"
+  },
+  "category": {
+    "heading01": "类别"
   }
 }

@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { Breadcrumbs, Anchor } from '@mantine/core';
+import { Breadcrumbs, Anchor, Text } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@/i18n/routing';
 
@@ -10,25 +10,31 @@ interface BreadcrumbProps {
 
 function Breadcrumb({ listData = [] }: BreadcrumbProps) {
   const t = useTranslations();
+  const defaultItem = useMemo(() => ({ title: t('header.na01'), href: '/' }), [t]);
 
   const items = useMemo(() => {
-    const defaultItem = { title: t('header.na01'), href: '/' };
     const fullList = [defaultItem, ...listData];
 
-    return fullList.map((item, index) => (
-      <Anchor
-        key={index}
-        component={Link}
-        fz="h2"
-        fw={500}
-        underline="never"
-        c="var(--coffee-color)"
-        href={item.href || '/'}
-      >
-        {item.title}
-      </Anchor>
-    ));
-  }, [listData, t]);
+    return fullList.map((item, index) =>
+      index !== fullList.length - 1 ? (
+        <Anchor
+          key={item.href || index}
+          component={Link}
+          fz="h2"
+          fw={500}
+          underline="never"
+          c="var(--coffee-color)"
+          href={item.href || '/'}
+        >
+          {item.title}
+        </Anchor>
+      ) : (
+        <Text key={item.href || index} fz="h2" fw={500}>
+          {item.title}
+        </Text>
+      ),
+    );
+  }, [listData, defaultItem]);
 
   return (
     <Breadcrumbs separator={<IconArrowRight width={16} height={16} />} separatorMargin="md" mt="xs">

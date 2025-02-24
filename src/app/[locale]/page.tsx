@@ -18,7 +18,6 @@ import { useAppSelector } from '@/lib/hooks';
 import BannerResults from '@/components/BannerResults';
 import AppPagination from '@/components/AppPagination';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import RestaurantList from '@/share/RestaurantList';
 
 export default function Home() {
   const t = useTranslations();
@@ -165,7 +164,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <RestaurantList />
     </div>
   );
 }

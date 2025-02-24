@@ -227,5 +227,15 @@
   "list-result": {
     "list-products": "Product list",
     "list-restaurants": "Restaurant Llst"
+  },
+  "restaurant": {
+    "heading01": "Store",
+    "title01": "Famous Stores Nearby ",
+    "title02": "Stores Near You ",
+    "at": "at",
+    "placeholder": "Search for products or stores"
+  },
+  "category": {
+    "heading01": "Categories"
   }
 }

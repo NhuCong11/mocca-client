@@ -32,7 +32,7 @@ function AppPagination({ total }: AppPaginationProps) {
     }
   }, [pageParam]);
 
-  if (total <= 1) return null;
+  if (total < 1) return null;
 
   return (
     <Group p="lg" justify="center">

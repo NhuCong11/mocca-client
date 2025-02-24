@@ -228,5 +228,15 @@
   "list-result": {
     "list-products": "제품 목록",
     "list-restaurants": "레스토랑 목록"
+  },
+  "restaurant": {
+    "heading01": "매장",
+    "title01": "인기 매장",
+    "title02": "매장",
+    "at": "에서",
+    "placeholder": "제품 또는 매장 검색"
+  },
+  "category": {
+    "heading01": "카테고리"
   }
 }

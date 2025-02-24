@@ -228,5 +228,15 @@
   "list-result": {
     "list-products": "Danh sách sản phẩm",
     "list-restaurants": "Danh sách nhà hàng"
+  },
+  "restaurant": {
+    "heading01": "Cửa hàng",
+    "title01": "Các cửa hàng nổi tiếng trên ",
+    "title02": "Các cửa hàng trên ",
+    "at": "tại ",
+    "placeholder": "Tìm sản phẩm hoặc cửa hàng"
+  },
+  "category": {
+    "heading01": "Danh mục"
   }
 }

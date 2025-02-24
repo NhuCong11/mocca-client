@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Loader } from '@mantine/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,51 +19,44 @@ function RestaurantList({ category }: { category?: boolean }) {
   const dispatch = useAppDispatch();
   const { getParam, updateParams } = useQueryParams();
   const query = getParam('q');
-  const pagePrams = Number(getParam('page'));
+  const pageParam = Number(getParam('page')) || 1;
+
   const restaurantData = useAppSelector((state) => state.restaurant);
-
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(pagePrams || 1);
+  const [currentPage, setCurrentPage] = useState(pageParam);
   const [restaurantList, setRestaurantList] = useState<RestaurantInfo[]>([]);
+  const [hasMore, setHasMore] = useState(true);
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = useCallback(async () => {
+    let result;
+
     if (!query && !category) {
-      await dispatch(getRestaurants({ limit: limit, page: currentPage })).then((result) => {
-        if (result?.payload?.code === 200) {
-          setTotalPages(result?.payload?.data?.totalPage);
-          setRestaurantList(result?.payload?.data?.shops);
-        }
-      });
+      result = await dispatch(getRestaurants({ limit, page: currentPage }));
     } else if (query) {
-      await dispatch(getRestaurants({ limit: limit, page: currentPage, keyword: query })).then((result) => {
-        if (result?.payload?.code === 200) {
-          if (result?.payload?.data?.totalResult > 0) {
-            setTotalPages(result?.payload?.data?.totalPage);
-            setRestaurantList(result?.payload?.data?.shops);
-          }
-        }
-      });
-    } else if (category) {
+      result = await dispatch(getRestaurants({ limit, page: currentPage, keyword: query }));
+    } else {
       const categoryId = JSON.parse(String(sessionStorage.getItem('idCategorySelected')));
-      await dispatch(
-        getRestaurantsByCategory({ categoryID: categoryId, params: { page: currentPage, limit: limit } }),
-      ).then((result) => {
-        if (result?.payload?.code === 200) {
-          setTotalPages(result?.payload?.data?.totalPage);
-          setRestaurantList(result?.payload?.data?.shops);
-        }
-      });
+      result = await dispatch(
+        getRestaurantsByCategory({ categoryID: categoryId, params: { page: currentPage, limit } }),
+      );
     }
-  };
+
+    if (result?.payload?.code === 200) {
+      const { totalPage, shops } = result.payload.data;
+      setTotalPages(totalPage);
+      setRestaurantList((prev) => (currentPage === 1 ? shops : [...prev, ...shops]));
+      setHasMore(currentPage < totalPage);
+    }
+  }, [category, query, currentPage, dispatch]);
 
   useEffect(() => {
-    setCurrentPage(pagePrams || 1);
-  }, [query, category, pagePrams]);
+    if (pageParam !== currentPage) {
+      setCurrentPage(pageParam);
+    }
+  }, [pageParam]);
 
   useEffect(() => {
     updateParams({ page: String(currentPage) });
-    setTotalPages(0);
-    setRestaurantList([]);
     fetchRestaurants();
   }, [query, category, currentPage]);
 
@@ -73,15 +66,15 @@ function RestaurantList({ category }: { category?: boolean }) {
         <InfiniteScroll
           scrollThreshold="0%"
           className={clsx(styles['infinite-scroll'], 'row')}
-          dataLength={restaurantList.length}
+          dataLength={restaurantList?.length}
           next={() => {
             fetchRestaurants();
           }}
           loader={null}
-          hasMore={false}
+          hasMore={hasMore}
           scrollableTarget="restaurant-list"
         >
-          {restaurantList.map((item, index) => {
+          {restaurantList?.map((item, index) => {
             return (
               <div key={index} className={clsx('col-xl-3 col-6')}>
                 <div>
@@ -93,13 +86,13 @@ function RestaurantList({ category }: { category?: boolean }) {
         </InfiniteScroll>
       </div>
 
-      {restaurantData.loading && (
+      {restaurantData?.loading && (
         <div className={clsx(styles['restaurant-list__loader'])}>
           <Loader size={50} color="var(--primary-bg)" />
         </div>
       )}
-      {!restaurantData.loading && restaurantList.length === 0 && <NoResult />}
-      {restaurantData.loading && restaurantList.length <= 0 && <Skeleton />}
+      {!restaurantData?.loading && restaurantList?.length === 0 && <NoResult />}
+      {restaurantData?.loading && restaurantList?.length <= 0 && <Skeleton />}
 
       <Pagination total={totalPages} />
     </div>
