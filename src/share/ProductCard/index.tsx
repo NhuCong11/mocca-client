@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
 import { IconTagPlus } from '@tabler/icons-react';
 
 import styles from './ProductCard.module.scss';
+import { useRouter } from '@/i18n/routing';
 import { getVNCurrency } from '@/utils/constants';
 import { ProductInfo, RestaurantInfo } from '@/types';
 import useSessionStorage from '@/hooks/useSessionStorage';

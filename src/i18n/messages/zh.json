@@ -237,9 +237,26 @@
   "category": {
     "heading01": "类别"
   },
+  "quantity-drawer": {
+    "add-to-cart": "添加到购物车",
+    "cancel": "取消",
+    "toast": {
+      "invalid-quantity": "产品数量不能超过10件",
+      "unauthorized": "请登录以添加到购物车"
+    }
+  },
   "restaurant-detail": {
     "open-time-label": "营业时间",
     "open-time-value": "周一至周六 06:00 - 22:00"
+  },
+  "productDetail": {
+    "title01": "尺寸/重量",
+    "title02": "数量",
+    "title03": "状态",
+    "title04": "产品详情",
+    "title05": "商标",
+    "status01": "有货",
+    "status02": "缺货"
   },
   "checkout": {
     "heading": "最后一步 - 结账",

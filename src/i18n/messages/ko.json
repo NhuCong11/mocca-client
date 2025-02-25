@@ -239,9 +239,26 @@
   "category": {
     "heading01": "카테고리"
   },
+  "quantity-drawer": {
+    "add-to-cart": "장바구니에 추가",
+    "cancel": "취소",
+    "toast": {
+      "invalid-quantity": "제품 수량은 10개를 초과할 수 없습니다",
+      "unauthorized": "장바구니에 추가하려면 로그인하세요"
+    }
+  },
   "restaurant-detail": {
     "open-time-label": "영업 시간",
     "open-time-value": "월요일부터 토요일까지 06:00 - 22:00"
+  },
+  "productDetail": {
+    "title01": "크기/무게",
+    "title02": "수량",
+    "title03": "상태",
+    "title04": "제품 상세 정보",
+    "title05": "브랜드",
+    "status01": "재고 있음",
+    "status02": "재고 없음"
   },
   "checkout": {
     "heading": "마지막 단계 - 결제",

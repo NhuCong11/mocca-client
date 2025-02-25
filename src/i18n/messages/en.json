@@ -238,9 +238,26 @@
   "category": {
     "heading01": "Categories"
   },
+  "quantity-drawer": {
+    "add-to-cart": "Add to Cart",
+    "cancel": "Cancel",
+    "toast": {
+      "invalid-quantity": "The quantity of product cannot exceed 10 items",
+      "unauthorized": "Please log in to add to cart"
+    }
+  },
   "restaurant-detail": {
     "open-time-label": "Opening Hours",
     "open-time-value": "Monday to Saturday 06:00 - 22:00"
+  },
+  "productDetail": {
+    "title01": "Size/Weight",
+    "title02": "Quantity",
+    "title03": "Status",
+    "title04": "Detailed Product Description",
+    "title05": "Brand",
+    "status01": "Available",
+    "status02": "Out of stock"
   },
   "checkout": {
     "heading": "Final Step - Checkout",
