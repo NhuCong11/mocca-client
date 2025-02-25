@@ -8,6 +8,7 @@ import cartSlice from './features/cartSlice';
 import checkoutCartsSlice from './features/checkoutCartsSlice';
 import restaurantSlice from './features/restaurantSlice';
 import ordersSlice from './features/ordersSlice';
+import paymentSlice from './features/paymentSlice';
 interface MessagePayload {
   message: string;
 }
@@ -24,6 +25,7 @@ export const makeStore = () => {
       checkoutCarts: checkoutCartsSlice,
       restaurant: restaurantSlice,
       orders: ordersSlice,
+      payment: paymentSlice,
     },
   });
 };

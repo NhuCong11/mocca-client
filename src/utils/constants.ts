@@ -72,4 +72,4 @@ export const generateQRCodeImage = (email: string | undefined, secret: string) =
     : '${hostname}qr-code?uri=otpauth://totp/HaUI%20Food:%20';
 };
 
-export const getVNCurrency = (price: number) => `${price.toLocaleString('vi-VN')} ₫`;
+export const getVNCurrency = (price: number) => `${price?.toLocaleString('vi-VN') || 0} ₫`;

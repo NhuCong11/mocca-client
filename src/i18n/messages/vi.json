@@ -242,5 +242,44 @@
   "restaurant-detail": {
     "open-time-label": "Giờ mở cửa",
     "open-time-value": "Từ thứ 2 đến thứ 7 06:00 - 22:00"
+  },
+  "checkout": {
+    "heading": "Bước cuối cùng - Thanh toán",
+    "title01": "Giao đến",
+    "title02": "Thời gian giao hàng đến",
+    "title03": "Địa chỉ",
+    "title04": "Thành phố/Tỉnh",
+    "title05": "Quận/Huyện",
+    "title06": "Xã/Thị trấn",
+    "title07": "Ghi chú cho shipper",
+    "title08": "Tóm tắt đơn hàng",
+    "title09": "Tổng tạm tính",
+    "title10": "Chi tiết thanh toán",
+    "title11": "Phương thức thanh toán",
+    "title12": "Phí áp dụng",
+    "title13": "Bắt đầu chọn sản phẩm",
+    "title14": "Số nhà",
+    "title15": "Không có",
+    "desc01": "Hãy gọi điện trước cho tôi",
+    "desc02": "Thanh toán khi nhận hàng",
+    "desc03": "Thanh toán chuyển khoản",
+    "desc04": "Thanh toán bằng Ví Điện Tử MoccaCafe",
+    "desc05": "Dùng phương thức thanh toán chuyển khoản để nhận ưu đãi hấp dẫn. Chỉ có trên website MoccaCafe.",
+    "desc06": "Thêm sản phẩm vào giỏ hàng và đặt đơn tại đây.",
+    "desc07": "Số nhà, Ngõ, Đường",
+    "desc08": "Không có dữ liệu",
+    "desc09": "Đơn hàng sẽ được giao đến bạn muộn nhất vào: ",
+    "notify01": "Vui lòng chọn thành phố/tỉnh trước",
+    "notify02": "Vui lòng chọn quận/huyện trước",
+    "notify03": "Một số đã xảy ra, bạn vui lòng kiểm tra và thử lại.",
+    "notify04": "Vui lòng vào Đơn mua để kiểm tra tình trạng đơn hàng.",
+    "notify05": "Vui lòng quét mã QR để thanh toán.",
+    "link01": "Xem tất cả cửa hàng"
+  },
+  "payment": {
+    "title01": "Quét mã QR dưới đây bằng ứng dụng ngân hàng để thanh toán",
+    "desc01": "Tổng tiền thanh toán:",
+    "desc02": "Lưu ý: Đơn hàng sẽ tự động được hủy sau ",
+    "desc03": "phút"
   }
 }

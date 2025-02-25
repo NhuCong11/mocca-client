@@ -241,5 +241,44 @@
   "restaurant-detail": {
     "open-time-label": "Opening Hours",
     "open-time-value": "Monday to Saturday 06:00 - 22:00"
+  },
+  "checkout": {
+    "heading": "Final Step - Checkout",
+    "title01": "Deliver to",
+    "title02": "Delivery time",
+    "title03": "Address",
+    "title04": "City/Province",
+    "title05": "District",
+    "title06": "Town",
+    "title07": "Note for shipper",
+    "title08": "Order summary",
+    "title09": "Temporary total",
+    "title10": "Payment details",
+    "title11": "Payment method",
+    "title12": "Applicable fee",
+    "title13": "Start ordering",
+    "title14": "Apartment number",
+    "title15": "Not available",
+    "desc01": "Please call me first",
+    "desc02": "Payment on delivery",
+    "desc03": "Bank transfer payment",
+    "desc04": "Pay with MoccaCafe Wallet",
+    "desc05": "Use the bank transfer payment method to receive attractive offers. Only on MoccaCafe website.",
+    "desc06": "Add products to your cart and place an order here.",
+    "desc07": "House number, Lane, Street",
+    "desc08": "No data available.",
+    "desc09": "Your order will be delivered to you no later than ",
+    "notify01": "Please select city/province first",
+    "notify02": "Please select a district first",
+    "notify03": "An error has occurred, please check and try again.",
+    "notify04": "Please go to the Purchase Order to check the order status.",
+    "notify05": "Please scan the QR code to make a payment.",
+    "link01": "View all restaurants."
+  },
+  "payment": {
+    "title01": "Scan the QR code below with your banking app to make a payment",
+    "desc01": "Total payment amount:",
+    "desc02": "Note: The order will be automatically cancelled after ",
+    "desc03": "minute"
   }
 }
