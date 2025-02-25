@@ -237,5 +237,9 @@
   },
   "category": {
     "heading01": "Categories"
+  },
+  "restaurant-detail": {
+    "open-time-label": "Opening Hours",
+    "open-time-value": "Monday to Saturday 06:00 - 22:00"
   }
 }

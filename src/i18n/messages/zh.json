@@ -236,5 +236,9 @@
   },
   "category": {
     "heading01": "类别"
+  },
+  "restaurant-detail": {
+    "open-time-label": "营业时间",
+    "open-time-value": "周一至周六 06:00 - 22:00"
   }
 }

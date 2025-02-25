@@ -10,7 +10,7 @@ interface RestaurantState {
   loading: boolean;
   error: string | null;
   length: number;
-  restaurantDetail: RestaurantInfo | null;
+  restaurantDetail: RestaurantInfo;
 }
 
 const initialState: RestaurantState = {
@@ -18,7 +18,7 @@ const initialState: RestaurantState = {
   loading: false,
   error: null,
   length: 0,
-  restaurantDetail: null,
+  restaurantDetail: {} as RestaurantInfo,
 };
 
 const restaurantSlice = createSlice({
@@ -68,7 +68,7 @@ const restaurantSlice = createSlice({
       //Get restaurant detail
       .addCase(getRestaurantDetail.pending, (state) => {
         state.loading = true;
-        state.restaurantDetail = null;
+        state.restaurantDetail = {} as RestaurantInfo;
         state.error = null;
       })
       .addCase(getRestaurantDetail.fulfilled, (state, action: PayloadAction<any>) => {
@@ -78,7 +78,7 @@ const restaurantSlice = createSlice({
       })
       .addCase(getRestaurantDetail.rejected, (state, action: ActionRejectedType) => {
         state.loading = false;
-        state.restaurantDetail = null;
+        state.restaurantDetail = {} as RestaurantInfo;
         state.error = action.payload?.message || UNKNOWN_ERROR;
       });
   },
