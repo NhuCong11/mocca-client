@@ -132,3 +132,15 @@ export interface GetOrderInfo {
   page: number;
   status?: string;
 }
+
+export interface GHNServicesProps {
+  serviceID: number;
+  price: number;
+  from_district_id: number;
+  to_district_id: number;
+  to_ward_code: string;
+  height: number;
+  length: number;
+  weight: number;
+  width: number;
+}

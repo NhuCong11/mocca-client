@@ -9,6 +9,7 @@ import checkoutCartsSlice from './features/checkoutCartsSlice';
 import restaurantSlice from './features/restaurantSlice';
 import ordersSlice from './features/ordersSlice';
 import paymentSlice from './features/paymentSlice';
+import ghnExpressSlice from './features/ghnExpressSlice';
 interface MessagePayload {
   message: string;
 }
@@ -26,6 +27,7 @@ export const makeStore = () => {
       restaurant: restaurantSlice,
       orders: ordersSlice,
       payment: paymentSlice,
+      ghn: ghnExpressSlice,
     },
   });
 };
