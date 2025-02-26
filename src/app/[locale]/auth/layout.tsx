@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './layout.module.scss';
 import { profileRoute } from '@/config/routes';
 import { MOCCA } from '@/constants';
+import { usePathname } from '@/i18n/routing';
 
 function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const pathName = usePathname();

@@ -5,6 +5,7 @@ import { defaultLocale, locales } from './i18n/config';
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get('accessToken')?.value;
   const handleI18nRouting = createMiddleware({
     locales: locales,
     defaultLocale: defaultLocale,
@@ -15,8 +16,10 @@ export default async function middleware(request: NextRequest) {
   response.headers.set('x-default-locale', defaultLocale);
 
   if (privateRoutes.includes(pathname)) {
-    const url = new URL(`/${currentLocale}/errors/403`, request.url);
-    response.headers.set('x-middleware-rewrite', url.toString());
+    if (!token) {
+      const url = new URL(`/${currentLocale}/errors/403`, request.url);
+      response.headers.set('x-middleware-rewrite', url.toString());
+    }
   }
 
   return response;

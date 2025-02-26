@@ -1,7 +1,7 @@
 import { locales } from '@/i18n/config';
 
 const privatePath: string[] = ['/checkout', '/auth/profile'];
-const defaultLayoutPath: string[] = ['/', '/about', '/checkout', '/profile'];
+const defaultLayoutPath: string[] = ['/', '/about', '/checkout', '/auth/profile'];
 const profilePath: string[] = ['/auth/profile'];
 
 export const convertPathName = (pathNames: string[]): string[] => {

@@ -1,0 +1,323 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// User Info
+.profile {
+  padding: 120px 0 50px;
+  background-color: var(--btn-bg);
+
+  @include media-breakpoint-down(lg) {
+    padding-top: 150px;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 35px;
+  }
+
+  &__info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 15px 30px 15px;
+    width: 100%;
+    color: var(--white);
+    background-color: var(--profile-info-bg);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 20px 60px 10px var(--profile-sidebar-shadow);
+    background: linear-gradient(180deg, rgba(26, 22, 46, 0), #1a162e), var(--bg) no-repeat 50% / cover;
+    overflow: hidden;
+
+    &-name {
+      margin-top: 10px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--coffee-color);
+      transition: all linear 0.3s;
+    }
+
+    &-registered,
+    &-coin {
+      margin-top: 5px;
+      font-size: 1.6rem;
+      transition: all linear 0.3s;
+    }
+
+    &-registered {
+      font-weight: 500;
+    }
+
+    &-coin {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    &-icon {
+      width: 2rem;
+      height: 2rem;
+      color: var(--primary-bg);
+    }
+  }
+
+  &__avatar {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    transition: all 0.5s;
+    overflow: hidden;
+
+    &:hover .select-img {
+      transform: translateY(0);
+    }
+
+    &-img {
+      width: 140px;
+      height: 140px;
+      min-height: 140px;
+      min-width: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #ccc content-box;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px 2px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__navbar {
+    &-list {
+      padding-bottom: 15px;
+      color: var(--text-color);
+      background-color: var(--profile-info-bg);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+
+      @include media-breakpoint-down(xl) {
+        padding-bottom: 20px;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  &__main {
+    position: relative;
+    gap: 20px;
+    padding: 20px 20px 50px;
+    height: 100%;
+    color: var(--text-color);
+    border-radius: 12px;
+    background-color: var(--profile-info-bg);
+
+    @include media-breakpoint-down(xl) {
+      min-height: 50vh;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 15px 15px 20px;
+    }
+  }
+
+  &__form,
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    height: 100%;
+    justify-content: space-evenly;
+
+    @include media-breakpoint-down(lg) {
+      gap: 30px;
+    }
+  }
+
+  &__content {
+    height: 100%;
+
+    &-title {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  }
+
+  &__inputs {
+    display: grid;
+    gap: 0px 20px;
+    grid-template-columns: repeat(2, 1fr);
+
+    @include media-breakpoint-down(lg) {
+      row-gap: 10px;
+      grid-template-columns: 1fr;
+    }
+
+    &--row {
+      grid-template-columns: repeat(1, 1fr);
+      margin-bottom: 20px;
+      width: 50%;
+
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+      }
+    }
+
+    &-gender {
+      position: relative;
+      width: 60%;
+    }
+
+    &-options {
+      position: absolute;
+      left: 0;
+      bottom: -94px;
+      visibility: hidden;
+      width: 100%;
+      border-radius: 5px;
+      background-color: var(--btn-bg);
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
+        rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+      overflow: hidden;
+      opacity: 0;
+
+      &--show {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &-option {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      width: 100%;
+      height: 45px;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.5;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all linear 0.2s;
+
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      &:hover {
+        background-color: var(--option-hover);
+        color: var(--primary-bg) !important;
+      }
+    }
+  }
+
+  &__buttons {
+    margin-left: auto;
+    transition: all linear 0.2s;
+  }
+}
+
+.select-bg {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.select-img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  transform: translateY(100%);
+  transition: all linear 0.3s;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background-color: rgb(246, 246, 246, 0.4);
+  clip-path: circle(100% at 50% 100%);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(246, 246, 246, 0.5);
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+}
+
+// Help
+.help {
+  width: 90%;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--text-color);
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
+
+  &__link {
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+
+  &__title {
+    margin: 15px 0;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--primary-color);
+
+    &:first-child {
+      margin-top: 25px;
+    }
+  }
+
+  &__strong {
+    font-weight: 600;
+  }
+
+  &__item {
+    margin-top: 15px;
+
+    &:first-child {
+      margin-top: 5px;
+    }
+  }
+}
+
+// Terms Of Use
+.terms {
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 90%;
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+
+    &:first-child {
+      margin-top: 25px;
+    }
+  }
+}
