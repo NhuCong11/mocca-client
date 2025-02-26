@@ -1,4 +1,4 @@
-import { createTheme } from '@mantine/core';
+import { createTheme, MantineTheme } from '@mantine/core';
 
 export const theme = createTheme({
   fontSizes: {
@@ -14,5 +14,18 @@ export const theme = createTheme({
     md: '1.5',
     lg: '1.5',
     xl: '1.5',
+  },
+  components: {
+    Select: {
+      styles: (theme: MantineTheme) => ({
+        label: {
+          marginBottom: '8px',
+        },
+        input: {
+          fontWeight: 400,
+          borderColor: theme.colors.gray[5],
+        },
+      }),
+    },
   },
 });
