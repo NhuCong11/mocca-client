@@ -10,7 +10,9 @@ interface HelpSection {
   items: HelpItem[];
 }
 
+export const LIST_CHAR = '-';
 export const MOCCA_EMAIL = 'info.moccacafe@gmail.com';
+export const QR_URL = 'https://img.vietqr.io/image/970423-00005572823-compact.jpg?addInfo=';
 
 export const terms = [
   {
@@ -74,5 +76,27 @@ export const getHelpSections = (t: (key: string) => string): HelpSection[] => [
       strong: t(`help.strong0${i + 3}`),
       content: t(`help.content0${i + 4}`),
     })),
+  },
+];
+
+export const bankDetails = [
+  { label: 'topUp.title02', value: '00005572823' },
+  { label: 'topUp.title03', value: 'NGUYEN NHU CONG', extraClass: 'wallet__qr-value--green' },
+  { label: 'topUp.title04', value: '1 VNĐ = 1 Mocca Cafe coin' },
+  { label: 'topUp.title05', value: '10.000 VNĐ' },
+];
+
+export const notes = [
+  {
+    desc: 'topUp.desc01',
+  },
+  {
+    desc: 'topUp.desc02',
+  },
+  {
+    desc: 'topUp.desc03',
+    link: 'https://www.facebook.com/messages/t/274451679080721',
+    linkText: 'topUp.desc04',
+    rightDesc: 'topUp.desc05',
   },
 ];
