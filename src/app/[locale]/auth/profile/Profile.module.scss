@@ -290,12 +290,8 @@
     }
   }
 
-  &__strong {
-    font-weight: 600;
-  }
-
   &__item {
-    margin-top: 15px;
+    margin: 15px 0 0 10px;
 
     &:first-child {
       margin-top: 5px;

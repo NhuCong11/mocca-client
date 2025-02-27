@@ -160,6 +160,10 @@ img {
   user-select: none;
 }
 
+strong {
+  font-weight: 600;
+}
+
 .separate {
   margin: var(--separate-mg, 24px 0 16px);
   width: 100%;
