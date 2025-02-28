@@ -170,6 +170,7 @@ function About() {
               <Form data-aos="fade-up-right">
                 <div className={clsx(styles['about__contact-group'])}>
                   <InputText
+                    required
                     label={t('form.tp03')}
                     name="fullname"
                     type="text"
@@ -178,6 +179,7 @@ function About() {
                     readOnly={isLoading}
                   />
                   <InputText
+                    required
                     label={t('form.tp05')}
                     name="phone"
                     type="tel"
@@ -187,6 +189,7 @@ function About() {
                     readOnly={isLoading}
                   />
                   <InputText
+                    required
                     label={t('form.tp01')}
                     name="email"
                     type="email"
@@ -196,6 +199,7 @@ function About() {
                   />
                 </div>
                 <InputText
+                  required
                   label={t('form.tp06')}
                   name="message"
                   type="text"

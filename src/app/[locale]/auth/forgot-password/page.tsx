@@ -140,6 +140,7 @@ function ForgotPassword() {
           return (
             <Form>
               <InputText
+                required
                 label={t('form.tp01')}
                 name="email"
                 type="email"
@@ -150,6 +151,7 @@ function ForgotPassword() {
 
               <div className={clsx(styles['captcha'])}>
                 <InputText
+                  required
                   label="Captcha"
                   name="text"
                   type="text"

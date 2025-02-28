@@ -68,6 +68,7 @@ function SignUp() {
           return (
             <Form>
               <InputText
+                required
                 label={t('form.tp03')}
                 name="fullname"
                 type="text"
@@ -76,6 +77,7 @@ function SignUp() {
                 readOnly={isLoading}
               />
               <InputText
+                required
                 label={t('form.tp01')}
                 name="email"
                 type="email"
@@ -84,6 +86,7 @@ function SignUp() {
                 readOnly={isLoading}
               />
               <InputText
+                required
                 label={t('form.tp02')}
                 name="password"
                 type={showPassword ? 'text' : 'password'}

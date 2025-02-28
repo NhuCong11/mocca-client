@@ -70,6 +70,7 @@ function ResetPassword() {
           return (
             <Form>
               <InputText
+                required
                 label={t('form.tp02')}
                 name="newPassword"
                 type={showPassword.new ? 'text' : 'password'}
@@ -82,6 +83,7 @@ function ResetPassword() {
               />
 
               <InputText
+                required
                 label={t('form.tp04')}
                 name="confirmPassword"
                 type={showPassword.confirm ? 'text' : 'password'}
