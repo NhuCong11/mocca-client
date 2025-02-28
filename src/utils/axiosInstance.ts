@@ -3,7 +3,6 @@ import axios from 'axios';
 import { ERROR_MESSAGES } from '@/constants';
 import { addOrUpdateFieldInLocalStorage, getLocalStorageItem } from '@/utils/localStorage';
 import { removeCookie, setCookie } from 'typescript-cookie';
-import { useRouter } from '@/i18n/routing';
 import { hostname } from './constants';
 
 const axiosInstance = axios.create({
@@ -14,7 +13,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// Tự động gắn token vào header
+// Thêm interceptor để tự động gắn token vào header
 axiosInstance.interceptors.request.use(async (config) => {
   const token = JSON.parse(String(getLocalStorageItem('accessToken')));
   if (token) {
@@ -30,9 +29,8 @@ axiosInstance.interceptors.response.use(
 
   async function (error) {
     const originalRequest = error.config;
-    const router = useRouter();
 
-    // Kiểm tra nếu 401 và không phải là lỗi từ request refresh token
+    // Kiểm tra nếu mã trạng thái là 401 và không phải là lỗi từ phía request refresh token
     if (
       error.response.data.code === 401 &&
       [
@@ -46,26 +44,27 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        // Gọi endpoint refresh token và nhận lại access token mới
+        // Gọi endpoint refresh token ở đây và nhận lại access token mới
         const refreshToken = JSON.parse(String(getLocalStorageItem('refreshToken')));
         const response1 = await axiosInstance.post('v1/auth/refresh-tokens', { refreshToken: refreshToken });
 
         const newAccessToken = response1.data.accessToken;
-        // Lưu trữ access token mới
+        // Lưu trữ access token mới vào local storage hoặc nơi phù hợp khác
         addOrUpdateFieldInLocalStorage(null, 'accessToken', newAccessToken);
         setCookie('accessToken', newAccessToken);
-        // Cập nhật access token mới vào header request ban đầu
+        // Cập nhật access token mới vào header của request ban đầu
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        // Gọi lại request ban đầu với access token mới
+        // Thử gọi lại request ban đầu với access token mới
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Đăng xuất người dùng khi không thể refresh token
+        // Xử lý lỗi khi không thể refresh token (ví dụ: đăng xuất người dùng)
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         removeCookie('accessToken', { path: '/' });
-        router.push('/auth/signin');
+        window.location.href = '/auth/signin';
         return Promise.reject(refreshError);
+        // return Promise.reject({ code: refreshError.code, message: refreshError.message, config: refreshError.config });
       }
     }
 
