@@ -13,6 +13,7 @@ interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
   textCenter?: boolean;
   isNumber?: boolean;
   noChange?: boolean;
+  required?: boolean;
 }
 
 const InputText = forwardRef<HTMLInputElement, InputTextProps>(
@@ -29,6 +30,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
       textCenter,
       isNumber,
       noChange,
+      required,
       ...passProps
     },
     ref,
@@ -48,6 +50,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           className={clsx(styles['form__label'], styles['form__label--medium'], !label && styles['form__label--not'])}
         >
           {label}
+          {required && <span className={clsx(styles['form__label--required'])}>*</span>}
         </label>
 
         {/* Input wrapper */}

@@ -144,3 +144,19 @@ export interface GHNServicesProps {
   weight: number;
   width: number;
 }
+
+export interface CheckoutCartsData {
+  shop: RestaurantInfo;
+  selectedProducts: CartItemInfo[];
+  totalMoney: number;
+}
+
+export interface AddressItemInfo {
+  NameExtension: string[];
+  ProvinceName?: string;
+  ProvinceID?: number;
+  DistrictName?: string;
+  DistrictID?: number;
+  WardName?: string;
+  WardCode?: string;
+}

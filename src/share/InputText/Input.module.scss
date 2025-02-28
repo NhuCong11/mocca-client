@@ -76,7 +76,9 @@
   }
 
   &__label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-size: 1.8rem;
     font-weight: 500;
     line-height: 145.455%;
@@ -104,6 +106,10 @@
 
     &--not {
       margin-bottom: 0;
+    }
+
+    &--required {
+      color: var(--red-color);
     }
   }
 }
