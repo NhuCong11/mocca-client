@@ -5,7 +5,14 @@ export const getUserOptions = (
   setShowUserOptions: React.Dispatch<React.SetStateAction<boolean>>,
   handleLogOut: () => void,
 ) => [
-  { href: '/auth/profile', label: 'user-options.op01', Icon: IconUser },
+  {
+    href: '/auth/profile',
+    label: 'user-options.op01',
+    Icon: IconUser,
+    onClick: function toggleProfile() {
+      setShowUserOptions(false);
+    },
+  },
   {
     onClick: function toggleCart() {
       setShowCart((prev) => !prev);
@@ -13,6 +20,7 @@ export const getUserOptions = (
     },
     label: 'cart.title02',
     Icon: IconShoppingCart,
+    isMd: true,
   },
   {
     onClick: handleLogOut,

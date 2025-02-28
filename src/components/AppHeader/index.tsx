@@ -254,7 +254,7 @@ function AppHeader() {
                         className={clsx(
                           styles['header__user-option'],
                           fonts.inter,
-                          option?.onClick && 'header__user-option--md',
+                          option?.isMd && styles['header__user-option--md'],
                         )}
                         onClick={option?.onClick}
                       >
