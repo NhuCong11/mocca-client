@@ -44,12 +44,11 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        // Gọi endpoint refresh token ở đây và nhận lại access token mới
         const refreshToken = JSON.parse(String(getLocalStorageItem('refreshToken')));
         const response1 = await axiosInstance.post('v1/auth/refresh-tokens', { refreshToken: refreshToken });
 
         const newAccessToken = response1.data.accessToken;
-        // Lưu trữ access token mới vào local storage hoặc nơi phù hợp khác
+        // Lưu trữ access token mới vào local storage hoặc nơi khác
         addOrUpdateFieldInLocalStorage(null, 'accessToken', newAccessToken);
         setCookie('accessToken', newAccessToken);
         // Cập nhật access token mới vào header của request ban đầu
@@ -57,14 +56,13 @@ axiosInstance.interceptors.response.use(
         // Thử gọi lại request ban đầu với access token mới
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Xử lý lỗi khi không thể refresh token (ví dụ: đăng xuất người dùng)
+        // Xử lý lỗi khi không thể refresh token
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         removeCookie('accessToken', { path: '/' });
         window.location.href = '/auth/signin';
         return Promise.reject(refreshError);
-        // return Promise.reject({ code: refreshError.code, message: refreshError.message, config: refreshError.config });
       }
     }
 
