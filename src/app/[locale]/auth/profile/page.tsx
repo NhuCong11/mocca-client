@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { Form, Formik } from 'formik';
 
-import styles from './Profile.module.scss';
+import styles from './scss/Profile.module.scss';
 import validationSchemaInfo from './schema';
 import ChangePassword from './components/ChangePassword';
 import AuthTwinSetup from './components/AuthTwinSetup';

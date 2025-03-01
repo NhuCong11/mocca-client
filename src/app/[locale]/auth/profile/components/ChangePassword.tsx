@@ -4,7 +4,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { useTranslations } from 'next-intl';
 import { IconLock } from '@tabler/icons-react';
 
-import styles from '../Profile.module.scss';
+import styles from '../scss/Profile.module.scss';
 import { IconKeyPassword } from '../../constant';
 import { validationSchemaChangePassword } from '../schema';
 import Button from '@/share/Button';

@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { CopyButton } from '@mantine/core';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 
-import styles from '../Profile.module.scss';
+import styles from '../scss/Profile.module.scss';
 import { MOCCA } from '@/constants';
 import { UserInfo } from '@/types';
 import { showToast, ToastType } from '@/utils/toastUtils';

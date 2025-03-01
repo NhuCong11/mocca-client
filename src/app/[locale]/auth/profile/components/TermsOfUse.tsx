@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { IconCheck } from '@tabler/icons-react';
 import { terms } from '../constant';
-import styles from '../Profile.module.scss';
+import styles from '../scss/Profile.module.scss';
 
 function TermsOfUse() {
   const t = useTranslations();

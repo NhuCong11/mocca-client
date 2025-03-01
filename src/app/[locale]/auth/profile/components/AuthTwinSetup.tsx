@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { ActionIcon, CopyButton } from '@mantine/core';
 import { IconCheck, IconCopy, IconPower, IconRefresh } from '@tabler/icons-react';
 
-import styles from '../Profile.module.scss';
+import styles from '../scss/Profile.module.scss';
 import { authTwinSetupDesc, authTwinSetupNotes, formatSecretKey } from '../constant';
 import { UserInfo } from '@/types';
 import Button from '@/share/Button';
