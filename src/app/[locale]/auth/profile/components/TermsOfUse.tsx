@@ -12,7 +12,9 @@ function TermsOfUse() {
       <ol>
         {terms.map((term, index) => (
           <li key={index} className={clsx(styles['terms__item'])}>
-            <IconCheck size={14} color="var(--primary-color)" />
+            <span>
+              <IconCheck size={14} color="var(--primary-color)" />
+            </span>
             <p>
               <b>{t(term.title)}:</b> {t(term.content)}
             </p>

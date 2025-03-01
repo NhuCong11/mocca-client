@@ -1,3 +1,14 @@
+import {
+  IconCoin,
+  IconDotsVertical,
+  IconHelp,
+  IconHistory,
+  IconKey,
+  IconListDetails,
+  IconSettingsCog,
+  IconUser,
+} from '@tabler/icons-react';
+
 interface HelpItem {
   strong: string;
   content: string;
@@ -12,7 +23,67 @@ interface HelpSection {
 
 export const LIST_CHAR = '-';
 export const MOCCA_EMAIL = 'info.moccacafe@gmail.com';
+export const MOCCA_COIN = 'Mocca Cafe Coin: ';
+export const ERROR_READ_FILE = 'Đã xảy ra lỗi khi đọc file.';
 export const QR_URL = 'https://img.vietqr.io/image/970423-00005572823-compact.jpg?addInfo=';
+
+export const listNavbar = [
+  {
+    title: 'profile.navTitle01',
+    Icon: IconListDetails,
+    isTitle: true,
+  },
+  {
+    title: 'profile.nav01',
+    navId: 'personalInfo',
+    Icon: IconUser,
+    titleName: 'profile.navTitle01',
+  },
+  {
+    title: 'profile.nav02',
+    navId: 'changePassword',
+    Icon: IconKey,
+    titleName: 'profile.navTitle01',
+  },
+  {
+    title: 'profile.nav05',
+    navId: 'authTwinSetup',
+    Icon: IconSettingsCog,
+    titleName: 'profile.navTitle01',
+  },
+  {
+    title: 'profile.navTitle03',
+    isTitle: true,
+    Icon: IconListDetails,
+  },
+  {
+    title: 'profile.nav06',
+    titleName: 'profile.navTitle03',
+    Icon: IconHistory,
+  },
+  {
+    title: 'profile.nav07',
+    titleName: 'profile.navTitle03',
+    Icon: IconCoin,
+  },
+  {
+    title: 'profile.navTitle02',
+    isTitle: true,
+    Icon: IconListDetails,
+  },
+  {
+    title: 'profile.nav03',
+    navId: 'help',
+    titleName: 'profile.navTitle02',
+    Icon: IconHelp,
+  },
+  {
+    title: 'profile.nav04',
+    navId: 'termsOfUse',
+    titleName: 'profile.navTitle02',
+    Icon: IconDotsVertical,
+  },
+];
 
 export const terms = [
   {

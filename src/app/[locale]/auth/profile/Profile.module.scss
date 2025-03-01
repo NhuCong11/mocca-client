@@ -58,12 +58,6 @@
       gap: 8px;
       font-weight: 600;
     }
-
-    &-icon {
-      width: 2rem;
-      height: 2rem;
-      color: var(--primary-bg);
-    }
   }
 
   &__avatar {
@@ -102,6 +96,19 @@
       @include media-breakpoint-down(xl) {
         padding-bottom: 20px;
         margin-bottom: 15px;
+      }
+    }
+
+    &-title {
+      &--active {
+        color: var(--message-text);
+      }
+    }
+
+    &-item {
+      &--active {
+        color: var(--primary-bg);
+        border-color: var(--primary-bg);
       }
     }
   }

@@ -278,10 +278,6 @@
   cursor: default !important;
   background: transparent;
   transition: all linear 0.2s;
-
-  &--active {
-    color: var(--message-text);
-  }
 }
 
 .profileNavItem {
@@ -293,27 +289,8 @@
   border: 1px solid transparent;
   transition: all linear 0.2s;
 
-  .icon {
-    transition: all linear 0.2s;
-  }
-
-  &--active {
-    color: var(--primary-color);
-    border-color: var(--primary-bg);
-
-    .icon {
-      filter: brightness(0) saturate(100%) invert(55%) sepia(30%) saturate(6627%) hue-rotate(115deg) brightness(91%)
-        contrast(101%);
-    }
-  }
-
   &:hover {
-    color: var(--primary-color);
-
-    & .icon {
-      filter: brightness(0) saturate(100%) invert(55%) sepia(30%) saturate(6627%) hue-rotate(115deg) brightness(91%)
-        contrast(101%);
-    }
+    color: var(--primary-bg);
   }
 }
 
