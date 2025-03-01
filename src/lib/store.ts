@@ -12,6 +12,7 @@ import paymentSlice from './features/paymentSlice';
 import ghnExpressSlice from './features/ghnExpressSlice';
 interface MessagePayload {
   message: string;
+  code?: number;
 }
 
 export const makeStore = () => {

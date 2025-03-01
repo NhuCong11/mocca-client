@@ -160,3 +160,14 @@ export interface AddressItemInfo {
   WardName?: string;
   WardCode?: string;
 }
+
+export interface ChangePasswordInfo {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword?: string;
+}
+
+export interface UpdateSecretKeyProps {
+  code: string;
+  secret: string;
+}

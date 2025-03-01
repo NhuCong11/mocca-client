@@ -2,14 +2,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInfo } from '@/types';
 import { UNKNOWN_ERROR } from '@/constants';
-import { getLocalStorageItem } from '@/utils/localStorage';
+import { addOrUpdateFieldInLocalStorage, getLocalStorageItem } from '@/utils/localStorage';
 import {
+  changePassword,
   forgotPassword,
   getCaptcha,
+  getMe,
+  getSecretKey,
   loginUser,
   loginWith2FA,
   registerUser,
   resetPassword,
+  toggle2FA,
+  updateMe,
+  updateSecretKey,
   verifyOtpForgotPassword,
 } from '@/services/authServices';
 import { ActionRejectedType } from '../store';
@@ -20,7 +26,7 @@ export interface AuthState {
   user: UserInfo | null;
   error: string | null;
   isLogin: boolean | null;
-  status: string | null;
+  status: number | null;
   secretKey: string;
   message: string;
   isUpdate: boolean;
@@ -167,6 +173,107 @@ const authSlice = createSlice({
       .addCase(loginWith2FA.rejected, (state, action: ActionRejectedType) => {
         state.loading = false;
         state.message = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Get me
+      .addCase(getMe.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(getMe.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = action?.payload?.data;
+        state.error = null;
+      })
+      .addCase(getMe.rejected, (state, action: ActionRejectedType) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Update me
+      .addCase(updateMe.pending, (state) => {
+        state.loadingUpdate = true;
+        state.error = null;
+        state.isUpdate = false;
+        state.user = null;
+      })
+      .addCase(updateMe.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.isUpdate = true;
+        state.user = action.payload.data;
+        state.error = null;
+        addOrUpdateFieldInLocalStorage('user', null, action.payload.data);
+      })
+      .addCase(updateMe.rejected, (state, action: ActionRejectedType) => {
+        state.loadingUpdate = false;
+        state.isUpdate = false;
+        state.user = null;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Change Password
+      .addCase(changePassword.pending, (state) => {
+        state.loadingUpdate = true;
+        state.status = null;
+        state.message = '';
+      })
+      .addCase(changePassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.message = '';
+      })
+      .addCase(changePassword.rejected, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Auth Twin Setup
+      // Get Secret Key
+      .addCase(getSecretKey.pending, (state) => {
+        state.loadingUpdate = true;
+        state.status = null;
+        state.message = '';
+      })
+      .addCase(getSecretKey.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.message = '';
+      })
+      .addCase(getSecretKey.rejected, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Toggle 2FA
+      .addCase(toggle2FA.pending, (state) => {
+        state.loadingUpdate = true;
+        state.status = null;
+        state.message = '';
+      })
+      .addCase(toggle2FA.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.message = '';
+      })
+      .addCase(toggle2FA.rejected, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
+      })
+      // Update Secret Key
+      .addCase(updateSecretKey.pending, (state) => {
+        state.loadingUpdate = true;
+        state.status = null;
+        state.message = '';
+      })
+      .addCase(updateSecretKey.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.message = '';
+      })
+      .addCase(updateSecretKey.rejected, (state, action: PayloadAction<any>) => {
+        state.loadingUpdate = false;
+        state.status = action.payload?.code;
+        state.error = action?.payload?.message || UNKNOWN_ERROR;
       });
   },
 });
