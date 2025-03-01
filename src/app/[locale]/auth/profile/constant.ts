@@ -1,3 +1,4 @@
+import { MOCCA } from '@/constants';
 import {
   IconCoin,
   IconDotsVertical,
@@ -171,3 +172,38 @@ export const notes = [
     rightDesc: 'topUp.desc05',
   },
 ];
+
+export const authTwinSetupDesc = [
+  {
+    desc: 'authTwinSetup.desc01',
+  },
+  {
+    desc: 'authTwinSetup.desc02',
+  },
+  {
+    desc: 'authTwinSetup.desc03-1',
+    link: [
+      'https://apps.apple.com/us/app/google-authenticator/id388497605',
+      'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US&pli=1',
+    ],
+    linkText: ['IOS', 'Android'],
+  },
+];
+
+export const authTwinSetupNotes = [
+  {
+    note: 'authTwinSetup.note01',
+    strong: MOCCA,
+  },
+  {
+    note: 'authTwinSetup.note02',
+  },
+  {
+    note: 'authTwinSetup.note03',
+  },
+  {
+    note: 'authTwinSetup.note04',
+  },
+];
+
+export const formatSecretKey = (key: string) => key.match(/.{1,4}/g)?.join(' ') || key;

@@ -9,7 +9,7 @@ import { Form, Formik } from 'formik';
 import styles from './Profile.module.scss';
 import validationSchemaInfo from './schema';
 import ChangePassword from './components/ChangePassword';
-// import AuthTwinSetup from './AuthTwinSetup';
+import AuthTwinSetup from './components/AuthTwinSetup';
 import WalletRecharge from './components/WalletRecharge';
 import Help from './components/Help';
 import TermsOfUse from './components/TermsOfUse';
@@ -423,8 +423,8 @@ function Profile() {
               )}
 
               {selectedNavbar.title === listNavbar[2].title && <ChangePassword />}
-              {/* {selectedNavbar.title === listNavbar[3].title && <AuthTwinSetup />}
-              {selectedNavbar.title === listNavbar[5].title && <OrderHistory />} */}
+              {selectedNavbar.title === listNavbar[3].title && <AuthTwinSetup />}
+              {/* {selectedNavbar.title === listNavbar[5].title && <OrderHistory />} */}
               {selectedNavbar.title === listNavbar[6].title && <WalletRecharge userInfo={userData as UserInfo} />}
               {selectedNavbar.title === listNavbar[8].title && <Help />}
               {selectedNavbar.title === listNavbar[9].title && <TermsOfUse />}
