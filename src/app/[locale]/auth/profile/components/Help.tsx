@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
-import styles from './Profile.module.scss';
-import { getHelpSections } from './constant';
+import styles from '../Profile.module.scss';
+import { getHelpSections } from '../constant';
 import { Link } from '@/i18n/routing';
 
 function Help() {

@@ -1,9 +1,9 @@
 'use client';
 
 import { UserInfo } from '@/types';
-import Help from './Help';
-import TermsOfUse from './TermsOfUse';
-import WalletRecharge from './WalletRecharge';
+import Help from './components/Help';
+import TermsOfUse from './components/TermsOfUse';
+import WalletRecharge from './components/WalletRecharge';
 
 function Profile() {
   return (
