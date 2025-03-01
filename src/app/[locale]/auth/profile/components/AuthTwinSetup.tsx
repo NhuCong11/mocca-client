@@ -181,7 +181,7 @@ function AuthTwinSetup() {
             height={200}
             alt="QR Code"
             className={clsx(styles['auth-twin__secret-qr'])}
-            src={qrImg || '/images/default-img.png'}
+            src={qrImg || '/images/logo.png'}
           />
         </div>
 

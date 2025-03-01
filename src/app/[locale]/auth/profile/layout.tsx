@@ -1,18 +1,9 @@
-import AppFooter from '@/components/AppFooter';
-import AppHeader from '@/components/AppHeader';
-
-function ForbiddenLayout({
+function ProfileLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <AppHeader />
-      {children}
-      <AppFooter />
-    </>
-  );
+  return children;
 }
 
 export const generateMetadata = () => {
@@ -21,4 +12,4 @@ export const generateMetadata = () => {
   };
 };
 
-export default ForbiddenLayout;
+export default ProfileLayout;
