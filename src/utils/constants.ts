@@ -73,3 +73,4 @@ export const generateQRCodeImage = (email: string | undefined, secret: string) =
 };
 
 export const getVNCurrency = (price: number) => `${price?.toLocaleString('vi-VN') || 0} ₫`;
+export const getVNDate = (date: Date) => date?.toLocaleDateString('vi-VN') || '-/-/-';

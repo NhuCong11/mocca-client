@@ -15,7 +15,7 @@ import CartItem from '@/share/CartItem';
 import InputText from '@/share/InputText';
 import LoadingStart from '@/share/Loading';
 import { Link, useRouter } from '@/i18n/routing';
-import { getVNCurrency } from '@/utils/constants';
+import { getVNCurrency, getVNDate } from '@/utils/constants';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import useSessionStorage from '@/hooks/useSessionStorage';
 import { showToast, ToastType } from '@/utils/toastUtils';
@@ -223,7 +223,7 @@ function CheckOut() {
   const handleDeliveryTime = () => {
     const deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 3);
-    return deliveryDate.toLocaleDateString('vi-VN');
+    return getVNDate(deliveryDate);
   };
 
   const handleClickShopName = (restaurantItem: RestaurantInfo) => {
