@@ -1,0 +1,213 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.order-item {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: var(--btn-bg);
+  box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.08);
+
+  @include media-breakpoint-down(md) {
+    padding: 10px;
+  }
+
+  &__shop {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.5;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.6rem;
+    }
+
+    &-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--message-text);
+    }
+  }
+
+  &__status {
+    color: var(--status-color, var(--primary-color));
+    cursor: pointer;
+
+    &--red {
+      color: var(--red-color);
+    }
+  }
+
+  &__info {
+    display: flex;
+    padding: 20px 0;
+
+    @include media-breakpoint-down(md) {
+      padding: 15px 0;
+    }
+
+    &-img {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #e1e1e3;
+      background-color: #f1f2f6;
+
+      @include media-breakpoint-down(lg) {
+        width: 100px;
+        height: 100px;
+      }
+
+      @include media-breakpoint-down(md) {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      margin-left: 20px;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.5;
+
+      @include media-breakpoint-down(md) {
+        margin-left: 10px;
+      }
+    }
+
+    &-name,
+    &-desc {
+      display: block;
+      display: -webkit-box;
+      line-height: 1.5;
+      max-height: 6em;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+
+    &-name {
+      width: 80%;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--coffee-color);
+
+      @include media-breakpoint-down(lg) {
+        width: 95%;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &-desc {
+      width: 80%;
+    }
+
+    &-quantity {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.4;
+      font-family: 'Inter', sans-serif;
+      color: var(--primary-bg);
+    }
+
+    &-price {
+      flex-shrink: 0;
+      margin: auto 0;
+      font-size: 1.7rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--primary-color);
+
+      @include media-breakpoint-down(md) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+.details {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  &__label {
+    min-width: 130px;
+    color: var(--primary-bg);
+
+    @include media-breakpoint-down(md) {
+      min-width: 110px;
+    }
+  }
+
+  &__value {
+    display: block;
+    display: -webkit-box;
+    max-height: 6em;
+    line-height: 1.5;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+
+  @include media-breakpoint-down(md) {
+    gap: 10px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--primary-color);
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  &__btn {
+    margin-left: auto;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+  }
+}

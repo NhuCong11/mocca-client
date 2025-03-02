@@ -171,3 +171,28 @@ export interface UpdateSecretKeyProps {
   code: string;
   secret: string;
 }
+
+export interface OrderInfo {
+  currentPage: number;
+  currentResult: number;
+  limit: number;
+  orders: OrderItemInfo[];
+  totalPage: number;
+  totalResult: number;
+}
+
+export interface OrderItemInfo {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  totalMoney: number;
+  status: string;
+  shop: RestaurantInfo;
+  paymentMethod: string;
+  paymentCode: string;
+  paymentStatus?: string;
+  cartDetails: CartItemInfo[];
+  address: string;
+  note: string;
+  expriedTimeBank?: string;
+}

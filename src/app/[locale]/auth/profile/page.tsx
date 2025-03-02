@@ -13,7 +13,7 @@ import AuthTwinSetup from './components/AuthTwinSetup';
 import WalletRecharge from './components/WalletRecharge';
 import Help from './components/Help';
 import TermsOfUse from './components/TermsOfUse';
-// import OrderHistory from './OrderHistory';
+import OrderHistory from './components/OrderHistory';
 import { ERROR_READ_FILE, listNavbar, MOCCA_COIN } from './constant';
 import { MOCCA } from '@/constants';
 import Button from '@/share/Button';
@@ -26,10 +26,12 @@ import { getMe, updateMe } from '@/services/authServices';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { formatDateTime, getVNCurrency } from '@/utils/constants';
 import { IconCoins, IconGenderBigender, IconMail, IconPhone, IconPhotoScan, IconUser } from '@tabler/icons-react';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 function Profile() {
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { clearParams } = useQueryParams();
   const isLoading = useAppSelector((state) => state.auth.loadingUpdate);
 
   const [isChange, setIsChange] = useState(false);
@@ -261,6 +263,7 @@ function Profile() {
                         )}
                         onClick={() => {
                           setSelectedNavbar(navbar);
+                          clearParams();
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                       >
@@ -424,7 +427,7 @@ function Profile() {
 
               {selectedNavbar.title === listNavbar[2].title && <ChangePassword />}
               {selectedNavbar.title === listNavbar[3].title && <AuthTwinSetup />}
-              {/* {selectedNavbar.title === listNavbar[5].title && <OrderHistory />} */}
+              {selectedNavbar.title === listNavbar[5].title && <OrderHistory />}
               {selectedNavbar.title === listNavbar[6].title && <WalletRecharge userInfo={userData as UserInfo} />}
               {selectedNavbar.title === listNavbar[8].title && <Help />}
               {selectedNavbar.title === listNavbar[9].title && <TermsOfUse />}

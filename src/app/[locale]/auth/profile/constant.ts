@@ -206,4 +206,35 @@ export const authTwinSetupNotes = [
   },
 ];
 
+export const statusList = [
+  {
+    label: 'historyOrder.statusAll',
+    status: 'all',
+  },
+  {
+    label: 'historyOrder.statusPending',
+    status: 'pending',
+  },
+  {
+    label: 'historyOrder.statusConfirmed',
+    status: 'confirmed',
+  },
+  {
+    label: 'historyOrder.statusShipping',
+    status: 'shipping',
+  },
+  {
+    label: 'historyOrder.statusSuccess',
+    status: 'success',
+  },
+  {
+    label: 'historyOrder.statusCanceled',
+    status: 'canceled',
+  },
+  {
+    label: 'historyOrder.statusRejected',
+    status: 'reject',
+  },
+];
+
 export const formatSecretKey = (key: string) => key.match(/.{1,4}/g)?.join(' ') || key;
