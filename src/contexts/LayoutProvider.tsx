@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { MantineProvider } from '@mantine/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import 'react-photo-view/dist/react-photo-view.css';
 import { Toaster } from 'react-hot-toast';
 
 import { theme } from '@/styles/mantine';
@@ -13,6 +14,9 @@ import AppGoToTop from '@/components/AppGoToTop';
 import { defaultLayoutRoutes } from '@/config/routes';
 import { usePathname } from '@/i18n/routing';
 import AppThemeToggle from '@/components/AppThemeToggle';
+import AppChats from '@/components/AppChats';
+import ChatMessageProvider from './ChatMessageProvider';
+import SocketMessageProvider from './SocketMessageProvider';
 
 function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   const pathName = usePathname();
@@ -37,30 +41,35 @@ function LayoutProvider({ children }: { children: Readonly<React.ReactNode> }) {
   }, []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
-      <MantineProvider theme={theme} defaultColorScheme="auto">
-        {defaultLayoutRoutes.includes(pathName) && <AppHeader />}
-        {children}
-        {defaultLayoutRoutes.includes(pathName) && <AppFooter />}
-        <AppThemeToggle />
-        <AppGoToTop />
-        <Toaster
-          gutter={8}
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{
-            duration: 3000,
-            removeDelay: 1000,
-            style: {
-              borderRadius: '12px',
-              background: 'var(--white)',
-              color: 'var(--coffee-color-v2)',
-              border: '1px solid var(--primary-bg)',
-            },
-          }}
-        />
-      </MantineProvider>
-    </ThemeProvider>
+    <SocketMessageProvider>
+      <ChatMessageProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
+          <MantineProvider theme={theme} defaultColorScheme="auto">
+            {defaultLayoutRoutes.includes(pathName) && <AppHeader />}
+            {children}
+            {defaultLayoutRoutes.includes(pathName) && <AppFooter />}
+            <AppThemeToggle />
+            <AppChats />
+            <AppGoToTop />
+            <Toaster
+              gutter={8}
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                duration: 3000,
+                removeDelay: 1000,
+                style: {
+                  borderRadius: '12px',
+                  background: 'var(--white)',
+                  color: 'var(--coffee-color-v2)',
+                  border: '1px solid var(--primary-bg)',
+                },
+              }}
+            />
+          </MantineProvider>
+        </ThemeProvider>
+      </ChatMessageProvider>
+    </SocketMessageProvider>
   );
 }
 

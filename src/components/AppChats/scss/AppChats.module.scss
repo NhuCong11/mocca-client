@@ -1,0 +1,117 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.chats {
+  position: fixed;
+  bottom: 15vh;
+  right: calc(2vw - 2px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  width: 52px;
+  font-size: 1.4rem;
+
+  &__bot,
+  &__message {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    color: var(--white);
+    border-radius: 50%;
+    background-color: var(--coffee-color-v2);
+    border: 2px solid var(--text-color);
+    cursor: pointer;
+  }
+
+  &__message {
+    &-icon {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+
+    &-container {
+      max-height: calc(100vh - 100px);
+    }
+  }
+}
+
+.chatbot,
+.chat-message {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    letter-spacing: 0.008px;
+    color: var(--text-color);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    float: right;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  &__messages {
+    flex: 1;
+    padding: 10px 10px 0;
+    height: 75vh;
+    font-size: 1.5rem;
+    overflow-y: auto;
+
+    @include media-breakpoint-down(md) {
+      height: 78vh;
+    }
+  }
+
+  &__message {
+    margin-bottom: 15px;
+    max-width: 70%;
+    clear: both;
+
+    &--chatbot {
+      float: left;
+      padding: 10px;
+      margin-right: 10px;
+      border-radius: 5px;
+      background-color: var(--chat-bg);
+    }
+
+    &--user {
+      padding: 10px;
+      margin-left: 10px;
+      float: right;
+      border-radius: 4px;
+      background-color: var(--chat-user);
+    }
+
+    &-loading {
+      position: absolute;
+      bottom: 120px;
+    }
+  }
+
+  &__form {
+    margin-top: 10px;
+    width: 100%;
+    min-height: 40px;
+    resize: none;
+    appearance: none;
+    transition: border linear 0.2s;
+
+    &:hover {
+      border-color: var(--primary-bg);
+    }
+  }
+}

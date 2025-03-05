@@ -1,5 +1,5 @@
 'use client';
-import { Group, Skeleton } from '@mantine/core';
+import { Flex, Group, Skeleton } from '@mantine/core';
 
 interface DefaultSkeletonProps {
   quantity?: number;
@@ -14,5 +14,24 @@ function DefaultSkeleton({ quantity = 4, ...props }: DefaultSkeletonProps) {
     </Group>
   );
 }
+
+export const MessageItemSkeleton = () => {
+  return (
+    <>
+      <Group grow m="md">
+        <Flex align="center" gap={10}>
+          <Skeleton height={60} circle />
+          <Skeleton width="80%" height={20} radius="xl" />
+        </Flex>
+      </Group>
+      <Group grow m="md">
+        <Flex align="center" gap={10}>
+          <Skeleton height={20} radius="xl" />
+          <Skeleton height={60} circle />
+        </Flex>
+      </Group>
+    </>
+  );
+};
 
 export default DefaultSkeleton;

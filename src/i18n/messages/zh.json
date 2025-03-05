@@ -420,5 +420,22 @@
       "copySuccess": "复制成功。",
       "invalidOtp": "请输入正确格式的OTP码。"
     }
+  },
+  "chatBot": {
+    "title01": "AI助理",
+    "desc01": "输入聊天内容",
+    "greeting01": "早上好",
+    "greeting02": "下午好",
+    "greeting03": "晚上好"
+  },
+  "chatMessage": {
+    "title01": "信使",
+    "desc01": "正在加载 ...",
+    "desc02": "欢迎",
+    "desc03": "选择一个对话开始发送消息",
+    "desc04": "发送消息",
+    "desc05": "搜索聊天记录",
+    "desc06": "发送消息以开始对话",
+    "notify01": "聊天不存在。"
   }
 }

@@ -10,6 +10,8 @@ import restaurantSlice from './features/restaurantSlice';
 import ordersSlice from './features/ordersSlice';
 import paymentSlice from './features/paymentSlice';
 import ghnExpressSlice from './features/ghnExpressSlice';
+import chatsSlice from './features/chatsSlice';
+
 interface MessagePayload {
   message: string;
   code?: number;
@@ -29,6 +31,7 @@ export const makeStore = () => {
       orders: ordersSlice,
       payment: paymentSlice,
       ghn: ghnExpressSlice,
+      chats: chatsSlice,
     },
   });
 };

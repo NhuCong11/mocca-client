@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io-client';
+
 export interface RejectValueError {
   rejectValue: { message: string };
 }
@@ -195,4 +197,43 @@ export interface OrderItemInfo {
   address: string;
   note: string;
   expriedTimeBank?: string;
+}
+
+export interface MessageItemInfo {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  image?: string;
+  message?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GetMessagesProps {
+  userID: string;
+  conversationID: string;
+}
+
+export interface SendMessageProps {
+  message: string | undefined;
+  conversationID: string;
+  image: File | null;
+}
+
+export interface ChatMessageContextType {
+  openMessage: boolean;
+  openMessageModal: () => void;
+  closeMessageModal: () => void;
+  newConversation: RestaurantInfo | undefined;
+  addConversation: (newConversation: RestaurantInfo) => void;
+}
+
+export interface SocketMessageType {
+  socket: Socket | null;
+  onlineUsers: RestaurantInfo[];
+}
+
+export interface ChatMessageForm {
+  shop?: string;
+  message?: string;
 }

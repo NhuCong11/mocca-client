@@ -422,5 +422,22 @@
       "copySuccess": "Copy thành công.",
       "invalidOtp": "Xin vui lòng nhập mã OTP đúng định dạng."
     }
+  },
+  "chatBot": {
+    "title01": "Trợ lý AI",
+    "desc01": "Nhập nội dung chat",
+    "greeting01": "Chào buổi sáng",
+    "greeting02": "Chào buổi chiều",
+    "greeting03": "Chào buổi tối"
+  },
+  "chatMessage": {
+    "title01": "Messenger",
+    "desc01": "Đang tải ...",
+    "desc02": "Chào mừng",
+    "desc03": "Chọn một cuộc trò chuyện để bắt đầu nhắn tin",
+    "desc04": "Gửi tin nhắn",
+    "desc05": "Tìm kiếm đoạn chat",
+    "desc06": "Gửi tin nhắn để bắt đầu cuộc trò chuyện",
+    "notify01": "Đoạn chat không tồn tại."
   }
 }

@@ -421,5 +421,22 @@
       "copySuccess": "Copy successful.",
       "invalidOtp": "Please enter the OTP in the correct format."
     }
+  },
+  "chatBot": {
+    "title01": "AI Assistant",
+    "desc01": "Enter chat content",
+    "greeting01": "Good morning",
+    "greeting02": "Good afternoon",
+    "greeting03": "Good evening"
+  },
+  "chatMessage": {
+    "title01": "Messenger",
+    "desc01": "Loading ...",
+    "desc02": "Welcome",
+    "desc03": "Select a conversation to start messaging",
+    "desc04": "Send message",
+    "desc05": "Search for chat history",
+    "desc06": "Send a message to start the conversation",
+    "notify01": "Chat does not exist."
   }
 }
