@@ -7,12 +7,6 @@
   flex-direction: column;
   height: 100%;
 
-  &__form {
-    @include media-breakpoint-down(md) {
-      width: calc(100% - 35px);
-    }
-  }
-
   &__input {
     padding: 6px !important;
     height: 40px !important;
@@ -158,6 +152,7 @@
   }
 
   &__desc {
+    height: 68vh;
     font-size: 1.3rem;
     font-weight: 600;
     line-height: 1.5;

@@ -8,10 +8,12 @@ import Sidebar from './chats/Sidebar';
 import Conversation from './chats/Conversation';
 import styles from '../scss/AppChats.module.scss';
 import { useAppSelector } from '@/lib/hooks';
+import { useChatMessageContext } from '@/contexts/ChatMessageProvider';
 
 const ChatMessages = ({ closeModal, opened }: { closeModal: () => void; opened: boolean }) => {
   const t = useTranslations();
   const isMobile = useAppSelector((state) => state.chats.isMobile);
+  const { openMessage, closeMessageModal } = useChatMessageContext();
 
   return (
     <Modal
@@ -20,8 +22,8 @@ const ChatMessages = ({ closeModal, opened }: { closeModal: () => void; opened: 
       fullScreen
       radius={0}
       zIndex={999}
-      opened={opened}
-      onClose={closeModal}
+      opened={opened || openMessage}
+      onClose={opened ? closeModal : closeMessageModal}
       closeButtonProps={{
         icon: <IconX />,
         size: 'xl',

@@ -15,11 +15,13 @@ import ProductCard from '@/share/ProductCard';
 import { CategoryInfo, ProductInfo } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getRestaurantDetail } from '@/services/restaurantServices';
+import { useChatMessageContext } from '@/contexts/ChatMessageProvider';
 
 function RestaurantDetail() {
   const t = useTranslations();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { addConversation, openMessageModal } = useChatMessageContext();
 
   const reduxData = useAppSelector((state) => state.restaurant);
   const [activeCategory, setActiveCategory] = useState('');
@@ -30,6 +32,8 @@ function RestaurantDetail() {
     if (!user) {
       router.push('/auth/signin');
     }
+    addConversation(reduxData?.restaurantDetail);
+    openMessageModal();
   };
 
   const handleCategoryClick = useCallback((categoryId: string) => {

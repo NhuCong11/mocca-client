@@ -94,15 +94,19 @@ function Sidebar() {
   );
 
   useEffect(() => {
-    if (newConversation) {
-      const isExist =
-        newConversation._id === user?._id ||
-        conversations?.some((conversation) => conversation._id === newConversation._id);
-      if (!isExist) {
-        setConversations((prevConversations) => [newConversation, ...prevConversations]);
-      }
+    if (newConversation && user?._id) {
+      setConversations((prevConversations) => {
+        const isExist =
+          newConversation._id === user._id ||
+          prevConversations.some((conversation) => conversation._id === newConversation._id);
+
+        if (!isExist) {
+          return [newConversation, ...prevConversations];
+        }
+        return prevConversations;
+      });
     }
-  }, [conversations, newConversation, user]);
+  }, [newConversation, user]);
 
   useEffect(() => {
     if (user?._id) {
@@ -128,7 +132,7 @@ function Sidebar() {
         validateOnChange={true}
         validateOnMount={true}
       >
-        <Form className={clsx(styles['sidebar__form'])}>
+        <Form>
           <InputText
             type="text"
             name="shop"
