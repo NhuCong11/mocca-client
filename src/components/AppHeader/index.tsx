@@ -1,5 +1,6 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { removeCookie } from 'typescript-cookie';
@@ -20,7 +21,7 @@ import { getVNCurrency } from '@/utils/constants';
 import useClickOutside from '@/hooks/useClickOutSide';
 import { showToast, ToastType } from '@/utils/toastUtils';
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { Link, usePathname, useRouter } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { displayProductsInCart } from '@/services/cartServices';
 
@@ -31,7 +32,6 @@ function AppHeader() {
   const pathname = usePathname();
 
   const dispatch = useAppDispatch();
-  // const user = useAppSelector((state) => state.auth.user);
   const isAddProduct = useAppSelector((state) => state?.cart?.isAddProduct);
   const isDeleteProduct = useAppSelector((state) => state?.cart?.isDeleteProduct);
   const isAuth = useAppSelector((state) => state?.auth?.isLogin);
@@ -77,7 +77,13 @@ function AppHeader() {
   };
 
   const handleLanguageChange = (lang: Locale) => {
-    const newPath = [`${lang}`].join('/');
+    const segments = pathname.split('/').filter(Boolean);
+    if (locales.includes(segments[0] as Locale)) {
+      segments[0] = lang;
+    } else {
+      segments.unshift(lang);
+    }
+    const newPath = `/${segments.join('/')}`;
     router.replace(newPath);
     setShowLanguages(false);
   };
