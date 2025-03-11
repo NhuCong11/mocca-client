@@ -164,6 +164,10 @@ function Profile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, selectedNavbar.title, listNavbar, isChange]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [selectedNavbar]);
+
   return (
     <div className={clsx(styles['profile'])}>
       <div className={clsx('container gx-5')}>
@@ -264,7 +268,6 @@ function Profile() {
                         onClick={() => {
                           setSelectedNavbar(navbar);
                           clearParams();
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                       >
                         {t(navbar.title)}
