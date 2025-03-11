@@ -20,6 +20,7 @@ import { addProductToCart } from '@/services/cartServices';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getRestaurantDetail } from '@/services/restaurantServices';
 import { CategoryInfo, ProductInfo, RestaurantInfo } from '@/types';
+import { useChatMessageContext } from '@/contexts/ChatMessageProvider';
 
 interface DataInfo {
   name?: string;
@@ -31,6 +32,7 @@ function ProductDetail() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { setItem } = useSessionStorage();
+  const { addConversation, openMessageModal } = useChatMessageContext();
 
   const isLoading = useAppSelector((state) => state.restaurant.loading);
   const isAddProduct = useAppSelector((state) => state.cart.loading);
@@ -106,6 +108,8 @@ function ProductDetail() {
       showToast(t('errors.err12'), ToastType.WARNING);
       return router.push('/auth/signin');
     }
+    addConversation(shopData);
+    openMessageModal();
   };
 
   useEffect(() => {
