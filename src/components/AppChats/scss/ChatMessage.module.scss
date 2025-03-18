@@ -148,6 +148,7 @@
     padding: 0 4px;
     margin-top: 15px;
     max-height: calc(100vh - 220px);
+    min-height: calc(100vh - 220px);
     overflow-y: scroll;
   }
 
