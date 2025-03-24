@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import Image from 'next/image';
 import clsx from 'clsx';
@@ -36,7 +35,7 @@ function ProductDetail() {
 
   const isLoading = useAppSelector((state) => state.restaurant.loading);
   const isAddProduct = useAppSelector((state) => state.cart.loading);
-  const [classifies, setClassifies] = useState(['100g', '200g', '500g']);
+  const [classifies, setClassifies] = useState<string[] | undefined>([]);
   const [shopData, setShopData] = useState<RestaurantInfo>({} as RestaurantInfo);
   const [dataProduct, setDataProduct] = useState<ProductInfo>({} as ProductInfo);
   const [dataInfo, setDataInfo] = useState<{ productInfo: DataInfo; restaurantInfo: DataInfo }>({
@@ -62,11 +61,11 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     if (getLocalStorageItem('user')) {
-      const addToCartPromise = dispatch(addProductToCart({ product: dataProduct?._id, quantity: quantity }))
+      const addToCartPromise = dispatch(addProductToCart({ product: dataProduct?._id, quantity: quantity, classify }))
         .then((result) => {
           if (result?.payload?.code === 200) {
             setQuantity(1);
-            setClassify(classifies?.[0]);
+            setClassify(classifies?.[0] ?? '');
             return result?.payload?.message;
           } else {
             throw new Error(result?.payload?.message || t('system.error'));
@@ -133,6 +132,7 @@ function ProductDetail() {
         category?.products?.map((product: ProductInfo) => {
           if (product._id === productIDSelected) {
             setDataProduct(product);
+            setClassifies(product?.classifies);
           }
           return product;
         }),
@@ -210,7 +210,7 @@ function ProductDetail() {
                               {classifyOption}
                             </div>
                           ))}
-                          {classifies.length === 0 && (
+                          {classifies?.length === 0 && (
                             <p className={clsx(styles['filter__empty'])}>{t('checkout.desc08')}</p>
                           )}
                         </div>

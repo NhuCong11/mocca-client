@@ -47,6 +47,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const [isChecked, setIsChecked] = useState<boolean>(true);
 
   const productName = useMemo(() => data?.product?.name, [data?.product?.name]);
+  const classify = useMemo(() => data?.classify, [data?.classify]);
 
   const temporaryIncreasedQuantity = useCallback(() => {
     setChangeQuantity((preQuantity: number) => preQuantity + 1);
@@ -177,7 +178,7 @@ const CartItem: React.FC<CartItemProps> = ({
       </div>
 
       <div className={clsx(styles['product__detail'])}>
-        <p className={clsx(styles['product__detail-name'])}>{productName}</p>
+        <p className={clsx(styles['product__detail-name'])}>{`${productName} | ${classify}`}</p>
 
         <div className={clsx(styles['product__detail-group'])}>
           <span className={clsx(styles['product__detail-price'])}>{getVNCurrency(data?.product?.price)}</span>

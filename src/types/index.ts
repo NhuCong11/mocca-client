@@ -40,6 +40,7 @@ export interface ProductInfo {
   price: number;
   image: string;
   slug: string;
+  classifies?: string[];
   shop?: RestaurantInfo;
   category?: CategoryInfo;
 }
@@ -80,6 +81,7 @@ export interface RestaurantInfo {
 export interface ChangeCartInfo {
   product?: string;
   quantity?: number;
+  classify?: string;
 }
 
 export interface CartItemInfo {
@@ -87,6 +89,7 @@ export interface CartItemInfo {
   product: ProductInfo;
   quantity: number;
   totalPrice: number;
+  classify?: string;
 }
 
 export interface CartInfo {

@@ -90,7 +90,9 @@ function OrderHistoryItem({ data }: { data: OrderItemInfo }) {
             <div className={clsx(styles['order-item__info-group'])}>
               <h4 className={clsx(styles['order-item__info-name'])}>{cartDetail.product.name}</h4>
               <p className={clsx(styles['order-item__info-desc'])}>{cartDetail.product.description}</p>
-              <span className={clsx(styles['order-item__info-quantity'])}>X {cartDetail.quantity}</span>
+              <span
+                className={clsx(styles['order-item__info-quantity'])}
+              >{`X ${cartDetail.quantity} | ${cartDetail.classify}`}</span>
             </div>
 
             <span className={clsx(styles['order-item__info-price'])}>{getVNCurrency(cartDetail.product.price)}</span>
