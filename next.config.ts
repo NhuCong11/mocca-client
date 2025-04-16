@@ -53,7 +53,12 @@ const nextConfig = {
       },
       {
         protocol: 'https' as const,
-        hostname: 'api.hauifood.com',
+        hostname: 'api.mocca.io.vn',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http' as const,
+        hostname: 'localhost',
         pathname: '/**',
       },
     ],

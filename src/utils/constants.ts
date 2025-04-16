@@ -55,7 +55,7 @@ export const FUN_EMOJIS = [
   '🧘',
 ];
 
-export const hostname = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.hauifood.com/';
+export const hostname = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mocca.io.vn';
 
 export const hostnameGHN = process.env.NEXT_PUBLIC_API_GET_GHN || 'https://online-gateway.ghn.vn/shiip/public-api/';
 
