@@ -57,6 +57,11 @@ const nextConfig = {
         pathname: '/**',
       },
       {
+        protocol: 'https' as const,
+        hostname: 'file.hauifood.com',
+        pathname: '/**',
+      },
+      {
         protocol: 'http' as const,
         hostname: 'localhost',
         pathname: '/**',
