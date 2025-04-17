@@ -178,6 +178,7 @@ const CartItem: React.FC<CartItemProps> = ({
       )}
       <div className={clsx(styles['product__quantity'])}>
         <button
+          type="button"
           ref={changeQuantityBtnRef}
           onClick={() => {
             setShowChangeQuantity(!showChangeQuantity);
