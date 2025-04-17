@@ -40,7 +40,7 @@ function SignUp() {
           setTimeout(() => {
             router.push('/auth/signin');
           }, 3500);
-          return t('login.notify01');
+          return t('sign-up.notify');
         }
         throw new Error(result?.payload.message || t('system.error'));
       })
