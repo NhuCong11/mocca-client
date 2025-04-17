@@ -261,7 +261,6 @@ const Cart: React.FC<CartsProps> = ({ showCart, handleCloseCart, data }) => {
                           <CartItem
                             key={index}
                             data={cartDetail}
-                            showCart={showCart}
                             shopChecked={(cartItem.shop._id && checkedShops[cartItem.shop._id]) || false}
                             onItemCheckboxChange={(itemId, isChecked) => {
                               if (cartItem.shop._id) handleItemCheckboxChange(cartItem.shop._id, itemId, isChecked);

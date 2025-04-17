@@ -13,38 +13,45 @@ import { CartItemInfo, ChangeCartInfo } from '@/types';
 import { showToast, ToastType } from '@/utils/toastUtils';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addProductToCart, deleteProductFromCart } from '@/services/cartServices';
+import useClickOutside from '@/hooks/useClickOutSide';
+import { deleteCheckoutProduct, updateProductQuantity } from '@/lib/features/checkoutCartsSlice';
 
 interface CartItemProps {
   key: number;
   data: CartItemInfo;
   isCheckout?: boolean;
-  showCart?: boolean;
   shopChecked?: boolean;
   onItemCheckboxChange?: (itemId: string, isChecked: boolean) => void;
   checkedItems?: Record<string, Record<string, boolean>>;
   idShop?: string;
+  selectedProductsNumber?: number;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
   data,
   isCheckout = false,
-  showCart,
   shopChecked = false,
   onItemCheckboxChange,
   checkedItems,
   idShop,
+  selectedProductsNumber,
 }) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const checkoutCartsData = useAppSelector((state) => state.checkoutCarts.selectedShops);
 
-  const [openChange, setOpenChange] = useState<boolean>(false);
   const [isNotUpdate, setIsNotUpdate] = useState<boolean>(false);
   const [changeQuantity, setChangeQuantity] = useState<number>(data.quantity);
   const [changeTotalPrice, setChangeTotalPrice] = useState<number>(data?.totalPrice);
-
   const [isChecked, setIsChecked] = useState<boolean>(true);
+
+  const {
+    elementRef: changeQuantityRef,
+    triggerRef: changeQuantityBtnRef,
+    isVisible: showChangeQuantity,
+    setIsVisible: setShowChangeQuantity,
+  } = useClickOutside<HTMLDivElement, HTMLButtonElement>();
 
   const productName = useMemo(() => data?.product?.name, [data?.product?.name]);
   const classify = useMemo(() => data?.classify, [data?.classify]);
@@ -82,7 +89,11 @@ const CartItem: React.FC<CartItemProps> = ({
   const handleUpdateQuantity = () => {
     if (changeQuantity > data.quantity) {
       const addProductPromise = dispatch(
-        addProductToCart({ product: data.product._id, quantity: changeQuantity - data.quantity }),
+        addProductToCart({
+          product: data.product._id,
+          quantity: changeQuantity - data.quantity,
+          classify: data.classify,
+        }),
       )
         .then((result) => {
           if (result?.payload?.code === 200) {
@@ -98,6 +109,7 @@ const CartItem: React.FC<CartItemProps> = ({
     } else {
       deleteProduct({ product: data.product._id, quantity: data.quantity - changeQuantity });
     }
+    dispatch(updateProductQuantity({ productId: data.product._id, quantity: changeQuantity }));
   };
 
   useEffect(() => {
@@ -109,10 +121,23 @@ const CartItem: React.FC<CartItemProps> = ({
   }, [isNotUpdate]);
 
   useEffect(() => {
-    if (!showCart) {
-      setOpenChange(false);
+    const disableScroll = (event: Event) => {
+      event.preventDefault();
+    };
+
+    if (showChangeQuantity) {
+      window.addEventListener('wheel', disableScroll, { passive: false });
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      window.removeEventListener('wheel', disableScroll, { passive: false } as AddEventListenerOptions);
+      document.documentElement.style.overflow = 'auto';
     }
-  }, [showCart]);
+
+    return () => {
+      window.removeEventListener('wheel', disableScroll, { passive: false } as AddEventListenerOptions);
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, [showChangeQuantity]);
 
   useEffect(() => {
     setIsChecked(shopChecked);
@@ -129,12 +154,12 @@ const CartItem: React.FC<CartItemProps> = ({
   }, []);
 
   useEffect(() => {
-    if (openChange) {
+    if (showChangeQuantity) {
       setChangeQuantity(data?.quantity);
     }
     setChangeTotalPrice(data?.totalPrice);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openChange]);
+  }, [showChangeQuantity]);
 
   return (
     <div className={clsx(styles['product'])}>
@@ -153,11 +178,9 @@ const CartItem: React.FC<CartItemProps> = ({
       )}
       <div className={clsx(styles['product__quantity'])}>
         <button
-          style={isCheckout ? { cursor: 'default' } : {}}
+          ref={changeQuantityBtnRef}
           onClick={() => {
-            if (!isCheckout) {
-              setOpenChange(!openChange);
-            }
+            setShowChangeQuantity(!showChangeQuantity);
           }}
           className={clsx(styles['product__quantity-btn'])}
         >
@@ -182,10 +205,15 @@ const CartItem: React.FC<CartItemProps> = ({
 
         <div className={clsx(styles['product__detail-group'])}>
           <span className={clsx(styles['product__detail-price'])}>{getVNCurrency(data?.product?.price)}</span>
-          {!isCheckout && (
+          {(!isCheckout || (selectedProductsNumber && selectedProductsNumber > 1)) && (
             <button
+              type="button"
               onClick={() => {
-                deleteProduct({ product: data.product._id, quantity: data.quantity });
+                if (!isCheckout) {
+                  deleteProduct({ product: data.product._id, quantity: data.quantity });
+                } else {
+                  dispatch(deleteCheckoutProduct({ productId: data.product._id }));
+                }
               }}
               className={clsx(styles['product__detail-delete'])}
             >
@@ -195,10 +223,13 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
 
-      <div className={clsx(styles['change-quantity'], openChange && styles['change-quantity--show'])}>
+      <div
+        ref={changeQuantityRef}
+        className={clsx(styles['change-quantity'], showChangeQuantity && styles['change-quantity--show'])}
+      >
         <button
           onClick={() => {
-            setOpenChange(false);
+            setShowChangeQuantity(false);
             setIsNotUpdate(true);
           }}
           className={clsx(styles['change-quantity__close'])}
@@ -238,7 +269,7 @@ const CartItem: React.FC<CartItemProps> = ({
           <div
             onClick={() => {
               handleUpdateQuantity();
-              setOpenChange(false);
+              setShowChangeQuantity(false);
             }}
           >
             <Button checkout primary>
@@ -247,6 +278,12 @@ const CartItem: React.FC<CartItemProps> = ({
           </div>
         </div>
       </div>
+      {/* Overlay */}
+      {showChangeQuantity && (
+        <div
+          className={clsx('overlay', showChangeQuantity && 'overlay--show', styles['change-quantity__overlay'])}
+        ></div>
+      )}
     </div>
   );
 };

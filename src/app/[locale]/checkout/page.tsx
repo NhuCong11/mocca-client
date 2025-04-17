@@ -313,7 +313,6 @@ function CheckOut() {
       setIsSubmit(false);
     }
   }, [city, district, ward]);
-  console.log(isSubmit);
 
   useEffect(() => {
     if (checkoutCartsData) {
@@ -488,7 +487,12 @@ function CheckOut() {
                                     </div>
                                     <div className={clsx(styles['cart__products-list'])}>
                                       {cartItem.selectedProducts.map((cartDetail: CartItemInfo, index: number) => (
-                                        <CartItem key={index} data={cartDetail} isCheckout />
+                                        <CartItem
+                                          key={index}
+                                          data={cartDetail}
+                                          isCheckout
+                                          selectedProductsNumber={cartItem.selectedProducts?.length}
+                                        />
                                       ))}
                                     </div>
                                     <div className={clsx(styles['cart__summary'])}>
