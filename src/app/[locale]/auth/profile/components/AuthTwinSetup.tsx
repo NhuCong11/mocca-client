@@ -28,10 +28,7 @@ function AuthTwinSetup() {
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
   const [isUseAuthTwin, setIsUseAuthTwin] = useState<boolean>();
   const [tempSecretKey, setTempSecretKey] = useState<string>('');
-  const formattedSecret = useMemo(
-    () => formatSecretKey(tempSecretKey ? tempSecretKey : secretKey),
-    [secretKey, tempSecretKey],
-  );
+  const formattedSecret = useMemo(() => formatSecretKey(secretKey), [secretKey]);
 
   const handleRefreshSecretKey = () => {
     if (isRefresh === false) {
@@ -134,8 +131,12 @@ function AuthTwinSetup() {
   );
 
   useEffect(() => {
+    const secretKey: string = userInfo?.secret ? userInfo.secret : '';
+    setSecretKey(secretKey);
     setIsUseAuthTwin(userInfo?.is2FA);
-  }, [userInfo]);
+    setQrImg(generateQRCodeImage(userInfo?.email, secretKey));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isRefresh) {
