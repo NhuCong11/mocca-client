@@ -17,6 +17,6 @@ export const footerLinks = [
 
 export const socialLinks = [
   { href: 'https://www.facebook.com/Nhu.Cong1123', icon: IconBrandFacebook },
-  { href: '#!', icon: IconBrandInstagram },
-  { href: '#!', icon: IconBrandGithub },
+  { href: 'https://www.instagram.com/cong_71017', icon: IconBrandInstagram },
+  { href: 'https://github.com/NhuCong11', icon: IconBrandGithub },
 ];
