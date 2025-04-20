@@ -235,6 +235,7 @@ const CartItem: React.FC<CartItemProps> = ({
         )}
       >
         <button
+          type="button"
           onClick={() => {
             setShowChangeQuantity(false);
             setIsNotUpdate(true);
@@ -263,11 +264,11 @@ const CartItem: React.FC<CartItemProps> = ({
         <div className={clsx(styles['change-quantity__last'])}>
           <h2 className={clsx(styles['change-quantity__title'])}>{t('cart.title04')}</h2>
           <div className={clsx(styles['change-quantity__btns'])}>
-            <button onClick={temporaryReducedQuantity} className={clsx(styles['change-quantity__btn'])}>
+            <button type="button" onClick={temporaryReducedQuantity} className={clsx(styles['change-quantity__btn'])}>
               <IconMinus />
             </button>
             <span className={clsx(styles['change-quantity__number'])}>{changeQuantity}</span>
-            <button onClick={temporaryIncreasedQuantity} className={clsx(styles['change-quantity__btn'])}>
+            <button type="button" onClick={temporaryIncreasedQuantity} className={clsx(styles['change-quantity__btn'])}>
               <IconPlus />
             </button>
           </div>
@@ -279,7 +280,7 @@ const CartItem: React.FC<CartItemProps> = ({
               setShowChangeQuantity(false);
             }}
           >
-            <Button checkout primary>
+            <Button type="button" checkout primary>
               {t('button.btn26')}
             </Button>
           </div>
