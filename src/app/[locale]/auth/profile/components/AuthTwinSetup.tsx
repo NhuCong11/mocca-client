@@ -134,11 +134,14 @@ function AuthTwinSetup() {
   );
 
   useEffect(() => {
-    const secretKey: string = userInfo?.secret ? userInfo.secret : '';
-    setSecretKey(secretKey);
     setIsUseAuthTwin(userInfo?.is2FA);
-    setQrImg(generateQRCodeImage(userInfo?.email, secretKey));
   }, [userInfo]);
+
+  useEffect(() => {
+    if (isRefresh) {
+      setQrImg(generateQRCodeImage(userInfo?.email, secretKey));
+    }
+  }, [secretKey, isRefresh, userInfo?.email]);
 
   return (
     <div className={clsx(styles['auth-twin'])}>
