@@ -66,6 +66,11 @@ const nextConfig = {
         hostname: 'localhost',
         pathname: '/**',
       },
+      {
+        protocol: 'https' as const,
+        hostname: 'api.mocca.io.vnqr-code',
+        pathname: '/**',
+      },
     ],
   },
 };
