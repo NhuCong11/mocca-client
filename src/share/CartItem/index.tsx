@@ -25,6 +25,7 @@ interface CartItemProps {
   checkedItems?: Record<string, Record<string, boolean>>;
   idShop?: string;
   selectedProductsNumber?: number;
+  toRight?: boolean;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
@@ -35,6 +36,7 @@ const CartItem: React.FC<CartItemProps> = ({
   checkedItems,
   idShop,
   selectedProductsNumber,
+  toRight,
 }) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
@@ -226,7 +228,11 @@ const CartItem: React.FC<CartItemProps> = ({
 
       <div
         ref={changeQuantityRef}
-        className={clsx(styles['change-quantity'], showChangeQuantity && styles['change-quantity--show'])}
+        className={clsx(
+          styles['change-quantity'],
+          showChangeQuantity && styles['change-quantity--show'],
+          toRight && styles['change-quantity--right'],
+        )}
       >
         <button
           onClick={() => {

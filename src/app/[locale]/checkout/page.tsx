@@ -492,6 +492,7 @@ function CheckOut() {
                                           data={cartDetail}
                                           isCheckout
                                           selectedProductsNumber={cartItem.selectedProducts?.length}
+                                          toRight
                                         />
                                       ))}
                                     </div>

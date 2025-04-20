@@ -121,6 +121,13 @@
     transform: translateY(0);
   }
 
+  &--right {
+    transform: translateX(100%);
+    &.change-quantity--show {
+      transform: translateX(0);
+    }
+  }
+
   &__close {
     position: absolute;
     top: 0;
