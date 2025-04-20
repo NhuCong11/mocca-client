@@ -69,7 +69,7 @@ export const getRandomEmoji = () => {
 export const generateQRCodeImage = (email: string | undefined, secret: string) => {
   return email
     ? `${hostname}/qr-code?uri=otpauth://totp/Mocca%20Cafe:%20${email}?secret=${secret}`
-    : '${hostname}/qr-code?uri=otpauth://totp/Mocca%20Cafe:%20';
+    : `${hostname}/qr-code?uri=otpauth://totp/Mocca%20Cafe:%20`;
 };
 
 export const getVNCurrency = (price: number | undefined) => `${price?.toLocaleString('vi-VN') || 0} ₫`;

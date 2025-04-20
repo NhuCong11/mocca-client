@@ -28,8 +28,10 @@ function AuthTwinSetup() {
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
   const [isUseAuthTwin, setIsUseAuthTwin] = useState<boolean>();
   const [tempSecretKey, setTempSecretKey] = useState<string>('');
-  const formattedSecret = useMemo(() => formatSecretKey(secretKey), [secretKey]);
-  console.log(qrImg);
+  const formattedSecret = useMemo(
+    () => formatSecretKey(tempSecretKey ? tempSecretKey : secretKey),
+    [secretKey, tempSecretKey],
+  );
 
   const handleRefreshSecretKey = () => {
     if (isRefresh === false) {
