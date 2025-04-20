@@ -64,7 +64,7 @@ const CartItem: React.FC<CartItemProps> = ({
   }, [changeQuantity, data.product.price]);
 
   const temporaryReducedQuantity = useCallback(() => {
-    if (changeQuantity > 0) {
+    if (changeQuantity > 1) {
       setChangeQuantity((preQuantity: number) => preQuantity - 1);
       setChangeTotalPrice((changeQuantity - 1) * data.product.price);
     }
