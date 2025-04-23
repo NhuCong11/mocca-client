@@ -33,7 +33,6 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   const [currentPage, setCurrentPage] = useState(pageParam);
   const [restaurantList, setRestaurantList] = useState<RestaurantInfo[]>([]);
   const [productList, setProductList] = useState<ProductInfo[]>([]);
-  const [hasMore, setHasMore] = useState(true);
   const [showProducts, setShowProducts] = useState(false);
 
   const fetchData = useCallback(async () => {
@@ -55,8 +54,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
       if (result?.payload?.code === 200) {
         const { totalPage, products } = result.payload.data;
         setTotalPages(totalPage);
-        setProductList((prev) => (currentPage === 1 ? products : [...prev, ...products]));
-        setHasMore(currentPage < totalPage);
+        setProductList(products);
       }
       return;
     }
@@ -81,8 +79,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
     if (result?.payload?.code === 200) {
       const { totalPage, shops } = result.payload.data;
       setTotalPages(totalPage);
-      setRestaurantList((prev) => (currentPage === 1 ? shops : [...prev, ...shops]));
-      setHasMore(currentPage < totalPage);
+      setRestaurantList(shops);
     }
   }, [category, categoryId, query, currentPage, dispatch]);
 
@@ -95,6 +92,8 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   useEffect(() => {
     updateParams({ page: String(currentPage) });
     fetchData();
+    // Scroll to top of page smoothly when page changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [query, category, categoryId, currentPage]);
 
   const isLoading = showProducts ? productData?.loading : restaurantData?.loading;
@@ -107,11 +106,9 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
           scrollThreshold="0%"
           className={clsx(styles['infinite-scroll'], 'row g-4')}
           dataLength={itemsLength}
-          next={() => {
-            fetchData();
-          }}
+          next={() => {}}
           loader={null}
-          hasMore={hasMore}
+          hasMore={false}
           scrollableTarget="restaurant-list"
         >
           {showProducts
