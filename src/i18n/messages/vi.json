@@ -233,11 +233,12 @@
     "heading01": "Cửa hàng",
     "title01": "Các cửa hàng nổi tiếng trên ",
     "title02": "Các cửa hàng trên ",
+    "title03": "Các sản phẩm trên ",
     "at": "tại ",
     "placeholder": "Tìm sản phẩm hoặc cửa hàng"
   },
   "category": {
-    "heading01": "Danh mục"
+    "heading01": "Cửa hàng"
   },
   "quantity-drawer": {
     "add-to-cart": "Thêm vào giỏ hàng",

@@ -217,7 +217,7 @@
     "see-all-restaurants": "See All Stores",
     "read-more": "Read more",
     "btn01": "Contact us",
-    "desc01": "From small coffee cups to complete breakfasts, we don’t limit your passion. Feel free to order everything you want. We are proud to be the reliable destination for satisfying your coffee cravings.",
+    "desc01": "From small coffee cups to complete breakfasts, we don't limit your passion. Feel free to order everything you want. We are proud to be the reliable destination for satisfying your coffee cravings.",
     "desc02": "Download our app to use different payment methods and enjoy the ability to order coffee anytime, anywhere.",
     "desc03": "The rich flavor of coffee has become familiar in the daily rhythm of each of us. Vietnamese people have a very unique way of enjoying coffee: sitting by a cup of coffee, sipping small sips while reading the newspaper, listening to music, chatting with friends. With business partners, or sitting to work, and also to reflect on life, on people.",
     "desc04": "Various types of roasted whole bean coffee, drip coffee, machine coffee, Espresso...",
@@ -232,11 +232,12 @@
     "heading01": "Store",
     "title01": "Famous Stores Nearby ",
     "title02": "Stores Near You ",
+    "title03": "Products on ",
     "at": "at",
     "placeholder": "Search for products or stores"
   },
   "category": {
-    "heading01": "Categories"
+    "heading01": "Store"
   },
   "quantity-drawer": {
     "add-to-cart": "Add to Cart",

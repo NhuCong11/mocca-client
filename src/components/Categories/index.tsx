@@ -9,7 +9,6 @@ import { CategoryInfo } from '@/types';
 import { Link } from '@/i18n/routing';
 import NoResult from '@/share/NoResult';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import useSessionStorage from '@/hooks/useSessionStorage';
 import { getCategories } from '@/services/categoriesServices';
 
 const normalizeString = (str: string) => {
@@ -21,7 +20,6 @@ const normalizeString = (str: string) => {
 
 function Categories() {
   const dispatch = useAppDispatch();
-  const { setItem } = useSessionStorage();
   const { loading, listCategories, data } = useAppSelector((state) => state.categories);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,8 +35,8 @@ function Categories() {
   }, [dispatch, currentPage, loading, data?.limit]);
 
   const handleClickCategory = (item: CategoryInfo) => {
-    setItem('categorySelected', { name: item.name, slug: item.slug });
-    setItem('idCategorySelected', item?._id);
+    localStorage.setItem('categorySelected', JSON.stringify({ name: item.name, slug: item.slug }));
+    localStorage.setItem('idCategorySelected', JSON.stringify(item?._id));
   };
 
   useEffect(() => {

@@ -25,12 +25,20 @@ function Category() {
   const isLoading = useAppSelector((state) => state.restaurant.loading);
 
   const [categoriesInfo, setCategoriesInfo] = useState<{ name?: string; slug?: string }>({});
+  const [categoryId, setCategoryId] = useState<string>('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedCategory = sessionStorage.getItem('categorySelected');
+      const storedCategory = localStorage.getItem('categorySelected');
+      const storedCategoryId = localStorage.getItem('idCategorySelected');
+
       if (storedCategory) {
         setCategoriesInfo(JSON.parse(storedCategory));
+      }
+
+      if (storedCategoryId) {
+        const parsedCategoryId = JSON.parse(storedCategoryId);
+        setCategoryId(parsedCategoryId);
       }
     }
   }, []);
@@ -93,7 +101,7 @@ function Category() {
       <div className={clsx('container gx-5')}>
         <div className={clsx(styles['category'])}>
           <Breadcrumb
-            listData={[{ title: t('category.heading01'), href: '/restaurants' }, { title: categoriesInfo.name || '' }]}
+            listData={[{ title: categoriesInfo.name || '' }]}
           />
 
           <div className={clsx(styles['category__popular'])}>
@@ -104,13 +112,13 @@ function Category() {
               </>
             ) : (
               <>
-                {t('restaurant.title02')} <span className={clsx(styles['category__popular--highlight'])}>{MOCCA}</span>
+                {t('restaurant.title03')} <span className={clsx(styles['category__popular--highlight'])}>{MOCCA}</span>
               </>
             )}
           </div>
 
           <div className={clsx(styles['category__list'])}>
-            <RestaurantList category />
+            <RestaurantList categoryId={categoryId} />
           </div>
         </div>
       </div>
