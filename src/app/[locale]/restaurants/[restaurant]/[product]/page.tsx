@@ -224,7 +224,7 @@ function ProductDetail() {
                       </div>
                     </div>
                     <div className={clsx('col-12 col-xxl-7 col-xl-6 col-lg-12 col-md-12')}>
-                      {statusData.map(({ Icon, title, desc, descClass }, index) => (
+                      {statusData(shopData?.fullname).map(({ Icon, title, desc, descClass }, index) => (
                         <div key={index} className={clsx(styles['filter__wrapper'])}>
                           <div className={clsx(styles['product-detail__status'])}>
                             {<Icon />}

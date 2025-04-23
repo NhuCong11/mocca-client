@@ -1,11 +1,11 @@
 import { MOCCA } from '@/constants';
 import { IconAlignBoxLeftStretch, IconShoppingBag } from '@tabler/icons-react';
 
-export const statusData = [
+export const statusData = (brand?: string) => [
   {
     Icon: IconAlignBoxLeftStretch,
     title: 'productDetail.title05',
-    desc: MOCCA,
+    desc: brand ?? MOCCA,
     descClass: 'brand',
   },
   {
