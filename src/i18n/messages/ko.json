@@ -238,7 +238,8 @@
     "placeholder": "제품 또는 매장 검색"
   },
   "category": {
-    "heading01": "매장"
+    "heading01": "매장",
+    "price_range": "가격 범위"
   },
   "quantity-drawer": {
     "add-to-cart": "장바구니에 추가",

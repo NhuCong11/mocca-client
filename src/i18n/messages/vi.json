@@ -238,7 +238,8 @@
     "placeholder": "Tìm sản phẩm hoặc cửa hàng"
   },
   "category": {
-    "heading01": "Cửa hàng"
+    "heading01": "Cửa hàng",
+    "price_range": "Khoảng giá"
   },
   "quantity-drawer": {
     "add-to-cart": "Thêm vào giỏ hàng",

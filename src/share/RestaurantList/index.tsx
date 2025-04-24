@@ -18,6 +18,8 @@ import { searchProduct } from '@/services/searchProductServices';
 
 interface ProductSearchParams extends DefaultParams {
   category?: string;
+  minPrice?: string;
+  maxPrice?: string;
 }
 
 function RestaurantList({ category, categoryId }: { category?: boolean; categoryId?: string }) {
@@ -25,6 +27,8 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   const dispatch = useAppDispatch();
   const { getParam, updateParams } = useQueryParams();
   const query = getParam('q');
+  const minPrice = getParam('minPrice');
+  const maxPrice = getParam('maxPrice');
   const pageParam = Number(getParam('page')) || 1;
 
   const restaurantData = useAppSelector((state) => state.restaurant);
@@ -47,6 +51,14 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
 
       if (query) {
         params.keyword = query;
+      }
+
+      if (minPrice) {
+        params.minPrice = minPrice;
+      }
+
+      if (maxPrice) {
+        params.maxPrice = maxPrice;
       }
 
       const result = await dispatch(searchProduct(params));
@@ -81,7 +93,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
       setTotalPages(totalPage);
       setRestaurantList(shops);
     }
-  }, [category, categoryId, query, currentPage, dispatch]);
+  }, [category, categoryId, query, minPrice, maxPrice, currentPage, dispatch]);
 
   useEffect(() => {
     if (pageParam !== currentPage) {
@@ -94,7 +106,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
     fetchData();
     // Scroll to top of page smoothly when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [query, category, categoryId, currentPage]);
+  }, [query, category, categoryId, minPrice, maxPrice, currentPage]);
 
   const isLoading = showProducts ? productData?.loading : restaurantData?.loading;
   const itemsLength = showProducts ? productList?.length : restaurantList?.length;

@@ -236,7 +236,8 @@
     "placeholder": "搜索产品或商店"
   },
   "category": {
-    "heading01": "商店"
+    "heading01": "商店",
+    "price_range": "价格范围"
   },
   "quantity-drawer": {
     "add-to-cart": "添加到购物车",

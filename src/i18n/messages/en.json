@@ -237,7 +237,8 @@
     "placeholder": "Search for products or stores"
   },
   "category": {
-    "heading01": "Store"
+    "heading01": "Store",
+    "price_range": "Price Range"
   },
   "quantity-drawer": {
     "add-to-cart": "Add to Cart",
