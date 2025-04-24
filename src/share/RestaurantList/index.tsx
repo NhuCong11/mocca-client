@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
 import { Loader } from '@mantine/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -31,6 +31,11 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   const maxPrice = getParam('maxPrice');
   const pageParam = Number(getParam('page')) || 1;
 
+  // Theo dõi các lần fetch để tránh cập nhật state khi component unmount
+  const isMounted = useRef(true);
+  // Theo dõi trạng thái fetch trước đó để tránh fetch trùng lặp
+  const prevFetchParams = useRef({ categoryId, query, minPrice, maxPrice, currentPage: pageParam });
+
   const restaurantData = useAppSelector((state) => state.restaurant);
   const productData = useAppSelector((state) => state.searchProduct);
   const [totalPages, setTotalPages] = useState(0);
@@ -39,7 +44,37 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   const [productList, setProductList] = useState<ProductInfo[]>([]);
   const [showProducts, setShowProducts] = useState(false);
 
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  // Kiểm tra xem params đã thay đổi thực sự chưa
+  const hasParamsChanged = useCallback(() => {
+    const current = { categoryId, query, minPrice, maxPrice, currentPage };
+    const prev = prevFetchParams.current;
+
+    if (
+      prev.categoryId !== current.categoryId ||
+      prev.query !== current.query ||
+      prev.minPrice !== current.minPrice ||
+      prev.maxPrice !== current.maxPrice ||
+      prev.currentPage !== current.currentPage
+    ) {
+      prevFetchParams.current = { ...current };
+      return true;
+    }
+    return false;
+  }, [categoryId, query, minPrice, maxPrice, currentPage]);
+
   const fetchData = useCallback(async () => {
+    // Nếu params không thay đổi, không fetch lại
+    if (!hasParamsChanged()) {
+      return;
+    }
+
     // Check if we should fetch products by category
     if (categoryId) {
       setShowProducts(true);
@@ -63,7 +98,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
 
       const result = await dispatch(searchProduct(params));
 
-      if (result?.payload?.code === 200) {
+      if (result?.payload?.code === 200 && isMounted.current) {
         const { totalPage, products } = result.payload.data;
         setTotalPages(totalPage);
         setProductList(products);
@@ -88,12 +123,12 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
       }
     }
 
-    if (result?.payload?.code === 200) {
+    if (result?.payload?.code === 200 && isMounted.current) {
       const { totalPage, shops } = result.payload.data;
       setTotalPages(totalPage);
       setRestaurantList(shops);
     }
-  }, [category, categoryId, query, minPrice, maxPrice, currentPage, dispatch]);
+  }, [category, categoryId, query, minPrice, maxPrice, currentPage, dispatch, hasParamsChanged, limit]);
 
   useEffect(() => {
     if (pageParam !== currentPage) {
@@ -106,7 +141,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
     fetchData();
     // Scroll to top of page smoothly when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [query, category, categoryId, minPrice, maxPrice, currentPage]);
+  }, [query, category, categoryId, minPrice, maxPrice, currentPage, fetchData, updateParams]);
 
   const isLoading = showProducts ? productData?.loading : restaurantData?.loading;
   const itemsLength = showProducts ? productList?.length : restaurantList?.length;

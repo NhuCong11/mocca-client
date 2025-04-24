@@ -31,7 +31,7 @@ function Category() {
   const [categoryId, setCategoryId] = useState<string>('');
   const [priceRange, setPriceRange] = useState<[number, number]>([
     minPriceParam ? parseInt(minPriceParam) : 0,
-    maxPriceParam ? parseInt(maxPriceParam) : 500000,
+    maxPriceParam ? parseInt(maxPriceParam) : 0,
   ]);
 
   useEffect(() => {
