@@ -187,7 +187,7 @@ function Category() {
 
           {hasPriceFilter && (
             <div className="mt-2 text-end">
-              <Button size='md' variant="outline" color="teal" onClick={resetPriceFilter}>
+              <Button size="md" variant="outline" color="teal" onClick={resetPriceFilter}>
                 {t('button.btn19')}
               </Button>
             </div>
