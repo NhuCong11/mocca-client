@@ -13,7 +13,7 @@ import RestaurantCard from '@/share/RestaurantCard';
 import Pagination from '@/components/AppPagination';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { getRestaurants, getRestaurantsByCategory } from '@/services/restaurantServices';
+import { getRestaurants } from '@/services/restaurantServices';
 import { searchProduct } from '@/services/searchProductServices';
 
 interface ProductSearchParams extends DefaultParams {
@@ -35,6 +35,8 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
   const isMounted = useRef(true);
   // Theo dõi trạng thái fetch trước đó để tránh fetch trùng lặp
   const prevFetchParams = useRef({ categoryId, query, minPrice, maxPrice, currentPage: pageParam });
+  // Track initial load
+  const initialLoad = useRef(true);
 
   const restaurantData = useAppSelector((state) => state.restaurant);
   const productData = useAppSelector((state) => state.searchProduct);
@@ -53,6 +55,12 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
 
   // Kiểm tra xem params đã thay đổi thực sự chưa
   const hasParamsChanged = useCallback(() => {
+    // Always fetch on initial load
+    if (initialLoad.current) {
+      initialLoad.current = false;
+      return true;
+    }
+
     const current = { categoryId, query, minPrice, maxPrice, currentPage };
     const prev = prevFetchParams.current;
 
@@ -106,22 +114,18 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
       return;
     }
 
-    // Original restaurant fetching logic
+    // Restaurant fetching logic
     setShowProducts(false);
-    let result;
+    const params: DefaultParams = {
+      limit,
+      page: currentPage,
+    };
 
-    if (!query && !category) {
-      result = await dispatch(getRestaurants({ limit, page: currentPage }));
-    } else if (query) {
-      result = await dispatch(getRestaurants({ limit, page: currentPage, keyword: query }));
-    } else {
-      const storedCategoryId = localStorage.getItem('idCategorySelected');
-      const catId = storedCategoryId ? JSON.parse(storedCategoryId) : null;
-
-      if (catId) {
-        result = await dispatch(getRestaurantsByCategory({ categoryID: catId, params: { page: currentPage, limit } }));
-      }
+    if (query) {
+      params.keyword = query;
     }
+
+    const result = await dispatch(getRestaurants(params));
 
     if (result?.payload?.code === 200 && isMounted.current) {
       const { totalPage, shops } = result.payload.data;
