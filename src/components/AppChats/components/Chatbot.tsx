@@ -34,16 +34,14 @@ const Chatbot = ({ closeModal, opened }: { closeModal: () => void; opened: boole
   const fetchAPI = async (message: string) => {
     const result = await dispatch(chatBot(message));
     if (result.payload?.code === 200) {
-      setMessages((prevMessages) => [...prevMessages, { user: 'Chatbot', message: result.payload.data }]);
+      const cleanResponse = result.payload.data.replace(/\*+/g, '');
+      setMessages((prevMessages) => [...prevMessages, { user: 'Chatbot', message: cleanResponse }]);
     }
   };
 
   const handleSendMessage = async (values: ChatbotForm, resetForm: FormikHelpers<ChatbotForm>['resetForm']) => {
     if (!values.message.trim()) return;
-
-    // Remove asterisk patterns (***) from message
     const cleanMessage = values.message.replace(/\*+/g, '');
-
     const newMessage = { user: 'User', message: cleanMessage };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     resetForm();
