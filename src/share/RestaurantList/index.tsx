@@ -160,7 +160,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
         >
           {showProducts
             ? productList?.map((item, index) => (
-                <div key={index} className={clsx('col-xl-4 col-6')}>
+                <div key={index} className={clsx('col-xl-4 col-12 col-md-6')}>
                   <ProductCard
                     data={item}
                     restaurantInfo={item.shop}
@@ -169,7 +169,7 @@ function RestaurantList({ category, categoryId }: { category?: boolean; category
                 </div>
               ))
             : restaurantList?.map((item, index) => (
-                <div key={index} className={clsx('col-xl-3 col-6')}>
+                <div key={index} className={clsx('col-xl-3 col-12 col-md-6')}>
                   <RestaurantCard data={item} className={clsx(styles['restaurant-list__item'])} />
                 </div>
               ))}
