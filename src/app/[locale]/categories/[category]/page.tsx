@@ -1,9 +1,9 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, memo, useState } from 'react';
+import { useEffect, memo, useState, useRef } from 'react';
 import clsx from 'clsx';
 import { Formik, Form } from 'formik';
-import { Divider, Loader, Text, RangeSlider } from '@mantine/core';
+import { Divider, Loader, Text, RangeSlider, Button } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { IconCircleDashedX, IconSearch } from '@tabler/icons-react';
 
@@ -26,6 +26,10 @@ function Category() {
   const minPriceParam = searchParams.get('minPrice');
   const maxPriceParam = searchParams.get('maxPrice');
   const isLoading = useAppSelector((state) => state.restaurant.loading);
+  const hasInteracted = useRef(false);
+
+  // Kiểm tra xem có filter giá trong URL không
+  const hasPriceFilter = minPriceParam !== null || maxPriceParam !== null;
 
   const [categoriesInfo, setCategoriesInfo] = useState<{ name?: string; slug?: string }>({});
   const [categoryId, setCategoryId] = useState<string>('');
@@ -33,6 +37,17 @@ function Category() {
     minPriceParam ? parseInt(minPriceParam) : 0,
     maxPriceParam ? parseInt(maxPriceParam) : 0,
   ]);
+
+  // Theo dõi thay đổi trong URL params và cập nhật thanh trượt
+  useEffect(() => {
+    const newMinPrice = minPriceParam ? parseInt(minPriceParam) : 0;
+    const newMaxPrice = maxPriceParam ? parseInt(maxPriceParam) : 0;
+
+    // Chỉ cập nhật khi giá trị thực sự thay đổi để tránh re-render không cần thiết
+    if (priceRange[0] !== newMinPrice || priceRange[1] !== newMaxPrice) {
+      setPriceRange([newMinPrice, newMaxPrice]);
+    }
+  }, [minPriceParam, maxPriceParam]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -52,11 +67,33 @@ function Category() {
 
   const updatePriceFilter = (values: [number, number]) => {
     setPriceRange(values);
+    hasInteracted.current = true;
 
     const params = new URLSearchParams(searchParams.toString());
-    params.set('minPrice', values[0].toString());
-    params.set('maxPrice', values[1].toString());
 
+    // Nếu người dùng đặt lại về giá trị mặc định (min = 0, max = 0),
+    // thì xóa params để không áp dụng filter
+    if (values[0] === 0 && values[1] === 0) {
+      params.delete('minPrice');
+      params.delete('maxPrice');
+    } else {
+      params.set('minPrice', values[0].toString());
+      params.set('maxPrice', values[1].toString());
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handlePriceChange = (values: [number, number]) => {
+    setPriceRange(values);
+  };
+
+  // Reset giá trị về mặc định
+  const resetPriceFilter = () => {
+    setPriceRange([0, 0]);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('minPrice');
+    params.delete('maxPrice');
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -126,7 +163,7 @@ function Category() {
             minRange={0}
             restrictToMarks
             value={priceRange}
-            onChange={setPriceRange}
+            onChange={handlePriceChange}
             onChangeEnd={updatePriceFilter}
             label={null}
             marks={[
@@ -147,6 +184,14 @@ function Category() {
             <div>{getVNCurrency(priceRange[0])}</div>
             <div>{getVNCurrency(priceRange[1])}</div>
           </div>
+
+          {hasPriceFilter && (
+            <div className="mt-2 text-end">
+              <Button size='md' variant="outline" color="teal" onClick={resetPriceFilter}>
+                {t('button.btn19')}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
