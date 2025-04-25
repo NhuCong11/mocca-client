@@ -41,10 +41,13 @@ const Chatbot = ({ closeModal, opened }: { closeModal: () => void; opened: boole
   const handleSendMessage = async (values: ChatbotForm, resetForm: FormikHelpers<ChatbotForm>['resetForm']) => {
     if (!values.message.trim()) return;
 
-    const newMessage = { user: 'User', message: values.message };
+    // Remove asterisk patterns (***) from message
+    const cleanMessage = values.message.replace(/\*+/g, '');
+
+    const newMessage = { user: 'User', message: cleanMessage };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     resetForm();
-    await fetchAPI(values.message);
+    await fetchAPI(cleanMessage);
   };
 
   useEffect(() => {
@@ -125,6 +128,7 @@ const Chatbot = ({ closeModal, opened }: { closeModal: () => void; opened: boole
                 LeftIcon={<IconSend />}
                 autoComplete="off"
                 placeholder={t('chatBot.desc01')}
+                disabled={loading || isSubmitting}
                 readOnly={loading || isSubmitting}
               />
             </div>
