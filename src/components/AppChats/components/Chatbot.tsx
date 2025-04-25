@@ -104,11 +104,6 @@ const Chatbot = ({ closeModal, opened }: { closeModal: () => void; opened: boole
             {msg.message}
           </p>
         ))}
-        {loading && (
-          <div className={clsx(styles['chatbot__message-loading'])}>
-            <Loader color="var(--primary-bg)" type="dots" />
-          </div>
-        )}
       </div>
       <Divider variant="dashed" color="gray" />
 
@@ -124,6 +119,7 @@ const Chatbot = ({ closeModal, opened }: { closeModal: () => void; opened: boole
                 type="text"
                 name="message"
                 LeftIcon={<IconSend />}
+                RightIcon={loading && <Loader color="var(--primary-bg)" type="dots" />}
                 autoComplete="off"
                 placeholder={t('chatBot.desc01')}
                 disabled={loading || isSubmitting}
