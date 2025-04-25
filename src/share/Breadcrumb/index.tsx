@@ -18,6 +18,8 @@ function Breadcrumb({ listData = [] }: BreadcrumbProps) {
     return fullList.map((item, index) =>
       index !== fullList.length - 1 ? (
         <Anchor
+          pt="sm"
+          pb="sm"
           key={item.href || index}
           component={Link}
           fz="h2"
@@ -29,7 +31,7 @@ function Breadcrumb({ listData = [] }: BreadcrumbProps) {
           {item.title}
         </Anchor>
       ) : (
-        <Text key={item.href || index} fz="h2" fw={500}>
+        <Text pt="sm" pb="sm" key={item.href || index} fz="h2" fw={500}>
           {item.title}
         </Text>
       ),
